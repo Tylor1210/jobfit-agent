@@ -39,6 +39,7 @@ class Constraints(BaseModel):
     degrees: DegreeRules
     forbidden_chars: list[str]
     banned_phrases: list[str]
+    generic_openers: list[str] = Field(default_factory=list)
     cover_letter: LengthRule
     resume: ResumeRule
 

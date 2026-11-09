@@ -13,3 +13,6 @@ evals/report.json
 
 # WHY: source PDFs stay local until Tylor decides the repo can carry them (history is hard to purge).
 reference/**/*.pdf
+
+# WHY: derived from reference/voice PDFs; same privacy call as the PDFs.
+profile/voice/

@@ -1,0 +1,51 @@
+# LLM routing and cost control. Read by jobfit.llm.config. CONSTRAINT: no model IDs in code.
+#
+# Each graph node asks for a *tier* (fast or smart). The active provider maps tiers to models.
+# Prices are USD per million tokens. They drive the daily cost cap and the eval cost metric.
+
+provider: groq            # groq | anthropic. Override with env LLM_PROVIDER.
+daily_cost_cap_usd: 1.00  # Runs stop cleanly once today's spend reaches this.
+
+# Which tier each node uses. Cheap tier for extraction/checking, smart tier for judgment/writing.
+node_tiers:
+  extract_requirements: fast
+  score_fit: smart
+  plan_emphasis: smart
+  draft_resume: smart
+  draft_cover_letter: smart
+  verify_claims: fast
+
+providers:
+  anthropic:
+    tiers:
+      fast:
+        model: claude-haiku-5-5
+        input_per_mtok: 0.10
+        output_per_mtok: 0.50
+        effort: low
+        max_tokens: 8000
+      smart:
+        model: claude-opus-5-5
+        input_per_mtok: 4.00
+        output_per_mtok: 20.00
+        # WHY: Opus 5.5 thinking is always on; effort is the only depth control. Medium is the
+        # model default. Low is enough for scoring; drafting can be raised here if quality slips.
+        effort: low
+        max_tokens: 16000
+        # Server-side refusal fallback (routes a declined request to another model in the same
+        # call). Set to null to turn off.
+        fallbacks: default
+  groq:
+    # GOTCHA: Groq's free tier bills $0. These are list prices, so the ledger tracks what the
+    # same traffic would cost on a paid plan and the cap still guards against runaway loops.
+    tiers:
+      fast:
+        model: openai/gpt-oss-20b
+        input_per_mtok: 0.075
+        output_per_mtok: 0.30
+        max_tokens: 8000
+      smart:
+        model: openai/gpt-oss-120b
+        input_per_mtok: 0.15
+        output_per_mtok: 0.60
+        max_tokens: 8000

@@ -111,6 +111,7 @@ class Profile(_Strict):
     def evidence_index(self) -> dict[str, str]:
         """Map every citable ID to a short human-readable text. Used by verify and the dashboard."""
         idx: dict[str, str] = {s.id: s.text for s in self.summary}
+        idx["contact.location"] = f"Based in {self.contact.location}"
         for cat in self.skills:
             for sk in cat.items:
                 idx[sk.id] = f"Skill: {sk.name}"

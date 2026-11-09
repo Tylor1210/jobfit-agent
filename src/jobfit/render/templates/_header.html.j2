@@ -1,0 +1,10 @@
+<header>
+  <div class="name">{{ contact.name }}</div>
+  <div class="contact">
+    {%- for item in contact_items -%}
+      {%- if not loop.first %}<span class="sep">|</span>{% endif -%}
+      <span>{{ item }}</span>
+    {%- endfor -%}
+  </div>
+  <div class="rule"></div>
+</header>

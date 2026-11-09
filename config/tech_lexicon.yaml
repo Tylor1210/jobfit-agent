@@ -1,0 +1,175 @@
+# Technology names the verifier watches for in generated drafts. If a draft mentions one of these
+# and it does not appear anywhere in profile/master_profile.yaml, the draft is rejected.
+# Case-insensitive, whole-word. Add terms freely: a longer list only makes the check stricter.
+terms:
+  # languages
+  - Java
+  - Kotlin
+  - Scala
+  - Go
+  - Golang
+  - Rust
+  - Ruby
+  - PHP
+  - C#
+  - .NET
+  - Swift
+  - Objective-C
+  - R
+  - MATLAB
+  - Perl
+  - Bash
+  - PowerShell
+  - Elixir
+  - Haskell
+  - Dart
+  - Lua
+  # web / frameworks
+  - Angular
+  - Vue
+  - Svelte
+  - Next.js
+  - Nuxt
+  - Django
+  - Flask
+  - FastAPI
+  - Rails
+  - Spring
+  - Spring Boot
+  - Laravel
+  - jQuery
+  - GraphQL
+  - gRPC
+  - Redux
+  - Flutter
+  - React Native
+  - Electron
+  # data / infra
+  - MySQL
+  - SQL Server
+  - Oracle
+  - Redis
+  - Elasticsearch
+  - Cassandra
+  - DynamoDB
+  - Snowflake
+  - BigQuery
+  - Redshift
+  - Databricks
+  - Spark
+  - Hadoop
+  - Kafka
+  - RabbitMQ
+  - Airflow
+  - dbt
+  - Pinecone
+  - Weaviate
+  - Chroma
+  - pgvector
+  - Neo4j
+  - Firebase
+  - Prisma
+  # cloud / devops
+  - KV
+  - Workers KV
+  - Durable Objects
+  - Cloud Run
+  - App Engine
+  - AWS
+  - Lambda
+  - EC2
+  - S3
+  - Azure
+  - GCP
+  - Google Cloud
+  - Vercel
+  - Netlify
+  - Heroku
+  - Kubernetes
+  - K8s
+  - Docker
+  - Helm
+  - Terraform
+  - Ansible
+  - Puppet
+  - Chef
+  - Jenkins
+  - GitHub Actions
+  - GitLab CI
+  - CircleCI
+  - ArgoCD
+  - Prometheus
+  - Grafana
+  - Datadog
+  - Splunk
+  - New Relic
+  - Nginx
+  - Apache
+  - IIS
+  - Active Directory
+  - Azure AD
+  - Entra ID
+  - AVD
+  - VMware
+  - Citrix
+  - Linux
+  - Windows Server
+  - TCP/IP
+  # AI / ML
+  - LangChain
+  - LangGraph
+  - LlamaIndex
+  - CrewAI
+  - AutoGen
+  - Hugging Face
+  - PyTorch
+  - TensorFlow
+  - Keras
+  - scikit-learn
+  - pandas
+  - NumPy
+  - Jupyter
+  - MLflow
+  - SageMaker
+  - Vertex AI
+  - Bedrock
+  - Langfuse
+  - LangSmith
+  - RAG
+  - fine-tuning
+  - vector database
+  # business systems
+  - Salesforce
+  - HubSpot
+  - ServiceNow
+  - Jira
+  - Confluence
+  - Zendesk
+  - SAP
+  - Workday
+  - NetSuite
+  - Tableau
+  - Power BI
+  - Looker
+  - Smartsheet
+  - Zapier
+  - Make.com
+  - Twilio
+  - Stripe
+  # certs and credentials
+  - PMP
+  - CISSP
+  - Security+
+  - CompTIA
+  - CCNA
+  - AWS Certified
+  - Scrum Master
+  - Six Sigma
+  - ITIL
+  - Secret clearance
+  - Top Secret
+  # other
+  - HVAC
+  - BACnet
+  - PLC
+  - SCADA

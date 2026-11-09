@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>{{ title }}</title>
+<style>
+{{ base_css | safe }}
+section { margin-top: 9pt; }
+section h2 {
+  font-weight: 700; font-size: 9.8pt; line-height: 12pt; color: var(--teal);
+  letter-spacing: 0.9pt; text-transform: uppercase;
+  border-bottom: 0.75pt solid var(--rule); padding-bottom: 1.5pt; margin-bottom: 5pt;
+}
+.summary { font-size: 8.8pt; line-height: 12pt; }
+table.skills { border-collapse: collapse; width: 100%; font-size: 8.6pt; line-height: 11.5pt; }
+table.skills td { vertical-align: top; padding: 0 0 3pt 0; }
+table.skills td.label { width: 132pt; padding-left: 3pt; font-weight: 700; color: var(--label); }
+table.skills td.value { color: var(--muted); }
+.job { margin-top: 5pt; }
+.job:first-of-type { margin-top: 0; }
+.jobline { display: flex; justify-content: space-between; padding-left: 3pt; font-size: 9pt; line-height: 12pt; }
+.jobline .title { font-weight: 700; color: var(--ink); }
+.jobline .sep { color: var(--sep); padding: 0 4pt; }
+.jobline .company { font-weight: 700; color: var(--teal); }
+.jobline .dates { font-weight: 700; font-size: 8.4pt; color: var(--date); white-space: nowrap; }
+ul { list-style: none; margin-top: 2pt; }
+li { position: relative; padding-left: 11pt; font-size: 8.5pt; line-height: 11.8pt; margin-bottom: 1pt; }
+li::before {
+  content: ""; position: absolute; left: 3pt; top: 4.8pt;
+  width: 2.25pt; height: 2.25pt; border-radius: 50%; background: var(--body);
+}
+.edu { display: flex; justify-content: space-between; font-size: 8.6pt; line-height: 12pt; }
+.edu .degree { font-weight: 700; color: var(--ink); }
+.edu .where { color: var(--muted); white-space: nowrap; padding-left: 8pt; }
+.certs { font-size: 8.5pt; line-height: 12pt; color: var(--muted); margin-top: 2pt; }
+.certs b { font-weight: 700; }
+</style></head>
+<body><div class="page">
+<div class="content">
+{% include "_header.html.j2" %}
+
+<section>
+  <h2>Professional Summary</h2>
+  <p class="summary">{{ resume.summary }}</p>
+</section>
+
+<section>
+  <h2>Technical Skills</h2>
+  <table class="skills">
+    {% for row in skill_rows %}
+    <tr><td class="label">{{ row.label }}:</td><td class="value">{{ row.skills_text }}</td></tr>
+    {% endfor %}
+  </table>
+</section>
+
+{% if roles %}
+<section>
+  <h2>Professional Experience</h2>
+  {% for r in roles %}
+  <div class="job">
+    <div class="jobline">
+      <span><span class="title">{{ r.title }}</span><span class="sep">|</span><span class="company">{{ r.org }}</span></span>
+      <span class="dates">{{ r.dates }}</span>
+    </div>
+    <ul>{% for b in r.bullets %}<li>{{ b }}</li>{% endfor %}</ul>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if military %}
+<section>
+  <h2>Military Service</h2>
+  {% for r in military %}
+  <div class="job">
+    <div class="jobline">
+      <span><span class="title">{{ r.title }}</span><span class="sep">|</span><span class="company">{{ r.org }}</span></span>
+      <span class="dates">{{ r.dates }}</span>
+    </div>
+    <ul>{% for b in r.bullets %}<li>{{ b }}</li>{% endfor %}</ul>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+<section>
+  <h2>Education &amp; Certifications</h2>
+  {% for e in education %}
+  <div class="edu"><span class="degree">{{ e.degree }}</span><span class="where">{{ e.where }}</span></div>
+  {% endfor %}
+  {% if certifications %}<div class="certs"><b>Certifications:</b> {{ certifications }}</div>{% endif %}
+  {% if partners %}<div class="certs"><b>Partner Programs:</b> {{ partners }}</div>{% endif %}
+</section>
+
+</div>
+<footer><span>{{ footer_left }}</span><span>Page 1 of 1</span></footer>
+</div></body></html>

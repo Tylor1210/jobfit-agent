@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>{{ title }}</title>
+<style>
+{{ base_css | safe }}
+.letter { font-size: 9.6pt; line-height: 15pt; }
+.letter .date { margin-top: 13pt; color: var(--muted); }
+.letter .greeting { margin-top: 14pt; }
+.letter p.para { margin-top: 10pt; }
+.letter .signoff { margin-top: 11pt; }
+.letter .signature { margin-top: 14pt; font-weight: 700; color: var(--ink); }
+</style></head>
+<body><div class="page">
+<div class="content">
+{% include "_header.html.j2" %}
+<div class="letter">
+  <div class="date">{{ date }}</div>
+  <div class="greeting">{{ letter.greeting }}</div>
+  {% for p in letter.paragraphs %}<p class="para">{{ p.text }}</p>{% endfor %}
+  <div class="signoff">Sincerely,</div>
+  <div class="signature">{{ contact.name }}</div>
+</div>
+</div>
+<footer><span>{{ footer_left }}</span><span>Page 1 of 1</span></footer>
+</div></body></html>

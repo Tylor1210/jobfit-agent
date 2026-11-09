@@ -206,13 +206,13 @@ military:
 
 education:
   - id: edu.bas_it
-    degree: Bachelor of Applied Science in Information Technology - Immersive Technology
+    degree: Bachelor of Applied Science, Information Technology (Immersive Technology)
     school: Broward College
     # CONSTRAINT: in progress. Never present as completed or as "a bachelor's degree".
     status: in_progress
     focus: [Distributed Systems Architecture, Enterprise Workflow Automation, AI Agent Integration, Database Design]
   - id: edu.as_cpa
-    degree: Associate of Science in Computer Programming and Analysis
+    degree: Associate of Science, Computer Programming and Analysis
     school: Broward College
     status: completed
     honors: ["Dean's List", GPA 3.75]

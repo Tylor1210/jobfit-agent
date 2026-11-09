@@ -57,3 +57,66 @@ def test_search_evidence_returns_each_kind() -> None:
     hits = search_evidence(store, "Python data validation", {"bullet": 2, "skill": 2})
     assert {h.kind for h in hits} == {"bullet", "skill"}
     assert len(hits) == 4
+
+
+@pytest.mark.db
+@pytest.mark.skipif(not os.getenv("DATABASE_URL"), reason="needs DATABASE_URL")
+def test_pg_repo_ledger_and_checkpointer() -> None:
+    import uuid
+
+    import psycopg
+    from factories import letter, resume
+    from langgraph.checkpoint.postgres import PostgresSaver
+
+    from jobfit.llm.cost import PgLedger, UsageRecord
+    from jobfit.schemas import Drafts, FitResult, JobPosting
+    from jobfit.store.repo import PgRepo
+
+    dsn = os.environ["DATABASE_URL"]
+    repo = PgRepo(dsn)
+    ext = uuid.uuid4().hex[:8]
+    job = JobPosting(
+        id=f"test:{ext}",
+        source="test",
+        external_id=ext,
+        company="Acme",
+        title="Engineer",
+        description="d",
+    )
+    repo.upsert_job(job)
+    assert repo.get_job(job.id) == job
+    fit = FitResult(
+        fit_score=80,
+        verdict="strong",
+        verdict_line="ok",
+        assessments=[],
+        top_gaps=["x"],
+        injection_flags=["override_instructions: ..."],
+    )
+    repo.save_fit(job.id, fit)
+    assert repo.get_fit(job.id) == fit
+    repo.set_stage(job.id, "shortlisted")
+    assert repo.get_job(job.id).stage == "shortlisted"  # type: ignore[union-attr]
+    repo.save_tailor(
+        job.id,
+        "t1",
+        "awaiting_review",
+        drafts=Drafts(resume=resume(), cover_letter=letter()),
+        issues=[],
+    )
+    repo.save_tailor(job.id, "t1", "rendered", resume_pdf="/a.pdf", cover_pdf="/b.pdf")
+    with pytest.raises(ValueError):
+        repo.save_tailor(job.id, "t1", "x", **{"status; drop table jobs": 1})
+
+    ledger = PgLedger(dsn)
+    before = ledger.spent_today()
+    ledger.record(UsageRecord("pytest", "n", "fake", "m", 10, 5, 0.25, 3))
+    try:
+        assert ledger.spent_today() == pytest.approx(before + 0.25)
+    finally:
+        with psycopg.connect(dsn, autocommit=True) as conn:
+            conn.execute("delete from llm_usage where run_id = 'pytest'")
+            conn.execute("delete from jobs where source = 'test'")
+
+    with PostgresSaver.from_conn_string(dsn) as saver:
+        saver.setup()

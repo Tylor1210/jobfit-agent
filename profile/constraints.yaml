@@ -57,6 +57,15 @@ banned_phrases:
   - in today's
   - tapestry
 
+# Cover letter first sentences that read as form letters.
+generic_openers:
+  - I am writing to
+  - I'm writing to
+  - Please accept
+  - I would like to apply
+  - I wish to apply
+  - To whom it may concern
+
 cover_letter:
   min_words: 250
   max_words: 350

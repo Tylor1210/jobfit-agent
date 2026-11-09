@@ -13,6 +13,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `make db-up && make migrate && make index` local pgvector at localhost:54329
   (`DATABASE_URL=postgresql://postgres:jobfit@localhost:54329/jobfit`)
 - `uv run jobfit profile validate|index|search "query"`
+- `uv run jobfit fit posting.txt --company X --title Y [--tailor]` live run (uses .env keys)
+- `uv run playwright install chromium` once, for PDF rendering and `-m render` tests
 - On this Mac use `/opt/homebrew/bin/uv` (the one in ~/.local/bin is x86_64 and won't run).
 
 ## Layout
@@ -21,6 +23,10 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `reference/layout/` PDF layout references only. `reference/voice/` tone examples only. Neither is evidence.
 - `src/jobfit/rag/` embedder + vector store (pgvector and in-memory, same interface).
 - `db/migrations/` idempotent SQL, applied in filename order by `jobfit db migrate`.
+- `src/jobfit/llm/` provider socket (anthropic, groq, fake) + cost ledger. Tiers per node in `config/models.yaml`.
+- `src/jobfit/graphs/` fit + tailor LangGraph graphs, `sanitize.py` (injection guard), `verify.py` (claim checks).
+- `src/jobfit/render/` Jinja HTML/CSS + Playwright PDFs. Layout measured from `reference/layout/`.
+- `config/tech_lexicon.yaml` tech names the verifier rejects unless they appear in the profile.
 
 ## Hard rules
 - Never add a fact to the profile that isn't true. Generated text cites evidence IDs or it's rejected.
@@ -30,4 +36,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - No em dashes in generated text. No banned phrases (constraints.yaml).
 - No LinkedIn/Indeed scraping. Only public job-board APIs.
 - Model names and secrets come from `jobfit.config.Settings`, never hardcoded.
-- Unit tests and CI run offline: use `HashEmbedder` / `InMemoryStore`, mark DB tests `@pytest.mark.db`.
+- Unit tests and CI run offline: use `HashEmbedder` / `InMemoryStore` / `FakeProvider`, mark DB tests
+  `@pytest.mark.db` and Chromium tests `@pytest.mark.render`.
+- Fit score is computed in code (`graphs/fit.py:compute_score`), never taken from the model.
+- Titles, companies, dates, education, skill names on the PDF come from the profile, not the LLM.
+- Groq free tier is ~8k tokens/min per model: a tailor run takes 2 to 4 minutes. That's expected.

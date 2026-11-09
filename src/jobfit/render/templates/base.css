@@ -1,0 +1,40 @@
+/* Shared PDF styles. Measurements in pt, taken from reference/layout/*.pdf with pdfplumber
+   (A4 595x842pt, 45pt side margins, Tailwind slate/teal palette). Used by resume + cover letter. */
+@font-face { font-family: Roboto; font-weight: 400; src: url({{ font_400 }}) format("woff2"); }
+@font-face { font-family: Roboto; font-weight: 700; src: url({{ font_700 }}) format("woff2"); }
+
+:root {
+  --ink: #0f172a;      /* slate-900: name, titles */
+  --label: #1e293b;    /* slate-800: skill labels */
+  --body: #334155;     /* slate-700: body text, bullets */
+  --muted: #475569;    /* slate-600: contact line, skill values */
+  --date: #64748b;     /* slate-500: dates, footer */
+  --sep: #94a3b8;      /* slate-400: pipe separators */
+  --rule: #cbd5e1;     /* slate-300: section rules */
+  --foot-rule: #e2e8f0;/* slate-200: footer rule */
+  --teal: #0f766e;     /* teal-700: accent */
+}
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 595pt; }
+body {
+  font-family: Roboto, sans-serif; color: var(--body); font-size: 8.8pt; line-height: 12pt;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+/* GOTCHA: no overflow:hidden. Content that runs long must spill onto page 2 so the page check
+   catches it; the renderer also flags content that reaches into the footer band. */
+.page { position: relative; height: 841pt; padding: 26pt 45pt 0 45pt; }
+
+header .name {
+  font-weight: 700; font-size: 19pt; line-height: 22pt; color: var(--ink);
+  letter-spacing: 1pt; text-transform: uppercase;
+}
+header .contact { margin-top: 6.5pt; font-size: 8.8pt; color: var(--muted); }
+header .contact .sep { color: var(--sep); padding: 0 4pt; }
+header .rule { margin-top: 5.5pt; border-top: 0.75pt solid var(--teal); }
+
+footer {
+  position: absolute; left: 45pt; right: 45pt; top: 793.5pt;
+  border-top: 0.75pt solid var(--foot-rule); padding-top: 7pt;
+  display: flex; justify-content: space-between; font-size: 8.5pt; color: var(--date);
+}

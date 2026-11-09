@@ -28,6 +28,10 @@ class Chunk:
 
 def build_chunks(p: Profile) -> list[Chunk]:
     out: list[Chunk] = [Chunk(s.id, "summary", s.text) for s in p.summary]
+    # WHY: location and remote requirements need something to match against.
+    out.append(
+        Chunk("contact.location", "contact", f"Based in {p.contact.location} (South Florida)")
+    )
 
     for cat in p.skills:
         for sk in cat.items:
