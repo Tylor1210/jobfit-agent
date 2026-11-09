@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+node_modules/
+dist/
+output/
+.fastembed_cache/
+evals/report.json
+
+# WHY: source PDFs stay local until Tylor decides the repo can carry them (history is hard to purge).
+reference/**/*.pdf

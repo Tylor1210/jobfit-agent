@@ -1,0 +1,54 @@
+[project]
+name = "jobfit"
+version = "0.1.0"
+description = "Job Fit Agent: daily job ingestion, RAG fit scoring, and verified resume/cover letter tailoring."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "pyyaml>=6.0",
+    "fastembed>=0.4",
+    "psycopg[binary]>=3.2",
+    "pgvector>=0.3",
+    "numpy>=1.26",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "types-pyyaml>=6.0",
+    "pdfplumber>=0.11",
+]
+
+[project.scripts]
+jobfit = "jobfit.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["fastembed.*", "pgvector.*", "pdfplumber.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["db: needs a live Postgres (DATABASE_URL)"]
+
+[tool.ruff.lint.per-file-ignores]
+# GOTCHA: tests use en/em dashes on purpose to exercise the forbidden-char rule.
+"tests/*" = ["RUF001"]

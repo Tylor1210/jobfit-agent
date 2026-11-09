@@ -1,0 +1,66 @@
+# Hard rules the agent can never break. Loaded by jobfit.profile.constraints and enforced by the
+# `verify` node (Phase 2) and by tests. CONSTRAINT: rules here only get looser when Tylor edits them.
+
+# Every skill, tool, degree, title, and number in generated text must trace to an evidence ID
+# in profile/master_profile.yaml.
+require_evidence: true
+
+# Tools never used. A job may *ask* for them (they become gaps); drafts may never *claim* them.
+forbidden_tools: [Terraform, Ansible, Puppet, Kubernetes, K8s, Jenkins, Chef]
+
+# Tools that move into the profile only once this project uses them.
+# TODO: add skill.docker to master_profile.yaml after Phase 6 ships the Dockerfile + compose,
+# and skill.github_actions after ci.yml runs green, then delete them from this list.
+pending_tools: [Docker, GitHub Actions]
+
+degrees:
+  has_bachelors: false
+  # How the BAS must always be described.
+  bas_status_label: In progress
+  forbidden_claims:
+    - "bachelor's degree"
+    - "bachelor's in"
+    - "B.S. in"
+    - "BS in"
+    - "BA in"
+    - "BAS graduate"
+    - "holds a bachelor"
+    - "degree in information technology"
+
+# GOTCHA: the en dash (U+2013) is allowed; dates in the layout use it ("04/2026–Present").
+forbidden_chars:
+  - "—"  # em dash
+
+# Case-insensitive substrings. Matched on word boundaries by the verifier.
+banned_phrases:
+  - I am excited to
+  - I'm excited to
+  - excited to apply
+  - passionate
+  - leverage
+  - leveraging
+  - dynamic
+  - proven track record
+  - synergy
+  - spearheaded
+  - cutting-edge
+  - results-driven
+  - detail-oriented
+  - team player
+  - fast-paced environment
+  - I am writing to express
+  - thrilled
+  - delve
+  - seamless
+  - robust
+  - game-changer
+  - in today's
+  - tapestry
+
+cover_letter:
+  min_words: 250
+  max_words: 350
+  paragraphs: 4
+
+resume:
+  max_pages: 1

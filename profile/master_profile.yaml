@@ -1,0 +1,227 @@
+# Master evidence base. Source of truth: reference/Tylor-C-Resume1102.pdf
+# CONSTRAINT: every claim the agent generates must cite an `id` from this file.
+# CONSTRAINT: edit facts here only when they are true. The agent can never add to this file.
+# ID scheme: exp.<company>.<n>, mil.<unit>.<n>, skill.<slug>, edu.<slug>, cert.<slug>, proj.<slug>, sum.<n>
+
+contact:
+  name: Tylor Clont
+  short_name: Tylor C
+  email: tylor@tycodes.dev
+  location: Weston, FL 33331
+  websites: [tycodes.dev, tycodes.app]
+  github: github.com/Tylor1210
+
+summary:
+  - id: sum.1
+    text: >-
+      Systems Architect with 4+ years of experience engineering full-stack platforms, business
+      automation tools, and AI-agent workflows. Experienced in shipping production systems end to
+      end, from serverless edge infrastructure and cloud deployment to multi-agent automation, with
+      an emphasis on cutting infrastructure overhead, automating mission workflows, and applying
+      disciplined operational rigor honed through military service.
+
+skills:
+  - category: Languages & Core Web
+    items:
+      - {id: skill.cpp, name: C++}
+      - {id: skill.javascript, name: JavaScript, aliases: [JS, ES6]}
+      - {id: skill.typescript, name: TypeScript, aliases: [TS]}
+      - {id: skill.python, name: Python}
+      - {id: skill.html5, name: HTML5, aliases: [HTML]}
+      - {id: skill.css3, name: CSS3, aliases: [CSS]}
+      - {id: skill.sql, name: SQL}
+      - {id: skill.react, name: React, aliases: [React.js, ReactJS]}
+      - {id: skill.threejs, name: three.js, aliases: [threejs, WebGL]}
+      - {id: skill.vite, name: Vite}
+      - {id: skill.git, name: Git/GitHub, aliases: [Git, GitHub]}
+  - category: AI & Agent Systems
+    items:
+      - {id: skill.claude_code, name: Claude Code (orchestrator/sub-agent workflows), aliases: [Claude Code, multi-agent orchestration, sub-agents]}
+      - {id: skill.anthropic_api, name: Anthropic API, aliases: [Claude API, Anthropic]}
+      - {id: skill.codex, name: Codex}
+      - {id: skill.gemini_api, name: Gemini API, aliases: [Gemini]}
+      - {id: skill.tool_calling, name: tool-calling agents, aliases: [function calling, tool use, AI agents]}
+      - {id: skill.icm, name: Interpretable Context Methodology (ICM) pipelines, aliases: [ICM, context engineering]}
+      - {id: skill.prompt_engineering, name: prompt engineering, aliases: [prompting, LLM prompting]}
+  - category: Cloud & Deployment
+    items:
+      - {id: skill.cloudflare, name: "Cloudflare (Workers, Workflows, Pages, R2, D1)", aliases: [Cloudflare, Cloudflare Workers, Cloudflare Workflows, Cloudflare Pages, R2, D1, serverless, edge computing]}
+      - {id: skill.nodejs, name: Node.js, aliases: [Node, NodeJS]}
+      - {id: skill.express, name: Express, aliases: [Express.js]}
+      - {id: skill.routing_middleware, name: custom routing middleware, aliases: [middleware]}
+      # CONSTRAINT: Docker is on the resume but stays out until this project ships a Dockerfile
+      # (profile/constraints.yaml -> pending_tools). Add `skill.docker` here at that point.
+      - {id: skill.wrangler, name: Wrangler}
+  - category: Data & Backend
+    items:
+      - {id: skill.supabase, name: Supabase}
+      - {id: skill.postgresql, name: PostgreSQL, aliases: [Postgres]}
+      - {id: skill.mongodb, name: MongoDB, aliases: [Mongo]}
+      - {id: skill.google_sheets_api, name: Google Sheets API (serverless backend patterns), aliases: [Google Sheets API, Google Workspace APIs]}
+      - {id: skill.zod, name: zod schema validation, aliases: [zod, schema validation]}
+      - {id: skill.etl, name: automated ETL/validation, aliases: [ETL, data pipelines, data validation]}
+  # WHY: these appear only inside experience bullets, not the skills line. They are real (bullet-backed)
+  # so the agent may cite them, but they are not rendered in the skills table unless a job asks for them.
+  - category: Also used (from experience)
+    render: false
+    items:
+      - {id: skill.tailwind, name: Tailwind CSS, aliases: [Tailwind], evidence: [exp.tycodes.5]}
+      - {id: skill.hono, name: Hono, evidence: [exp.tycodes.5]}
+      - {id: skill.firecrawl, name: Firecrawl, evidence: [exp.tycodes.5]}
+      - {id: skill.openai_api, name: OpenAI API, aliases: [OpenAI], evidence: [exp.tycodes.5]}
+      - {id: skill.oauth, name: OAuth, evidence: [exp.tycodes.6]}
+      - {id: skill.nlp_sentiment, name: NLP sentiment analysis, aliases: [NLP, sentiment analysis], evidence: [exp.tycodes.4]}
+      - {id: skill.backtesting, name: backtesting and grid-search optimization, aliases: [backtesting, grid search], evidence: [exp.tycodes.4]}
+      - {id: skill.crm, name: CRM development, aliases: [CRM], evidence: [exp.linkme.1]}
+      - {id: skill.sales_development, name: sales development and prospecting, aliases: [SDR, outbound sales, prospecting], evidence: [exp.71lbs.1]}
+      - {id: skill.mentoring, name: mentoring and onboarding, aliases: [mentoring, training, onboarding], evidence: [exp.71lbs.2]}
+      - {id: skill.inventory_management, name: inventory and supply management, aliases: [logistics, supply chain, inventory], evidence: [mil.flarng.1]}
+
+experience:
+  - id: exp.linkme
+    company: Linkme
+    title: VIP Success Manager & Systems Architect
+    start: 2026-04
+    end: present
+    bullets:
+      - id: exp.linkme.1
+        text: >-
+          Architected and deployed linkme-intops, an operations CRM module built with React and
+          TypeScript on Cloudflare Workers, providing staff a dedicated interface for high-value
+          subscription accounts.
+        skills: [skill.react, skill.typescript, skill.cloudflare, skill.crm]
+      - id: exp.linkme.2
+        text: >-
+          Engineered custom data ingestion modules and analytics pipelines for VIP workflows,
+          reducing service delivery times by over 30%.
+        skills: [skill.etl]
+      - id: exp.linkme.3
+        text: >-
+          Designed integration blueprints and live demo environments to reliably onboard
+          high-value enterprise clients onto the core platform.
+        skills: []
+
+  - id: exp.tycodes
+    company: TYcodes LLC
+    title: Founder & Systems Architect
+    start: 2022-01
+    end: present
+    bullets:
+      - id: exp.tycodes.1
+        text: >-
+          Built tycodes.app, an AI demo generator converting business URLs into shoppable 3D
+          scroll demos in ~1 min on Cloudflare Workers, Workflows, R2, and D1 via a public form
+          (github.com/Tylor1210/DEMO-Generator).
+        skills: [skill.cloudflare, skill.tool_calling]
+      - id: exp.tycodes.2
+        text: >-
+          Designed a 6-stage agent pipeline (intake, collect, brief, config, verify, publish) with
+          Interpretable Context Methodology, enforcing automated verification to eliminate
+          hallucinated pricing and claims.
+        skills: [skill.icm, skill.tool_calling, skill.prompt_engineering]
+      - id: exp.tycodes.3
+        text: >-
+          Rendered demos from a unified Vite, React, and three.js template driven by zod schemas
+          with parametric models, low-end fallbacks, and strict daily cost caps.
+        skills: [skill.vite, skill.react, skill.threejs, skill.zod]
+      - id: exp.tycodes.4
+        text: >-
+          Engineered Tradecrumb, a multi-signal Python trading engine combining technical
+          indicators, NLP sentiment, and political triggers with backtesting and grid-search
+          optimization.
+        skills: [skill.python, skill.nlp_sentiment, skill.backtesting]
+      - id: exp.tycodes.5
+        text: >-
+          Engineered tycodes.dev on edge infrastructure (Vite, React, TS, Tailwind on Cloudflare
+          Workers) with a Hono Worker running Firecrawl and OpenAI for automated audit and
+          pricing models.
+        skills: [skill.vite, skill.react, skill.typescript, skill.tailwind, skill.cloudflare, skill.hono, skill.firecrawl, skill.openai_api]
+      - id: exp.tycodes.6
+        text: >-
+          Designed zero-maintenance serverless application backends utilizing Google Sheets via
+          OAuth, eliminating dedicated server costs.
+        skills: [skill.google_sheets_api, skill.oauth]
+
+  - id: exp.71lbs
+    company: 71lbs
+    title: Sales Development Representative
+    start: 2025-04
+    end: 2026-04
+    bullets:
+      - id: exp.71lbs.1
+        text: >-
+          Achieved top-performer status by securing 50+ qualified meetings per month against a
+          daily team quota of 2; set organizational record of 120+ booked meetings in a single
+          month (15%+ conversion).
+        skills: [skill.sales_development]
+      - id: exp.71lbs.2
+        text: >-
+          Mentored and onboarded incoming representatives to attain 15%+ conversion rate
+          benchmarks.
+        skills: [skill.mentoring]
+
+  - id: exp.fairman
+    company: Fairman & Associates
+    title: Lead Systems Architect (Contract)
+    start: 2024-10
+    end: 2025-02
+    bullets:
+      - id: exp.fairman.1
+        text: >-
+          Led end-to-end modernization from legacy desktop systems to cloud-native web
+          infrastructure, reducing manual data processing overhead by 68%.
+        skills: []
+      - id: exp.fairman.2
+        text: >-
+          Constructed database-layer automated data validation pipelines that eliminated 98% of
+          transactional and invoicing errors.
+        skills: [skill.etl, skill.sql]
+
+# WHY: tycodes.app, Tradecrumb, tycodes.dev and linkme-intops are described inside experience
+# bullets. Projects point at those bullets instead of duplicating text, so there is one fact per claim.
+projects:
+  - {id: proj.demo_generator, name: tycodes.app (AI demo generator), url: github.com/Tylor1210/DEMO-Generator, evidence: [exp.tycodes.1, exp.tycodes.2, exp.tycodes.3]}
+  - {id: proj.tradecrumb, name: Tradecrumb, evidence: [exp.tycodes.4]}
+  - {id: proj.tycodes_dev, name: tycodes.dev, url: tycodes.dev, evidence: [exp.tycodes.5]}
+  - {id: proj.linkme_intops, name: linkme-intops, evidence: [exp.linkme.1]}
+
+military:
+  - id: mil.flarng
+    branch: U.S. Army, Florida Army National Guard
+    title: Unit Supply Specialist (92Y)
+    start: "2017"
+    end: "2020"
+    bullets:
+      - id: mil.flarng.1
+        text: >-
+          Managed $100M+ in high-value federal inventory across 12 regional sites serving 8,000+
+          personnel daily, maintaining 100% audit accuracy while cutting processing times by 35%.
+        skills: [skill.inventory_management]
+      - id: mil.flarng.2
+        text: >-
+          Enforced rigorous accountability procedures to eliminate supply chain bottlenecks during
+          high-demand deployment rotations; awarded the Army Achievement Medal (2018) for
+          operational excellence.
+        skills: [skill.inventory_management]
+
+education:
+  - id: edu.bas_it
+    degree: Bachelor of Applied Science in Information Technology - Immersive Technology
+    school: Broward College
+    # CONSTRAINT: in progress. Never present as completed or as "a bachelor's degree".
+    status: in_progress
+    focus: [Distributed Systems Architecture, Enterprise Workflow Automation, AI Agent Integration, Database Design]
+  - id: edu.as_cpa
+    degree: Associate of Science in Computer Programming and Analysis
+    school: Broward College
+    status: completed
+    honors: ["Dean's List", GPA 3.75]
+
+certifications:
+  - {id: cert.software_programmer, name: Software Programmer}
+  - {id: cert.software_programming_specialist, name: Software Programming Specialist}
+  - {id: cert.project_management, name: Project Management}
+  - {id: cert.it_support_specialist, name: IT Support Specialist}
+
+partner_programs:
+  - {id: cert.openai_partneru, name: OpenAI Partner Network (PartnerU)}
