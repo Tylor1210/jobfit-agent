@@ -19,6 +19,7 @@ from jobfit.profile.chunks import build_chunks
 from jobfit.profile.loader import load_constraints, load_profile
 from jobfit.rag.embedder import get_embedder
 from jobfit.rag.store import InMemoryStore, PgVectorStore, VectorStore
+from jobfit.store.ingest_store import IngestStore, InMemoryIngestStore, PgIngestStore
 from jobfit.store.repo import InMemoryRepo, PgRepo, Repo
 
 
@@ -46,6 +47,14 @@ def build_deps(*, render: bool = True) -> Deps:
         deps.page_count = make_page_counter(deps)
         deps.render = make_file_renderer(deps)
     return deps
+
+
+def build_ingest_store(deps: Deps) -> IngestStore:
+    dsn = get_settings().database_url
+    if dsn:
+        return PgIngestStore(dsn)
+    assert isinstance(deps.repo, InMemoryRepo)
+    return InMemoryIngestStore(deps.repo)
 
 
 def build_checkpointer() -> tuple[BaseCheckpointSaver[Any], Any]:

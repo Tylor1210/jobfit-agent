@@ -62,7 +62,7 @@ class Observation:
             self._lf.update(**kw)
 
 
-def _is_control_flow(e: BaseException) -> bool:
+def is_control_flow(e: BaseException) -> bool:
     # GOTCHA: LangGraph's interrupt() works by raising; that pause is not an error.
     return type(e).__name__ in {"GraphInterrupt", "NodeInterrupt", "ParentCommand"}
 
@@ -102,7 +102,7 @@ class MemoryTracer:
         try:
             yield obs
         except Exception as e:
-            if not _is_control_flow(e):
+            if not is_control_flow(e):
                 obs.update(level="ERROR", error=str(e))
             raise
         finally:

@@ -59,12 +59,12 @@ class InMemoryLedger:
 
 class PgLedger:
     def __init__(self, dsn: str) -> None:
-        self._dsn = dsn
+        from jobfit.store.db import SharedConnection
+
+        self._db = SharedConnection(dsn)
 
     def spent_today(self) -> float:
-        import psycopg
-
-        with psycopg.connect(self._dsn) as conn:
+        with self._db.use() as conn:
             row = conn.execute(
                 "select coalesce(sum(cost_usd), 0) from llm_usage "
                 "where created_at >= date_trunc('day', now() at time zone 'utc') at time zone 'utc'"
@@ -72,9 +72,7 @@ class PgLedger:
         return float(row[0]) if row else 0.0
 
     def record(self, rec: UsageRecord) -> None:
-        import psycopg
-
-        with psycopg.connect(self._dsn, autocommit=True) as conn:
+        with self._db.use() as conn:
             conn.execute(
                 """insert into llm_usage (run_id, node, provider, model, input_tokens,
                    output_tokens, cost_usd, latency_ms) values (%s,%s,%s,%s,%s,%s,%s,%s)""",

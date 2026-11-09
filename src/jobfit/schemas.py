@@ -13,7 +13,8 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 Stage = Literal["new", "shortlisted", "applied", "interview", "offer", "rejected", "closed"]
-Verdict = Literal["strong", "moderate", "weak", "not_a_fit"]
+# "unknown": the posting had too little text to extract requirements (e.g. Remote OK snippets).
+Verdict = Literal["strong", "moderate", "weak", "not_a_fit", "unknown"]
 Status = Literal["met", "partial", "missing"]
 ReqCategory = Literal[
     "technical_skill",
@@ -42,6 +43,11 @@ class JobPosting(BaseModel):
     posted_at: datetime | None = None
     status: Literal["open", "closed"] = "open"
     stage: Stage = "new"
+    board: str | None = None  # watchlist token / feed / query the job came from
+    remote: bool | None = None
+    closes_at: datetime | None = None  # application deadline when the source publishes one
+    first_seen: datetime | None = None  # set by the database
+    last_seen: datetime | None = None
 
 
 # ---- LLM outputs: fit graph -------------------------------------------------------------------

@@ -1,0 +1,20 @@
+# Company job boards to pull every day. Add a line to watch a new company.
+# The token is the slug in the board URL:
+#   greenhouse: boards.greenhouse.io/<token>   lever: jobs.lever.co/<token>   ashby: jobs.ashbyhq.com/<token>
+# `name` is the display name (optional; defaults to the API's company name or the token).
+
+greenhouse:
+  - {token: tribalscale, name: TribalScale}
+  - {token: centralreach, name: CentralReach}
+  - {token: smartsheet, name: Smartsheet}
+  - {token: canopyconnect, name: Canopy Connect}
+  - {token: sayari, name: Sayari}
+  - {token: tebra, name: Tebra}
+
+lever:
+  - {token: supermove, name: Supermove}
+  - {token: kobie, name: Kobie}
+  - {token: loadsmart, name: Loadsmart}
+
+ashby:
+  - {token: lio, name: Lio}

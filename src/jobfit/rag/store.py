@@ -10,15 +10,13 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Protocol
+from typing import Protocol
 
 import numpy as np
 
 from jobfit.profile.chunks import Chunk
 from jobfit.rag.embedder import Embedder, Vector
-
-if TYPE_CHECKING:
-    import psycopg
+from jobfit.store.db import SharedConnection
 
 
 @dataclass(frozen=True, slots=True)
@@ -32,6 +30,10 @@ class Hit:
 class VectorStore(Protocol):
     def upsert(self, chunks: Sequence[Chunk]) -> int: ...
     def search(self, query: str, k: int = 5, kinds: Sequence[str] | None = None) -> list[Hit]: ...
+    def search_many(self, query: str, per_kind: dict[str, int]) -> list[Hit]: ...
+
+
+DEFAULT_PER_KIND = {"bullet": 3, "skill": 2, "education": 1, "certification": 1}
 
 
 def search_evidence(
@@ -40,11 +42,10 @@ def search_evidence(
     """Top hits per chunk kind, merged by score.
 
     WHY: short skill chunks ("Skill: Python") score higher than long bullets for almost any
-    query, so a single top-k returns only skills. Searching each kind separately guarantees the
+    query, so a single top-k returns only skills. Taking the top k of each kind guarantees the
     scorer sees both the skill claim and the experience that backs it.
     """
-    per_kind = per_kind or {"bullet": 3, "skill": 2, "education": 1, "certification": 1}
-    hits = [h for kind, k in per_kind.items() for h in store.search(query, k=k, kinds=[kind])]
+    hits = store.search_many(query, per_kind or DEFAULT_PER_KIND)
     return sorted(hits, key=lambda h: h.score, reverse=True)
 
 
@@ -64,14 +65,19 @@ class InMemoryStore:
             self._rows[c.id] = (c, v)
         return len(todo)
 
-    def search(self, query: str, k: int = 5, kinds: Sequence[str] | None = None) -> list[Hit]:
+    def _scored(self, query: str) -> list[Hit]:
         q = self._embedder.embed_query(query)
-        scored = [
-            Hit(c.id, c.kind, c.text, float(np.dot(q, v)))
-            for c, v in self._rows.values()
-            if kinds is None or c.kind in kinds
+        hits = [Hit(c.id, c.kind, c.text, float(np.dot(q, v))) for c, v in self._rows.values()]
+        return sorted(hits, key=lambda h: h.score, reverse=True)
+
+    def search(self, query: str, k: int = 5, kinds: Sequence[str] | None = None) -> list[Hit]:
+        return [h for h in self._scored(query) if kinds is None or h.kind in kinds][:k]
+
+    def search_many(self, query: str, per_kind: dict[str, int]) -> list[Hit]:
+        ranked = self._scored(query)
+        return [
+            h for kind, k in per_kind.items() for h in [x for x in ranked if x.kind == kind][:k]
         ]
-        return sorted(scored, key=lambda h: h.score, reverse=True)[:k]
 
 
 class PgVectorStore:
@@ -79,26 +85,20 @@ class PgVectorStore:
         # CONSTRAINT: `table` is interpolated into SQL, so it must be a plain identifier.
         if not table.isidentifier():
             raise ValueError(f"bad table name: {table!r}")
-        self._dsn = dsn
+        from pgvector.psycopg import register_vector
+
+        self._db = SharedConnection(dsn, on_connect=register_vector)
         self._embedder = embedder
         self._table = table
 
-    def _connect(self) -> psycopg.Connection[Any]:
-        import psycopg
-        from pgvector.psycopg import register_vector
-
-        conn = psycopg.connect(self._dsn, autocommit=True)
-        register_vector(conn)
-        return conn
-
     def upsert(self, chunks: Sequence[Chunk]) -> int:
-        with self._connect() as conn:
-            m = self._embedder.name
-            t = self._table
+        m = self._embedder.name
+        t = self._table
+        with self._db.use() as conn:
             existing = dict(conn.execute(f"select id, content_hash from {t}").fetchall())
             todo = [c for c in chunks if existing.get(c.id) != c.content_hash(m)]
             vecs = self._embedder.embed([c.text for c in todo]) if todo else []
-            with conn.cursor() as cur:
+            with conn.transaction(), conn.cursor() as cur:
                 for c, v in zip(todo, vecs, strict=True):
                     cur.execute(
                         f"""insert into {t}
@@ -112,16 +112,36 @@ class PgVectorStore:
                     )
                 # Drop chunks whose evidence ID no longer exists in the profile.
                 cur.execute(f"delete from {t} where not (id = any(%s))", ([c.id for c in chunks],))
-            return len(todo)
+        return len(todo)
 
     def search(self, query: str, k: int = 5, kinds: Sequence[str] | None = None) -> list[Hit]:
         q = self._embedder.embed_query(query)
-        with self._connect() as conn:
-            rows = conn.execute(
+        kl = list(kinds) if kinds else None
+        rows = self._db.run(
+            lambda c: c.execute(
                 f"""select id, kind, text, 1 - (embedding <=> %s) as score
-                   from {self._table}
-                   where %s::text[] is null or kind = any(%s::text[])
-                   order by embedding <=> %s limit %s""",
-                (q, list(kinds) if kinds else None, list(kinds) if kinds else None, q, k),
+               from {self._table}
+               where %s::text[] is null or kind = any(%s::text[])
+               order by embedding <=> %s limit %s""",
+                (q, kl, kl, q, k),
             ).fetchall()
+        )
+        return [Hit(r[0], r[1], r[2], float(r[3])) for r in rows]
+
+    def search_many(self, query: str, per_kind: dict[str, int]) -> list[Hit]:
+        """Top k per kind in one round trip (window function) instead of one query per kind."""
+        q = self._embedder.embed_query(query)
+        kinds, ks = list(per_kind), list(per_kind.values())
+        rows = self._db.run(
+            lambda c: c.execute(
+                f"""select t.id, t.kind, t.text, t.score from (
+                  select id, kind, text, 1 - (embedding <=> %(q)s) as score,
+                         row_number() over (partition by kind order by embedding <=> %(q)s) rn
+                  from {self._table} where kind = any(%(kinds)s::text[])
+                ) t
+                join unnest(%(kinds)s::text[], %(ks)s::int[]) as lim(kind, k) using (kind)
+                where t.rn <= lim.k""",
+                {"q": q, "kinds": kinds, "ks": ks},
+            ).fetchall()
+        )
         return [Hit(r[0], r[1], r[2], float(r[3])) for r in rows]

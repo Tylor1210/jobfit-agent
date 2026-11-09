@@ -44,6 +44,8 @@ def test_pgvector_roundtrip() -> None:
         hits = store.search("Python trading engine backtesting", k=3)
         assert "exp.tycodes.4" in [h.id for h in hits]
         assert all(h.kind == "skill" for h in store.search("Python", k=3, kinds=["skill"]))
+        many = store.search_many("Python trading engine", {"bullet": 3, "skill": 2})
+        assert sorted(h.kind for h in many) == ["bullet", "bullet", "bullet", "skill", "skill"]
     finally:
         with psycopg.connect(dsn, autocommit=True) as conn:
             conn.execute("drop table if exists profile_chunks_test")
@@ -84,7 +86,10 @@ def test_pg_repo_ledger_and_checkpointer() -> None:
         description="d",
     )
     repo.upsert_job(job)
-    assert repo.get_job(job.id) == job
+    got = repo.get_job(job.id)
+    assert got is not None and got.first_seen is not None
+    seen = {"first_seen", "last_seen"}
+    assert got.model_dump(exclude=seen) == job.model_dump(exclude=seen)
     fit = FitResult(
         fit_score=80,
         verdict="strong",

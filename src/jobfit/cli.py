@@ -48,6 +48,16 @@ def main(argv: list[str] | None = None) -> None:
     search.add_argument("-k", type=int, default=5)
     db = sub.add_parser("db").add_subparsers(dest="cmd", required=True)
     db.add_parser("migrate")
+    ing = sub.add_parser("ingest")
+    ing.add_argument("--source", action="append", help="limit to these sources (repeatable)")
+    ing.add_argument("--no-score", action="store_true", help="skip the LLM fit step")
+    ing.add_argument("--top", type=int, help="override score_top_n")
+    add = sub.add_parser("add")
+    add.add_argument("url", nargs="?")
+    add.add_argument("--text", help="file with pasted posting text")
+    add.add_argument("--company")
+    add.add_argument("--title")
+    add.add_argument("--location")
     fit = sub.add_parser("fit")
     fit.add_argument("posting", help="path to a text file with the posting")
     fit.add_argument("--company", required=True)
@@ -62,6 +72,12 @@ def main(argv: list[str] | None = None) -> None:
     if args.group == "fit":
         _fit(args)
         return
+    if args.group == "ingest":
+        _ingest(args)
+        return
+    if args.group == "add":
+        _add(args)
+        return
 
     profile = load_profile()
     if args.cmd == "validate":
@@ -73,6 +89,76 @@ def main(argv: list[str] | None = None) -> None:
     elif args.cmd == "search":
         for h in PgVectorStore(_dsn(), get_embedder()).search(args.query, k=args.k):
             print(f"{h.score:.3f}  {h.id:<28} {h.text[:90]}")
+
+
+def _add(args: argparse.Namespace) -> None:
+    from pathlib import Path
+
+    from jobfit.app import build_deps
+    from jobfit.graphs.fit import run_fit
+    from jobfit.ingest.manual import ManualAddError, from_text, from_url
+
+    try:
+        if args.text:
+            if not (args.company and args.title):
+                sys.exit("--text needs --company and --title")
+            job = from_text(
+                Path(args.text).read_text(encoding="utf-8"),
+                args.company,
+                args.title,
+                url=args.url,
+                location=args.location,
+            )
+        elif args.url:
+            job = from_url(args.url)
+        else:
+            sys.exit("give a URL or --text FILE")
+    except ManualAddError as e:
+        sys.exit(str(e))
+    deps = build_deps(render=False)
+    out = run_fit(job, deps)
+    if out.get("error"):
+        sys.exit(f"saved nothing: {out['error']}")
+    f = out["fit"]
+    print(
+        f"added {job.id}: {job.company} | {job.title}\n{f.fit_score}/100 {f.verdict}: "
+        f"{f.verdict_line}\ngaps: {'; '.join(f.top_gaps)}"
+    )
+
+
+def _ingest(args: argparse.Namespace) -> None:
+    import json
+    import logging
+
+    from jobfit.app import build_deps, build_ingest_store
+    from jobfit.ingest.config import SourceKeys, load_ingest_config, load_watchlist
+    from jobfit.ingest.pipeline import run_ingest, summary
+    from jobfit.rag.embedder import get_embedder
+
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
+    deps = build_deps(render=False)
+    rep = run_ingest(
+        deps,
+        build_ingest_store(deps),
+        load_ingest_config(),
+        load_watchlist(),
+        SourceKeys(),
+        get_embedder(),
+        only=set(args.source) if args.source else None,
+        score=not args.no_score,
+        top_n=args.top,
+    )
+    print(json.dumps(summary(rep), indent=2))
+    for jid, sc, verdict in rep.scored:
+        job = deps.repo.get_job(jid)
+        print(f"  {sc:>3} {verdict:<9} {job.company if job else ''} | {job.title if job else jid}")
+    for n in rep.notes:
+        print("note:", n)
+    for name, st in rep.per_source.items():
+        for e in st.errors:
+            print(f"error [{name}] {e}")
+    if rep.status == "failed":
+        sys.exit(1)
 
 
 def _fit(args: argparse.Namespace) -> None:

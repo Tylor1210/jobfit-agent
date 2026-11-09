@@ -1,0 +1,69 @@
+# Daily job ingestion: fetch boards, close expired postings, prefilter, score the top N.
+# Runs at 11:00 UTC (~6 AM Eastern in winter, 7 AM in summer). Also runnable by hand.
+# Required repo secrets: DATABASE_URL, GROQ_API_KEY. Optional: ANTHROPIC_API_KEY,
+# LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, USAJOBS_API_KEY, USAJOBS_EMAIL, ADZUNA_APP_ID,
+# ADZUNA_APP_KEY. Optional repo variables: LLM_PROVIDER, LANGFUSE_BASE_URL, DAILY_COST_CAP_USD.
+name: daily-ingest
+
+on:
+  schedule:
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+    inputs:
+      top:
+        description: "Override how many candidates to score (blank = config default)"
+        required: false
+
+# WHY: a manual run started while the scheduled one is going would double-score and
+# double-spend. Queue instead of overlapping.
+concurrency:
+  group: daily-ingest
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45  # Groq free tier rate limits make scoring slow on purpose
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+      LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+      LANGFUSE_BASE_URL: ${{ vars.LANGFUSE_BASE_URL || 'https://cloud.langfuse.com' }}
+      USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
+      USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
+      ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+      ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+      LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'groq' }}
+      DAILY_COST_CAP_USD: ${{ vars.DAILY_COST_CAP_USD || '1.00' }}
+      FASTEMBED_CACHE_PATH: /home/runner/.cache/fastembed  # no ~ expansion in env
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Cache embedding model
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/.cache/fastembed
+          key: fastembed-bge-small-en-v1.5
+
+      - name: Install
+        run: uv sync --frozen --no-dev
+
+      - name: Migrate
+        run: uv run jobfit db migrate
+
+      - name: Ingest
+        run: |
+          if [ -n "${{ inputs.top }}" ]; then
+            uv run jobfit ingest --top "${{ inputs.top }}"
+          else
+            uv run jobfit ingest
+          fi

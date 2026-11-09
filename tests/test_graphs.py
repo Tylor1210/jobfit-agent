@@ -243,3 +243,25 @@ def test_revise_with_note_redrafts(deps: Deps, fake: FakeProvider, job: JobPosti
     assert res["status"] == "awaiting_review"
     prompts = [u for s, _, u in fake.calls if s in ("ResumeOut", "CoverLetterOut")]
     assert sum("Lead with the Fairman migration." in u for u in prompts) == 2
+
+
+def test_node_crash_becomes_job_error(deps: Deps, fake: FakeProvider, job: JobPosting) -> None:
+    class Broken:
+        def search_many(self, *a: object, **k: object) -> list[object]:
+            raise TimeoutError("db went away")
+
+    _script_fit(fake)
+    deps.store = Broken()  # type: ignore[assignment]
+    out = run_fit(job, deps)
+    assert (
+        out["error"].startswith("crash: TimeoutError") and out["error_node"] == "retrieve_evidence"
+    )
+
+
+def test_too_few_requirements_is_unknown_not_zero(
+    deps: Deps, fake: FakeProvider, job: JobPosting
+) -> None:
+    fake.script(RequirementsOut, RequirementsOut(requirements=[]))
+    fit = run_fit(job, deps)["fit"]
+    assert fit.verdict == "unknown" and not fit.assessments
+    assert not any(s == "FitOut" for s, _, _ in fake.calls)  # no paid scoring call

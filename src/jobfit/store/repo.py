@@ -7,6 +7,7 @@ TODO (Phase 7): wrap behind a TrackerSink interface with SupabaseSink default + 
 from __future__ import annotations
 
 import json
+from contextlib import AbstractContextManager
 from typing import TYPE_CHECKING, Any, Protocol
 
 from jobfit.schemas import Drafts, FitResult, JobPosting, Stage
@@ -54,25 +55,26 @@ _TAILOR_COLS = {"drafts", "issues", "resume_pdf", "cover_pdf", "trace_url"}
 
 class PgRepo:
     def __init__(self, dsn: str) -> None:
-        self._dsn = dsn
+        from jobfit.store.db import SharedConnection
 
-    def _conn(self) -> psycopg.Connection[dict[str, Any]]:
-        import psycopg
-        from psycopg.rows import dict_row
+        self._db = SharedConnection(dsn, dict_rows=True)
 
-        return psycopg.connect(self._dsn, autocommit=True, row_factory=dict_row)
+    def _conn(self) -> AbstractContextManager[psycopg.Connection[Any]]:
+        # Shared, timeout-bounded connection; `with` does not close it (see store/db.py).
+        return self._db.use()
 
     def upsert_job(self, job: JobPosting) -> None:
         with self._conn() as c:
             c.execute(
-                """insert into jobs (id, source, external_id, company, title, location, url,
-                     description, pay, posted_at, status, stage)
-                   values (%(id)s, %(source)s, %(external_id)s, %(company)s, %(title)s,
-                     %(location)s, %(url)s, %(description)s, %(pay)s, %(posted_at)s,
-                     %(status)s, %(stage)s)
+                """insert into jobs (id, source, external_id, board, company, title, location,
+                     url, description, pay, posted_at, remote, closes_at, status, stage)
+                   values (%(id)s, %(source)s, %(external_id)s, %(board)s, %(company)s,
+                     %(title)s, %(location)s, %(url)s, %(description)s, %(pay)s, %(posted_at)s,
+                     %(remote)s, %(closes_at)s, %(status)s, %(stage)s)
                    on conflict (id) do update set title = excluded.title,
                      location = excluded.location, url = excluded.url,
                      description = excluded.description, pay = excluded.pay,
+                     remote = excluded.remote, closes_at = excluded.closes_at,
                      status = excluded.status, last_seen = now()""",
                 job.model_dump(),
             )

@@ -28,6 +28,7 @@ from jobfit.schemas import (
 )
 
 MAX_REQUIREMENTS = 15
+MIN_REQUIREMENTS = 2
 EVIDENCE_PER_REQ = 5
 _PER_KIND = {
     "bullet": 3,
@@ -122,6 +123,19 @@ def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
         job: JobPosting = state["job"]
         reqs: list[Requirement] = state["requirements"]
         ev: dict[str, list[EvidenceRef]] = state["evidence"]
+        if len(reqs) < MIN_REQUIREMENTS:
+            # WHY: no requirements means "can't tell", not "bad fit". Skip the paid call and
+            # mark it unknown so the dashboard can say "open the posting" instead of scoring 0.
+            return {
+                "fit": FitResult(
+                    fit_score=0,
+                    verdict="unknown",
+                    verdict_line="Too little posting text to assess; open the original listing.",
+                    assessments=[],
+                    top_gaps=[],
+                    injection_flags=state.get("flags", []),
+                )
+            }
         # Token budget: the model sees requirements + retrieved evidence, not the posting again.
         lines = [f"Role: {job.title} at {job.company}", "<requirements>"]
         for r in reqs:

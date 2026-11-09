@@ -30,6 +30,7 @@ class FastEmbedder:
     def __init__(self, model_name: str, dim: int) -> None:
         from fastembed import TextEmbedding  # lazy: import is slow and pulls onnxruntime
 
+        # Cache dir comes from FASTEMBED_CACHE_PATH when set (CI caches it between runs).
         self._model = TextEmbedding(model_name=model_name)
         self.name = model_name
         self.dim = dim

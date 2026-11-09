@@ -13,6 +13,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `make db-up && make migrate && make index` local pgvector at localhost:54329
   (`DATABASE_URL=postgresql://postgres:jobfit@localhost:54329/jobfit`)
 - `uv run jobfit profile validate|index|search "query"`
+- `uv run jobfit ingest [--source greenhouse] [--no-score] [--top N]` daily pipeline
+- `uv run jobfit add URL` or `add --text FILE --company X --title Y` manual posting + score
 - `uv run jobfit fit posting.txt --company X --title Y [--tailor]` live run (uses .env keys)
 - `uv run playwright install chromium` once, for PDF rendering and `-m render` tests
 - On this Mac use `/opt/homebrew/bin/uv` (the one in ~/.local/bin is x86_64 and won't run).
@@ -27,6 +29,9 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `src/jobfit/graphs/` fit + tailor LangGraph graphs, `sanitize.py` (injection guard), `verify.py` (claim checks).
 - `src/jobfit/render/` Jinja HTML/CSS + Playwright PDFs. Layout measured from `reference/layout/`.
 - `config/tech_lexicon.yaml` tech names the verifier rejects unless they appear in the profile.
+- `config/watchlist.yaml` company boards; `config/ingest.yaml` sources, prefilter, top N.
+- `src/jobfit/ingest/` source adapters, prefilter, pipeline, manual add. `store/ingest_store.py` closing rules.
+- `.github/workflows/daily-ingest.yml` 11:00 UTC cron; secrets listed in its header.
 
 ## Hard rules
 - Never add a fact to the profile that isn't true. Generated text cites evidence IDs or it's rejected.
@@ -34,7 +39,9 @@ Vite + React + TS frontend. Everything must stay on free tiers.
   project ships them (see `pending_tools` in constraints.yaml).
 - BAS in IT is "In progress". No bachelor's degree claims.
 - No em dashes in generated text. No banned phrases (constraints.yaml).
-- No LinkedIn/Indeed scraping. Only public job-board APIs.
+- No LinkedIn/Indeed scraping. Only public job-board APIs. `ingest/manual.py` refuses those hosts.
+- Remotive / Remote OK terms: keep their job URL as the link and credit them as the source.
+- A failed fetch never closes jobs. Auto-close only moves New/Shortlisted cards to Closed.
 - Model names and secrets come from `jobfit.config.Settings`, never hardcoded.
 - Unit tests and CI run offline: use `HashEmbedder` / `InMemoryStore` / `FakeProvider`, mark DB tests
   `@pytest.mark.db` and Chromium tests `@pytest.mark.render`.

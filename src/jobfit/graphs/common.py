@@ -21,7 +21,7 @@ from jobfit.profile.models import Profile
 from jobfit.rag.store import VectorStore
 from jobfit.schemas import ResumeOut
 from jobfit.store.repo import Repo
-from jobfit.tracing import TraceCtx, current_ctx
+from jobfit.tracing import TraceCtx, current_ctx, is_control_flow
 
 log = logging.getLogger("jobfit.graph")
 
@@ -62,6 +62,17 @@ def node(name: str, deps: Deps) -> Callable[[NodeFn], NodeFn]:
                     log.error("%s failed: %s", name, e)
                     span.update(level="ERROR", error=str(e))
                     return {"error": f"llm: {e}", "error_node": name}
+                except Exception as e:
+                    # WHY: a DB timeout or bad payload on one job must not abort a daily run
+                    # over 15 jobs. It becomes this run's error; the caller moves on.
+                    if is_control_flow(e):
+                        raise  # interrupt() pauses the graph by raising; let it through
+                    log.exception("%s crashed", name)
+                    span.update(level="ERROR", error=f"{type(e).__name__}: {e}")
+                    return {
+                        "error": f"crash: {type(e).__name__}: {str(e)[:300]}",
+                        "error_node": name,
+                    }
                 span.update(output={k: _brief(v) for k, v in out.items()})
                 return out
 

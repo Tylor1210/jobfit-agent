@@ -1,0 +1,59 @@
+# Daily ingestion settings. Read by jobfit.ingest.config.
+# CONSTRAINT: public job APIs only. No LinkedIn or Indeed scraping (their terms forbid it);
+# paste those postings into the dashboard's Add job page instead.
+
+sources:
+  greenhouse: {enabled: true}   # boards from config/watchlist.yaml
+  lever: {enabled: true}
+  ashby: {enabled: true}
+  remotive:
+    enabled: true
+    # Remotive asks for few calls per day; one call per category, once a day.
+    categories: [software-dev, customer-support, devops]
+  remoteok: {enabled: true}
+  usajobs:
+    enabled: true                # skipped automatically until USAJOBS_API_KEY + USAJOBS_EMAIL are set
+    keywords: [artificial intelligence, information technology specialist, solutions architect, systems integration]
+    results_per_keyword: 100
+  adzuna:
+    enabled: true                # skipped automatically until ADZUNA_APP_ID + ADZUNA_APP_KEY are set
+    country: us
+    queries:
+      - {what: forward deployed engineer, where: ""}
+      - {what: solutions engineer, where: Florida}
+      - {what: implementation specialist, where: Florida}
+      - {what: AI engineer, where: Florida}
+    results_per_query: 50
+
+# How a job counts as closed:
+# - company boards and full feeds: gone from the latest successful fetch -> closed right away
+# - search APIs (USAJOBS, Adzuna): past its close date, or unseen for `stale_days`
+stale_days: 7
+
+prefilter:
+  # Case-insensitive substrings of the job title. At least one must match.
+  title_include:
+    - forward deployed
+    - solutions engineer
+    - solution engineer
+    - solutions architect
+    - solution architect
+    - implementation
+    - ai engineer
+    - integration
+    - configuration
+  # Any of these in the title drops the job (too senior, or not a job).
+  title_exclude: [intern, internship, director, vice president, " vp", head of, principal, staff]
+  # Remote roles must be open to the US. On-site/hybrid roles must be in one of these places.
+  local_places: [miami, fort lauderdale, ft. lauderdale, boca raton, weston, south florida]
+  # Remote location text that means "not open to US candidates".
+  remote_reject: [canada only, europe, emea, uk only, latam, apac, india, philippines, germany, poland, brazil]
+  # Cosine similarity floor between the posting and the profile (bge-small, 0..1).
+  # Measured on real postings: anything passing the title filter scores ~0.65 to 0.80, so this
+  # floor only drops outliers. Similarity mainly sets the scoring order.
+  min_similarity: 0.60
+  # Added to similarity when ranking South Florida roles, so local jobs get scored first.
+  local_bonus: 0.08
+
+# Only the best N new candidates per day go through the (paid) fit graph.
+score_top_n: 15
