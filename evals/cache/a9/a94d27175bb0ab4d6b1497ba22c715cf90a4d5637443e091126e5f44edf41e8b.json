@@ -1,0 +1,153 @@
+{
+ "schema": "FitOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 15340,
+ "usage": {
+  "input_tokens": 6024,
+  "output_tokens": 3785,
+  "cache_read_tokens": 1047,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Staff Software Engineer, AI Engineering at Tebra\n<requirements>\n[r1] (required, years_experience) 8+ years professional software engineering experience bu",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "partial",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.5"
+    ],
+    "note": "Shows about 4 years building platforms and edge systems, short of the 8+ years asked."
+   },
+   {
+    "req_id": "r2",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.python",
+     "skill.fastapi",
+     "exp.tycodes.4"
+    ],
+    "note": "Python and FastAPI shown; no Java or Spring Boot evidence."
+   },
+   {
+    "req_id": "r3",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.1",
+     "exp.tycodes.9"
+    ],
+    "note": "Multiple shipped AI agent applications over about 4 years."
+   },
+   {
+    "req_id": "r4",
+    "status": "met",
+    "evidence_ids": [
+     "skill.langgraph",
+     "exp.tycodes.7"
+    ],
+    "note": "Built a LangGraph agent in production-style workflow."
+   },
+   {
+    "req_id": "r5",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.rag",
+     "skill.prompt_engineering",
+     "sum.1"
+    ],
+    "note": "RAG and prompting shown; tool calling and human-in-the-loop not evidenced."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.etl",
+     "exp.fairman.2"
+    ],
+    "note": "Data pipelines shown; no Kafka or event-driven messaging evidence."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.langfuse"
+    ],
+    "note": "Langfuse tracing shown; no evaluation pipeline or fallback mechanisms evidenced."
+   },
+   {
+    "req_id": "r8",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.fairman.1",
+     "exp.fairman.2"
+    ],
+    "note": "Led modernization and validation work; influence without authority is not explicit."
+   },
+   {
+    "req_id": "r9",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence of cross-functional communication with Product, Design, or Operations."
+   },
+   {
+    "req_id": "r10",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.wrangler",
+     "exp.tycodes.5",
+     "exp.linkme.1"
+    ],
+    "note": "Cloud work is on Cloudflare; no AWS, Azure, or GCP evidence."
+   },
+   {
+    "req_id": "r11",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.langgraph",
+     "exp.tycodes.7"
+    ],
+    "note": "Agent graphs and RAG shown; multi-tier memory and recursive reasoning not evidenced."
+   },
+   {
+    "req_id": "r12",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No healthcare, RCM, billing, claims, or fintech experience in the evidence."
+   },
+   {
+    "req_id": "r13",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.rag",
+     "skill.sql"
+    ],
+    "note": "Hands-on pgvector vector search shown; knowledge graph work not evidenced."
+   },
+   {
+    "req_id": "r14",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.rag"
+    ],
+    "note": "Uses embeddings via RAG; no PyTorch, Transformers, or fine-tuning evidence."
+   },
+   {
+    "req_id": "r15",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.tycodes.4",
+     "sum.1"
+    ],
+    "note": "Founder role building AI systems, but no platform lead role at a company."
+   }
+  ],
+  "verdict_line": "Strong AI agent and orchestration fit, but the candidate is short on years, Java and Spring Boot, and messaging systems for this Staff role.",
+  "top_gaps": [
+   "8+ years of distributed systems experience (candidate has about 4)",
+   "Java and Spring Boot backend experience",
+   "Kafka and event-driven messaging experience"
+  ]
+ }
+}

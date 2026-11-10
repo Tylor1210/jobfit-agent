@@ -155,14 +155,17 @@ class CoverLetterOut(BaseModel):
     paragraphs: list[ParagraphOut]
 
 
-class UnsupportedClaimOut(BaseModel):
-    item: int = Field(description="The item number the claim came from.")
-    claim: str = Field(description="The unsupported part, quoted.")
-    reason: str
+class ClaimVerdictOut(BaseModel):
+    item: int = Field(description="The item number.")
+    supported: bool = Field(description="true if the evidence backs everything the claim says.")
+    claim: str = Field(description="If unsupported: the unsupported part, quoted. Else empty.")
+    reason: str = Field(description="One short sentence.")
 
 
 class ClaimCheckOut(BaseModel):
-    unsupported: list[UnsupportedClaimOut]
+    # WHY: one explicit verdict per item. A bare "list the unsupported claims" let Haiku list
+    # lines it had itself judged "supported by evidence", which failed the eval gate.
+    checks: list[ClaimVerdictOut]
 
 
 class Issue(BaseModel):

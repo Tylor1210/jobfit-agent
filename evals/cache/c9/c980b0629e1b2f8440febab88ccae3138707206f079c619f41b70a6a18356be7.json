@@ -1,0 +1,81 @@
+{
+ "schema": "FitOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 8536,
+ "usage": {
+  "input_tokens": 2660,
+  "output_tokens": 1891,
+  "cache_read_tokens": 1047,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Configuration Specialist II at CentralReach\n<requirements>\n[r1] (required, years_experience) 1–3 years of experience in a technical configuration, impleme",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "met",
+    "evidence_ids": [
+     "exp.linkme.3",
+     "exp.linkme.1"
+    ],
+    "note": "About 4 years of technical implementation and onboarding work at Linkme, which meets the 1-3 year requirement."
+   },
+   {
+    "req_id": "r2",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "exp.linkme.3"
+    ],
+    "note": "Shows attention to detail through validation pipelines and onboarding blueprints, but no evidence of concurrent task management."
+   },
+   {
+    "req_id": "r3",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.linkme.3"
+    ],
+    "note": "Client-facing onboarding is shown, but cross-functional work with Implementation, Product, and Engineering is not explicit."
+   },
+   {
+    "req_id": "r4",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "exp.linkme.1"
+    ],
+    "note": "Built and deployed systems, but no evidence of resolving complex configuration issues with limited guidance."
+   },
+   {
+    "req_id": "r5",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "exp.tycodes.7"
+    ],
+    "note": "Backend validation and agent workflow configuration shown, but translating business requirements into AI rule settings is not explicit."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.linkme.3",
+     "exp.linkme.1"
+    ],
+    "note": "Client onboarding and an operations CRM are shown, but direct customer account provisioning across systems is not."
+   },
+   {
+    "req_id": "r7",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence of autism/IDD care software or ABA therapy domain experience."
+   }
+  ],
+  "verdict_line": "The candidate has relevant systems and onboarding experience and meets the years requirement, but several configuration and cross-functional items are only partly shown and there is no ABA or IDD domain experience.",
+  "top_gaps": [
+   "Experience with autism/IDD care software or ABA therapy domain",
+   "Cross-functional coordination with Implementation, Product, and Engineering teams",
+   "Provisioning and configuring customer accounts across internal systems with minimal oversight"
+  ]
+ }
+}

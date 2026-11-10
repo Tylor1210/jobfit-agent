@@ -1,0 +1,157 @@
+{
+ "schema": "ResumeOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 13682,
+ "usage": {
+  "input_tokens": 4126,
+  "output_tokens": 3998,
+  "cache_read_tokens": 1752,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "summary": "AI agent engineer with 4+ years building production software, including a LangGraph agent with human approval, RAG on pgvector, and Langfuse tracing. Built an eval suite with record/replay gates that block unsupported claims and require passing prompt injection tests. Shipped on FastAPI, Postgres, Docker, and GitHub Actions, and onboarded enterprise clients through integration blueprints and live demo environments. Pairs hands-on agent building with customer onboarding experience for deployment work.",
+  "summary_evidence_ids": [
+   "sum.1",
+   "exp.tycodes.7",
+   "exp.tycodes.8",
+   "exp.tycodes.9",
+   "exp.linkme.3"
+  ],
+  "skill_rows": [
+   {
+    "label": "Agent orchestration",
+    "skill_ids": [
+     "skill.langgraph",
+     "skill.claude_code",
+     "skill.tool_calling",
+     "skill.human_in_the_loop",
+     "skill.structured_outputs",
+     "skill.icm",
+     "skill.anthropic_api",
+     "skill.prompt_engineering"
+    ]
+   },
+   {
+    "label": "Languages and backend",
+    "skill_ids": [
+     "skill.python",
+     "skill.typescript",
+     "skill.fastapi",
+     "skill.postgresql",
+     "skill.pydantic",
+     "skill.nodejs"
+    ]
+   },
+   {
+    "label": "Evals, tracing, and safety",
+    "skill_ids": [
+     "skill.llm_evals",
+     "skill.langfuse",
+     "skill.prompt_injection_defense",
+     "skill.rag",
+     "skill.pytest"
+    ]
+   },
+   {
+    "label": "Cloud and delivery",
+    "skill_ids": [
+     "skill.cloudflare",
+     "skill.docker",
+     "skill.github_actions",
+     "skill.wrangler",
+     "skill.git",
+     "skill.mentoring"
+    ]
+   }
+  ],
+  "jobs": [
+   {
+    "job_id": "exp.tycodes",
+    "bullets": [
+     {
+      "text": "Built a LangGraph agent that ingests daily job postings, scores each against an evidence base with RAG on pgvector, and drafts documents behind a human approval step.",
+      "source_ids": [
+       "exp.tycodes.7"
+      ]
+     },
+     {
+      "text": "Enforced evidence-cited outputs with a verify loop and layered prompt injection defense, and built an eval suite with record/replay gates in CI.",
+      "source_ids": [
+       "exp.tycodes.8"
+      ]
+     },
+     {
+      "text": "Shipped the agent with FastAPI, a React/TypeScript dashboard, Postgres, Langfuse tracing, a daily cost cap, Docker, and GitHub Actions CI with 70 tests and the eval gate.",
+      "source_ids": [
+       "exp.tycodes.9"
+      ]
+     },
+     {
+      "text": "Built a staged Python pipeline (ICM) that audits local business sites, tests Google AI answers, and scores AI visibility, with draft-only outreach behind human approval.",
+      "source_ids": [
+       "exp.tycodes.10"
+      ]
+     },
+     {
+      "text": "Built tycodes.app, an AI demo generator with a 6-stage agent pipeline and automated verification of pricing and claims, running on Cloudflare Workers and Workflows.",
+      "source_ids": [
+       "exp.tycodes.1"
+      ]
+     },
+     {
+      "text": "Engineered tycodes.dev on Cloudflare Workers with a Hono Worker running Firecrawl and OpenAI for automated audit and pricing models.",
+      "source_ids": [
+       "exp.tycodes.5"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.linkme",
+    "bullets": [
+     {
+      "text": "Designed integration blueprints and live demo environments to onboard high-value enterprise clients onto the core platform.",
+      "source_ids": [
+       "exp.linkme.3"
+      ]
+     },
+     {
+      "text": "Architected and deployed linkme-intops, an operations CRM module built with React and TypeScript on Cloudflare Workers for staff managing high-value subscription accounts.",
+      "source_ids": [
+       "exp.linkme.1"
+      ]
+     },
+     {
+      "text": "Engineered custom data ingestion modules and analytics pipelines for VIP workflows, cutting service delivery times by over 30%.",
+      "source_ids": [
+       "exp.linkme.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.71lbs",
+    "bullets": [
+     {
+      "text": "Mentored and onboarded incoming representatives to reach 15%+ conversion rate benchmarks.",
+      "source_ids": [
+       "exp.71lbs.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.fairman",
+    "bullets": [
+     {
+      "text": "Built database-layer data validation pipelines that eliminated 98% of transactional and invoicing errors.",
+      "source_ids": [
+       "exp.fairman.2"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

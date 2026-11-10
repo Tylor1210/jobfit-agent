@@ -16,11 +16,11 @@ from typing import Any
 
 from langgraph.checkpoint.memory import InMemorySaver
 
-from jobfit.evals.cache import CacheMiss, CachingProvider, Mode
+from jobfit.evals.cache import CachedEmbedder, CacheMiss, CachingProvider, Mode
 from jobfit.evals.cases import Case
 from jobfit.graphs.common import Deps
 from jobfit.graphs.fit import run_fit
-from jobfit.graphs.tailor import load_voice_samples, start_tailor
+from jobfit.graphs.tailor import start_tailor
 from jobfit.graphs.verify import hallucination_count
 from jobfit.llm.client import LLM, ModelsConfig, build_provider
 from jobfit.llm.cost import InMemoryLedger
@@ -257,8 +257,9 @@ def run_eval(
     if mode != "replay" and _has_key(cfg.provider):
         inner = build_provider(cfg.provider)
     provider = CachingProvider(inner, cfg.provider, mode)
+    cached_embedder = CachedEmbedder(embedder)
     profile = load_profile()
-    store = InMemoryStore(embedder)
+    store = InMemoryStore(cached_embedder)
     store.upsert(build_chunks(profile))
     base = Deps(
         llm=LLM(provider, cfg, InMemoryLedger(), MemoryTracer()),
@@ -266,7 +267,9 @@ def run_eval(
         repo=InMemoryRepo(),
         profile=profile,
         constraints=load_constraints(),
-        voice_samples=load_voice_samples(),
+        # WHY: no voice samples in evals. They're gitignored (Tylor's own letters), so CI would
+        # build different cover-letter prompts than a local run and every recording would miss.
+        voice_samples=[],
     )
     base.page_count = _page_counter(base) if tailor else None
 
@@ -279,6 +282,8 @@ def run_eval(
             continue
         c = case if tailor else case.model_copy(update={"tailor": False})
         results.append(run_case(c, base, provider))
+    if mode != "replay":  # CI replays; only local runs write recordings
+        cached_embedder.save()
     return results, summarize(results, cfg.provider, mode, base.page_count is not None)
 
 

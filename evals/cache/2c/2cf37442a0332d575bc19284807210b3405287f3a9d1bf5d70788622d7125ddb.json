@@ -1,0 +1,159 @@
+{
+ "schema": "FitOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 13243,
+ "usage": {
+  "input_tokens": 6319,
+  "output_tokens": 3238,
+  "cache_read_tokens": 1047,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n[r1] (required, years_experience) Professional experience building and dep",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.7"
+    ],
+    "note": "About 4 years shipping LangGraph agent systems end to end, including Job Fit Agent."
+   },
+   {
+    "req_id": "r2",
+    "status": "met",
+    "evidence_ids": [
+     "skill.python",
+     "skill.typescript",
+     "exp.tycodes.10"
+    ],
+    "note": "Python and TypeScript used to build AI pipelines and applications."
+   },
+   {
+    "req_id": "r3",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.langfuse",
+     "skill.icm",
+     "skill.tool_calling"
+    ],
+    "note": "Shows tracing, context pipelines, and tools, but not permissions or controls."
+   },
+   {
+    "req_id": "r4",
+    "status": "met",
+    "evidence_ids": [
+     "exp.tycodes.7",
+     "exp.tycodes.1",
+     "skill.claude_code"
+    ],
+    "note": "Built LangGraph and multi-stage agent pipelines with orchestration and human review."
+   },
+   {
+    "req_id": "r5",
+    "status": "met",
+    "evidence_ids": [
+     "skill.langgraph",
+     "exp.tycodes.7",
+     "skill.human_in_the_loop"
+    ],
+    "note": "Uses LangGraph state-machine agent graphs with human approval steps."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.llm_evals",
+     "skill.human_in_the_loop"
+    ],
+    "note": "Lists LLM evals and HITL review, but no benchmark or regression suite design shown."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.prompt_engineering",
+     "skill.structured_outputs",
+     "exp.tycodes.7"
+    ],
+    "note": "Covers prompting, structured outputs, and RAG, but no explicit trade-off analysis."
+   },
+   {
+    "req_id": "r8",
+    "status": "met",
+    "evidence_ids": [
+     "skill.langfuse",
+     "exp.tycodes.9"
+    ],
+    "note": "Langfuse tracing added to a shipped agent for observability."
+   },
+   {
+    "req_id": "r9",
+    "status": "met",
+    "evidence_ids": [
+     "exp.tycodes.9",
+     "skill.anthropic_api",
+     "exp.tycodes.1"
+    ],
+    "note": "Shipped APIs with FastAPI, Postgres, Docker, CI, and Cloudflare infrastructure."
+   },
+   {
+    "req_id": "r10",
+    "status": "met",
+    "evidence_ids": [
+     "exp.linkme.3",
+     "exp.linkme.1",
+     "skill.mentoring"
+    ],
+    "note": "Onboarded enterprise clients and delivered demos with cross-functional teams."
+   },
+   {
+    "req_id": "r11",
+    "status": "partial",
+    "evidence_ids": [
+     "sum.1"
+    ],
+    "note": "Architect role implies communication, but explaining AI risks and trade-offs is not shown."
+   },
+   {
+    "req_id": "r12",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence of travel or on-site client delivery."
+   },
+   {
+    "req_id": "r13",
+    "status": "met",
+    "evidence_ids": [
+     "skill.claude_code",
+     "exp.tycodes.7",
+     "skill.structured_outputs"
+    ],
+    "note": "Built LangGraph agents and uses Claude Code orchestrator workflows."
+   },
+   {
+    "req_id": "r14",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.wrangler",
+     "exp.linkme.1",
+     "exp.tycodes.5"
+    ],
+    "note": "Cloudflare Workers experience only; no AWS, Azure, or Google Cloud shown."
+   },
+   {
+    "req_id": "r15",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No Claude architect certification; only Claude Code skill and unrelated certs."
+   }
+  ],
+  "verdict_line": "The candidate has strong agent-building and Python/TypeScript evidence with about 4 years of experience, but evaluation design depth, harness controls, and travel are not shown.",
+  "top_gaps": [
+   "Evaluation system design for AI applications, such as benchmarks, regression suites, and production monitoring",
+   "Harness controls and permissions for AI agents",
+   "Ability to travel for client workshops or on-site delivery"
+  ]
+ }
+}

@@ -245,18 +245,32 @@ def build_tailor_graph(
         items = [it for it in items if not restates(it[1], " ".join(idx.get(i, "") for i in it[2]))]
         if not items:
             return []
+        # A line may combine facts from one job ("I built an agent whose outputs cite evidence"
+        # draws on two TYcodes bullets) while citing only one. The checker sees the cited
+        # bullets' whole role, so that passes; facts from other roles or invented ones still fail.
+        role_of = {b.id: [x.id for x in bs] for _, _, bs in roles for b in bs}
+
+        def context(ids: list[str]) -> list[str]:
+            out = list(dict.fromkeys(ids))
+            for i in ids:
+                out += [x for x in role_of.get(i, []) if x not in out]
+            return out
+
         prompt = "\n\n".join(
-            f"[{n}] CLAIM: {text}\nEVIDENCE: {' | '.join(idx.get(i, '?') for i in ids)}"
+            f"[{n}] CLAIM: {text}\nEVIDENCE: {' | '.join(idx.get(i, '?') for i in context(ids))}"
             for n, (_, text, ids) in enumerate(items)
         )
         res = deps.llm.structured("verify_claims", prompts.VERIFY_CLAIMS, prompt, ClaimCheckOut)
         return [
             Issue(
-                doc=items[u.item][0] if 0 <= u.item < len(items) else "resume",
+                doc=items[c.item][0] if 0 <= c.item < len(items) else "resume",
                 rule="unsupported_claim",
-                detail=f"{u.claim} ({u.reason})",
+                detail=f"{c.claim or items[c.item][1][:120]} ({c.reason})"
+                if 0 <= c.item < len(items)
+                else f"{c.claim} ({c.reason})",
             )
-            for u in res.output.unsupported
+            for c in res.output.checks
+            if not c.supported
         ]
 
     @node("verify", deps)

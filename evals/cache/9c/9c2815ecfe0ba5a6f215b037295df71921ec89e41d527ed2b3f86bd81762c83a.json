@@ -1,0 +1,44 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 14511,
+ "usage": {
+  "input_tokens": 1471,
+  "output_tokens": 3206,
+  "cache_read_tokens": 1232,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Configuration Specialist II at CentralReach\n<requirements>\n- (required) 1–3 years of experience in a technical configuration, implementation, or SaaS opera",
+ "output": {
+  "greeting": "Dear CentralReach Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "I am applying for the Configuration Specialist II role because the posting asks for translating business and implementation requirements into backend system configurations. In a previous role I constructed database-layer automated data validation pipelines that eliminated 98% of transactional and invoicing errors. I am a Systems Architect focused on AI automation and agent engineering, with 4+ years of experience building full-stack platforms, business automation tools, and AI agent workflows.",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "sum.1"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "The posting asks for provisioning and configuring customer accounts across internal systems. I architected and deployed linkme-intops, an operations CRM module built with React and TypeScript on Cloudflare Workers, which gives staff a dedicated interface for high-value subscription accounts. I also designed integration blueprints and live demo environments to reliably onboard high-value enterprise clients onto the core platform. For AI rule settings and workflows, the posting asks for careful configuration work. I built Job Fit Agent, a LangGraph agent that drafts tailored documents behind a human approval step.",
+    "evidence_ids": [
+     "exp.linkme.1",
+     "exp.linkme.3",
+     "exp.tycodes.7"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "The gap is domain. I have no experience with autism or IDD care software or Applied Behavior Analysis therapy, and I will not claim otherwise. To close it, I would spend my first month with your Implementation team learning how ABA workflows run from intake to billing, and I would document the configuration tickets that take the longest to resolve. Before I change any backend rule, I would confirm it with the people who use it every day.",
+    "evidence_ids": []
+   },
+   {
+    "kind": "closing",
+    "text": "If translating clinical requirements into clean backend configurations is the job you need filled, I would like to talk. Could we set up a short call this week or next?",
+    "evidence_ids": []
+   }
+  ]
+ }
+}

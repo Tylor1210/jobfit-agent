@@ -1,0 +1,172 @@
+{
+ "schema": "ResumeOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 20924,
+ "usage": {
+  "input_tokens": 3526,
+  "output_tokens": 5690,
+  "cache_read_tokens": 1752,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Configuration Specialist II at CentralReach\n<requirements>\n- (required) 1–3 years of experience in a technical configuration, implementation, or SaaS opera",
+ "output": {
+  "summary": "Systems architect with 4+ years building full-stack platforms, business automation tools, and AI agent workflows. Ships LangGraph agents end to end with human approval steps, LLM evals, and validated database-layer pipelines that eliminated 98% of transactional and invoicing errors. Built an operations CRM module and onboarding integration blueprints for high-value enterprise clients at Linkme. Military supply accountability sets the attention to detail that multi-step account configuration requires.",
+  "summary_evidence_ids": [
+   "sum.1",
+   "exp.tycodes.7",
+   "exp.fairman.2",
+   "exp.linkme.1",
+   "exp.linkme.3",
+   "mil.flarng.2"
+  ],
+  "skill_rows": [
+   {
+    "label": "AI agent workflows",
+    "skill_ids": [
+     "skill.langgraph",
+     "skill.human_in_the_loop",
+     "skill.llm_evals",
+     "skill.structured_outputs",
+     "skill.prompt_engineering",
+     "skill.langfuse",
+     "skill.pydantic"
+    ]
+   },
+   {
+    "label": "Data and validation",
+    "skill_ids": [
+     "skill.postgresql",
+     "skill.sql",
+     "skill.etl",
+     "skill.zod",
+     "skill.crm"
+    ]
+   },
+   {
+    "label": "Platform and app build",
+    "skill_ids": [
+     "skill.typescript",
+     "skill.react",
+     "skill.python",
+     "skill.fastapi",
+     "skill.cloudflare",
+     "skill.docker",
+     "skill.github_actions"
+    ]
+   },
+   {
+    "label": "Onboarding and mentoring",
+    "skill_ids": [
+     "skill.mentoring",
+     "skill.crm",
+     "skill.sales_development"
+    ]
+   }
+  ],
+  "jobs": [
+   {
+    "job_id": "exp.linkme",
+    "bullets": [
+     {
+      "text": "Built and deployed linkme-intops, an operations CRM module on React, TypeScript, and Cloudflare Workers that gives staff a dedicated interface for high-value subscription accounts.",
+      "source_ids": [
+       "exp.linkme.1"
+      ]
+     },
+     {
+      "text": "Designed integration blueprints and live demo environments that reliably onboarded high-value enterprise clients onto the core platform.",
+      "source_ids": [
+       "exp.linkme.3"
+      ]
+     },
+     {
+      "text": "Engineered custom data ingestion modules and analytics pipelines for VIP workflows, cutting service delivery times by over 30%.",
+      "source_ids": [
+       "exp.linkme.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.fairman",
+    "bullets": [
+     {
+      "text": "Built database-layer automated data validation pipelines that eliminated 98% of transactional and invoicing errors.",
+      "source_ids": [
+       "exp.fairman.2"
+      ]
+     },
+     {
+      "text": "Led end-to-end modernization from legacy desktop systems to cloud-native web infrastructure, cutting manual data processing overhead by 68%.",
+      "source_ids": [
+       "exp.fairman.1"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.tycodes",
+    "bullets": [
+     {
+      "text": "Built Job Fit Agent, a LangGraph agent that scores job postings against an evidence base using RAG on pgvector and drafts documents behind a human approval step.",
+      "source_ids": [
+       "exp.tycodes.7"
+      ]
+     },
+     {
+      "text": "Enforced evidence-cited outputs with a mostly deterministic verify loop and layered prompt injection defense; eval gates in CI require zero unsupported claims and passing injection tests.",
+      "source_ids": [
+       "exp.tycodes.8"
+      ]
+     },
+     {
+      "text": "Shipped the agent with FastAPI, a React/TypeScript dashboard, Postgres, Langfuse tracing, a daily cost cap, Docker, and GitHub Actions CI with 70 tests and an eval gate.",
+      "source_ids": [
+       "exp.tycodes.9"
+      ]
+     },
+     {
+      "text": "Built tycodes-pipeline, a staged Python pipeline that finds local businesses via Google Places, with a Google Sheets CRM and draft-only outreach behind human approval.",
+      "source_ids": [
+       "exp.tycodes.10"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.71lbs",
+    "bullets": [
+     {
+      "text": "Secured 50+ qualified meetings per month against a daily team quota of 2, setting an organizational record of 120+ booked meetings in one month.",
+      "source_ids": [
+       "exp.71lbs.1"
+      ]
+     },
+     {
+      "text": "Mentored and onboarded incoming representatives to reach 15%+ conversion rate benchmarks.",
+      "source_ids": [
+       "exp.71lbs.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "mil.flarng",
+    "bullets": [
+     {
+      "text": "Managed $100M+ in high-value federal inventory across 12 regional sites serving 8,000+ personnel daily, maintaining 100% audit accuracy while cutting processing times by 35%.",
+      "source_ids": [
+       "mil.flarng.1"
+      ]
+     },
+     {
+      "text": "Enforced accountability procedures to eliminate supply chain bottlenecks during high-demand deployment rotations; awarded the Army Achievement Medal (2018) for operational excellence.",
+      "source_ids": [
+       "mil.flarng.2"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

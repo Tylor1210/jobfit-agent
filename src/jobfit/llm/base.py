@@ -12,7 +12,7 @@ from typing import Literal, Protocol, TypeVar
 from pydantic import BaseModel
 
 T = TypeVar("T", bound=BaseModel)
-Tier = Literal["fast", "smart"]
+Tier = Literal["fast", "smart", "check"]
 
 
 @dataclass(frozen=True, slots=True)

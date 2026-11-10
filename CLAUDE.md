@@ -63,7 +63,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
   `@pytest.mark.db` and Chromium tests `@pytest.mark.render`.
 - Fit score is computed in code (`graphs/fit.py:compute_score`), never taken from the model.
 - Titles, companies, dates, education, skill names on the PDF come from the profile, not the LLM.
-- Default LLM is Claude Haiku 5.5 for every node (cheapest; Tylor's call). Groq is the free fallback
+- Default LLM is Claude Haiku 5.5 (cheapest; Tylor's call), except `verify_claims` on Sonnet 5.5
+  (tier `check`): Haiku contradicted its own verdicts and failed the gate on false alarms. Groq is the free fallback
   (`LLM_PROVIDER=groq`, ~8k tokens/min, 200k/day).
 - Any prompt, profile, model or retrieval change invalidates the eval cache: `rm -rf evals/cache &&
   make eval-record` (~$0.05 on Haiku), then commit `evals/cache/`. CI only replays.

@@ -85,3 +85,24 @@ def test_missing_recordings_get_one_clear_gate_message() -> None:
     s = summarize([a, b], "groq", "auto", True)
     assert not s.gate_passed and s.cache_misses == 3
     assert len(s.gate_failures) == 1 and "make eval-record" in s.gate_failures[0]
+
+
+def test_embedding_cache_replays_identical_vectors(tmp_path: Path) -> None:
+    import numpy as np
+
+    from jobfit.evals.cache import CachedEmbedder
+    from jobfit.rag.embedder import HashEmbedder
+
+    path = tmp_path / "emb.npz"
+    rec = CachedEmbedder(HashEmbedder(), path)
+    v1 = rec.embed(["python agents"])[0]
+    q1 = rec.embed_query("python")
+    rec.save()
+
+    class Shifted(HashEmbedder):  # stands in for a different CPU giving slightly other floats
+        def embed(self, texts):  # type: ignore[no-untyped-def]
+            return [v + 1e-4 for v in super().embed(texts)]
+
+    rep = CachedEmbedder(Shifted(), path)
+    assert np.array_equal(rep.embed(["python agents"])[0], v1)
+    assert np.array_equal(rep.embed_query("python"), q1)

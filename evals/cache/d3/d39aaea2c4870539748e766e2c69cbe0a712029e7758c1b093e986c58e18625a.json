@@ -1,0 +1,107 @@
+{
+ "schema": "FitOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 9993,
+ "usage": {
+  "input_tokens": 4314,
+  "output_tokens": 2318,
+  "cache_read_tokens": 1047,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Solutions Architect at Kobie\n<requirements>\n[r1] (required, years_experience) 3-5 years of experience in solutions architecture, business requirements ana",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.linkme.3"
+    ],
+    "note": "About 4 years as a Systems Architect with integration blueprints and client onboarding design."
+   },
+   {
+    "req_id": "r2",
+    "status": "partial",
+    "evidence_ids": [
+     "cert.project_management"
+    ],
+    "note": "Project management certification and architecture work, but no BRD, SCD, or Epic brief authoring shown."
+   },
+   {
+    "req_id": "r3",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "skill.etl"
+    ],
+    "note": "Built validation pipelines for invoicing errors, but no delivery cost (COGS) estimate validation shown."
+   },
+   {
+    "req_id": "r4",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No Agile, Scrum, or waterfall methodology appears in the evidence."
+   },
+   {
+    "req_id": "r5",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.tycodes.1"
+    ],
+    "note": "Built an AI demo generator, but no RFP, RFI, or proposal materials shown."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.linkme.1"
+    ],
+    "note": "Built an operations CRM for staff, but no cross-workstream dependency coordination shown."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.fairman.2"
+    ],
+    "note": "Error reduction via validation is adjacent; no scope drift or corrective action planning shown."
+   },
+   {
+    "req_id": "r8",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No loyalty marketing program or mechanics experience appears in the evidence."
+   },
+   {
+    "req_id": "r9",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.inventory_management"
+    ],
+    "note": "Inventory and supply experience, but not in retail, financial services, or travel delivery."
+   },
+   {
+    "req_id": "r10",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.crm",
+     "exp.linkme.1"
+    ],
+    "note": "Built a CRM module, but no MarTech campaign, CDP, or personalization tools shown."
+   },
+   {
+    "req_id": "r11",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence addresses travel willingness or past travel for work."
+   }
+  ],
+  "verdict_line": "The candidate fits the architecture experience requirement well but shows gaps in methodology, cost validation, and marketing domain knowledge.",
+  "top_gaps": [
+   "Authoring BRDs, SCDs, and Epic/Feature briefs",
+   "Validating delivery cost estimates (COGS)",
+   "Agile/Scrum, waterfall, or iterative delivery methodology experience"
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "claude-sonnet-5-5",
+ "latency_ms": 3531,
+ "usage": {
+  "input_tokens": 3409,
+  "output_tokens": 310,
+  "cache_read_tokens": 808,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect with 4+ years building full-stack platforms, business automation tools, and AI agent workflows. Ships LangGraph agents end to end w",
+ "output": {
+  "checks": [
+   {
+    "item": 0,
+    "supported": false,
+    "claim": "Military supply accountability sets the attention to detail that multi-step account configuration requires.",
+    "reason": "The evidence shows accountability procedures in military supply but nothing about multi-step account configuration or that it set the candidate's attention to detail; the rest of the claim is supported."
+   },
+   {
+    "item": 1,
+    "supported": true,
+    "claim": "",
+    "reason": "The claim restates the 71lbs evidence on 50+ meetings per month, the daily quota of 2, and the 120+ meeting record."
+   },
+   {
+    "item": 2,
+    "supported": true,
+    "claim": "",
+    "reason": "The 98% error elimination and the Systems Architect summary match the evidence; the posting reference is not a claim about the candidate."
+   },
+   {
+    "item": 3,
+    "supported": true,
+    "claim": "",
+    "reason": "The linkme-intops, integration blueprints, and Job Fit Agent statements all match the evidence; posting references are ignored."
+   }
+  ]
+ }
+}

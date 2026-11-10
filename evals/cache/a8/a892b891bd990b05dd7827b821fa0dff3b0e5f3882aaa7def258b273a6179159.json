@@ -1,10 +1,10 @@
 {
  "schema": "RequirementsOut",
  "model": "claude-haiku-5-5",
- "latency_ms": 1792,
+ "latency_ms": 1745,
  "usage": {
   "input_tokens": 1306,
-  "output_tokens": 431,
+  "output_tokens": 372,
   "cache_read_tokens": 853,
   "cache_write_tokens": 0
  },
@@ -32,24 +32,19 @@
     "category": "technical_skill"
    },
    {
-    "text": "Translate documented business and implementation requirements into backend system configurations, workflows, and AI rule settings",
+    "text": "Translate business and implementation requirements into backend system configurations, workflows, and AI rule settings",
     "kind": "required",
     "category": "technical_skill"
    },
    {
     "text": "Provision and configure customer accounts across internal systems and tools with minimal oversight",
     "kind": "required",
-    "category": "technical_skill"
+    "category": "tool"
    },
    {
-    "text": "Maintain accurate configuration documentation and change logs",
-    "kind": "required",
-    "category": "technical_skill"
-   },
-   {
-    "text": "Hybrid work arrangement (CentralReach offices in Ft. Lauderdale, FL; Holmdel, NJ; or Verona, Italy)",
-    "kind": "required",
-    "category": "location"
+    "text": "Experience with autism/IDD care software or Applied Behavior Analysis (ABA) therapy domain",
+    "kind": "preferred",
+    "category": "domain"
    }
   ]
  }

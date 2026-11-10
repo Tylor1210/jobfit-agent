@@ -1,0 +1,166 @@
+{
+ "schema": "ResumeOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 15780,
+ "usage": {
+  "input_tokens": 3879,
+  "output_tokens": 4640,
+  "cache_read_tokens": 1752,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Solutions Architect at Smartsheet\n<requirements>\n- (required) 3 years relevant work experience or equivalent combination of relevant work experience and ed",
+ "output": {
+  "summary": "Systems architect with 4+ years building full-stack, AI-integrated enterprise tools end to end. Built a LangGraph agent with RAG on pgvector, LLM evals, and human approval steps, deployed on Cloudflare and Docker. Designed integration blueprints and live demo environments to onboard high-value enterprise clients. Built database-layer automated data validation pipelines that eliminated 98% of transactional and invoicing errors.",
+  "summary_evidence_ids": [
+   "sum.1",
+   "exp.tycodes.7",
+   "exp.tycodes.9",
+   "exp.tycodes.5",
+   "exp.linkme.3",
+   "exp.fairman.2"
+  ],
+  "skill_rows": [
+   {
+    "label": "AI Agent Systems",
+    "skill_ids": [
+     "skill.langgraph",
+     "skill.rag",
+     "skill.tool_calling",
+     "skill.llm_evals",
+     "skill.prompt_engineering",
+     "skill.langfuse",
+     "skill.claude_code",
+     "skill.anthropic_api",
+     "skill.human_in_the_loop"
+    ]
+   },
+   {
+    "label": "Full-Stack Development",
+    "skill_ids": [
+     "skill.python",
+     "skill.nodejs",
+     "skill.typescript",
+     "skill.react",
+     "skill.fastapi",
+     "skill.postgresql",
+     "skill.cloudflare",
+     "skill.docker",
+     "skill.github_actions"
+    ]
+   },
+   {
+    "label": "Data Integration",
+    "skill_ids": [
+     "skill.etl",
+     "skill.sql",
+     "skill.crm",
+     "skill.google_sheets_api",
+     "skill.javascript"
+    ]
+   },
+   {
+    "label": "Testing and Delivery",
+    "skill_ids": [
+     "skill.pytest",
+     "skill.git",
+     "skill.cost_controls",
+     "skill.structured_outputs"
+    ]
+   }
+  ],
+  "jobs": [
+   {
+    "job_id": "exp.linkme",
+    "bullets": [
+     {
+      "text": "Architected and deployed linkme-intops, an operations CRM module in React and TypeScript on Cloudflare Workers for high-value subscription accounts.",
+      "source_ids": [
+       "exp.linkme.1"
+      ]
+     },
+     {
+      "text": "Designed integration blueprints and live demo environments that onboard high-value enterprise clients onto the core platform.",
+      "source_ids": [
+       "exp.linkme.3"
+      ]
+     },
+     {
+      "text": "Engineered custom data ingestion modules and analytics pipelines for VIP workflows, cutting service delivery times by over 30%.",
+      "source_ids": [
+       "exp.linkme.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.tycodes",
+    "bullets": [
+     {
+      "text": "Built Job Fit Agent, a LangGraph agent that scores job postings against an evidence base using RAG on pgvector and drafts documents behind a human approval step.",
+      "source_ids": [
+       "exp.tycodes.7"
+      ]
+     },
+     {
+      "text": "Shipped the agent with FastAPI, a React/TypeScript dashboard, Postgres, Langfuse tracing, Docker, and GitHub Actions CI with 70 tests and an eval gate.",
+      "source_ids": [
+       "exp.tycodes.9"
+      ]
+     },
+     {
+      "text": "Built tycodes-pipeline, a staged Python pipeline that finds local businesses via Google Places and scores AI visibility, with a Google Sheets CRM and draft-only outreach behind human approval.",
+      "source_ids": [
+       "exp.tycodes.10"
+      ]
+     },
+     {
+      "text": "Engineered tycodes.dev on Cloudflare Workers with Vite, React, TypeScript, and Tailwind, running a Hono Worker that calls Firecrawl and OpenAI for automated audits and pricing models.",
+      "source_ids": [
+       "exp.tycodes.5"
+      ]
+     },
+     {
+      "text": "Enforced evidence-cited outputs with a verify loop and layered prompt injection defense, gated in CI on zero unsupported claims and passing injection tests.",
+      "source_ids": [
+       "exp.tycodes.8"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.fairman",
+    "bullets": [
+     {
+      "text": "Led end-to-end modernization from legacy desktop systems to cloud-native web infrastructure, reducing manual data processing overhead by 68%.",
+      "source_ids": [
+       "exp.fairman.1"
+      ]
+     },
+     {
+      "text": "Built database-layer automated data validation pipelines that eliminated 98% of transactional and invoicing errors.",
+      "source_ids": [
+       "exp.fairman.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.71lbs",
+    "bullets": [
+     {
+      "text": "Achieved top-performer status by securing 50+ qualified meetings per month, and set an organizational record of 120+ booked meetings in a single month.",
+      "source_ids": [
+       "exp.71lbs.1"
+      ]
+     },
+     {
+      "text": "Mentored and onboarded incoming representatives to attain 15%+ conversion rate benchmarks.",
+      "source_ids": [
+       "exp.71lbs.2"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

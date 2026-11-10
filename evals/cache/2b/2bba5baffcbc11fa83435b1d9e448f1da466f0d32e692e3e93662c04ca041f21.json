@@ -1,0 +1,57 @@
+{
+ "schema": "EmphasisOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 2805,
+ "usage": {
+  "input_tokens": 3134,
+  "output_tokens": 604,
+  "cache_read_tokens": 660,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Configuration Specialist II at CentralReach\n<requirements>\n- (required) 1–3 years of experience in a technical configuration, implementation, or SaaS opera",
+ "output": {
+  "angle": "Position Tylor as a hands-on systems architect who has shipped rule-driven, validated backend configurations and client onboarding integrations, bringing operational rigor from military supply and enterprise account work to CentralReach's configuration role.",
+  "skill_ids": [
+   "skill.postgresql",
+   "skill.sql",
+   "skill.etl",
+   "skill.python",
+   "skill.typescript",
+   "skill.react",
+   "skill.fastapi",
+   "skill.human_in_the_loop",
+   "skill.langgraph",
+   "skill.llm_evals",
+   "skill.structured_outputs",
+   "skill.langfuse",
+   "skill.cloudflare",
+   "skill.github_actions",
+   "skill.mentoring",
+   "skill.pydantic",
+   "skill.zod",
+   "skill.docker",
+   "skill.prompt_engineering",
+   "skill.crm"
+  ],
+  "bullet_ids": [
+   "exp.linkme.1",
+   "exp.linkme.3",
+   "exp.linkme.2",
+   "exp.fairman.2",
+   "exp.fairman.1",
+   "exp.tycodes.8",
+   "exp.tycodes.9",
+   "exp.tycodes.7",
+   "exp.tycodes.10",
+   "exp.71lbs.2",
+   "exp.71lbs.1",
+   "mil.flarng.1",
+   "mil.flarng.2"
+  ],
+  "posting_hooks": [
+   "Translating business and implementation requirements into backend system configurations, supported by Tylor's database-layer validation pipeline that eliminated 98% of transactional and invoicing errors.",
+   "Provisioning and configuring customer accounts across internal systems, supported by the linkme-intops operations CRM module for high-value subscription accounts and integration blueprints for enterprise client onboarding.",
+   "Configuring AI rule settings and workflows with attention to detail, supported by LangGraph agents with human approval steps and an eval suite that gates on unsupported claims."
+  ]
+ }
+}

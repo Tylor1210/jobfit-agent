@@ -93,5 +93,6 @@ about the candidate. Statements about the job, the posting, or the company ("you
 for X") are not claims about the candidate; ignore them.
 List every claim that says more than its evidence: a new tool, number, scope, team size, title,
 outcome, or responsibility. Rewording and summarizing are fine; adding facts is not.
-Items are numbered [n]; report the item number, the unsupported part quoted, and a short reason.
-Return an empty list if everything is supported."""
+Items are numbered [n]. Return one check per item: supported=true if the evidence backs
+everything the claim says about the candidate, else supported=false with the unsupported part
+quoted. Give a one-sentence reason either way."""

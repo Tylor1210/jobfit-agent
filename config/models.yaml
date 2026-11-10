@@ -16,7 +16,9 @@ node_tiers:
   plan_emphasis: smart
   draft_resume: smart
   draft_cover_letter: smart
-  verify_claims: fast
+  # WHY a separate tier: the fact checker gates what reaches Tylor, and Haiku contradicted its
+  # own verdicts ("supported: false" with a reason saying it was supported) about 1 run in 3.
+  verify_claims: check
 
 providers:
   anthropic:
@@ -36,6 +38,16 @@ providers:
         output_per_mtok: 0.50
         effort: medium
         max_tokens: 16000
+      check:
+        # Only the claim checker. Runs at most 3 times per tailoring, never during scoring.
+        model: claude-sonnet-5-5
+        input_per_mtok: 2.00
+        output_per_mtok: 10.00
+        effort: low
+        max_tokens: 8000
+        # Server-side refusal fallback: a declined request is retried on another model in the
+        # same call instead of failing the check. Set to null to turn off.
+        fallbacks: default
   groq:
     # GOTCHA: Groq's free tier bills $0. These are list prices, so the ledger tracks what the
     # same traffic would cost on a paid plan and the cap still guards against runaway loops.
@@ -44,6 +56,11 @@ providers:
         model: openai/gpt-oss-20b
         input_per_mtok: 0.075
         output_per_mtok: 0.30
+        max_tokens: 8000
+      check:
+        model: openai/gpt-oss-120b
+        input_per_mtok: 0.15
+        output_per_mtok: 0.60
         max_tokens: 8000
       smart:
         model: openai/gpt-oss-120b

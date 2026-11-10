@@ -1,0 +1,47 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 11821,
+ "usage": {
+  "input_tokens": 2943,
+  "output_tokens": 3016,
+  "cache_read_tokens": 1232,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "greeting": "Dear TribalScale Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "The Forward Deployed Engineer role asks for hands-on agent work that reaches customers. I build that way. Job Fit Agent is a LangGraph agent that ingests job postings daily from public APIs, scores each against an evidence base using RAG on pgvector, and drafts tailored documents behind a human approval step. I want to bring that same build-and-deploy approach to clients in Fort Lauderdale and Miami.",
+    "evidence_ids": [
+     "exp.tycodes.7",
+     "sum.1"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "The posting asks for production agents with evaluation and tracing. I built the Job Fit Agent to ship with FastAPI, Postgres, Docker, and Langfuse tracing, plus a daily cost cap on the live agent. Everything runs on GitHub Actions CI with linting, strict typing, and 70 tests. An eval suite with record/replay gates runs in CI and checks final drafts for zero unsupported claims and for passing injection tests. For customers, I designed integration blueprints and live demo environments to onboard high-value enterprise clients onto the core platform.",
+    "evidence_ids": [
+     "exp.tycodes.8",
+     "exp.tycodes.9",
+     "exp.linkme.3"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "The posting also asks for evaluation design across benchmarks, regression suites, and production monitoring. I have built one eval gate for one agent. I have not yet designed model-graded evals or production monitoring for a customer system. My plan is to add model-graded checks and human review to that suite in my first month, then connect Langfuse traces to a monitoring view for each client deployment.",
+    "evidence_ids": [
+     "exp.tycodes.8",
+     "exp.tycodes.9"
+    ]
+   },
+   {
+    "kind": "closing",
+    "text": "I can discuss travel to client sites in Miami as part of the role. Could we set up a short call this week to talk through the first deployment you have in mind?",
+    "evidence_ids": []
+   }
+  ]
+ }
+}

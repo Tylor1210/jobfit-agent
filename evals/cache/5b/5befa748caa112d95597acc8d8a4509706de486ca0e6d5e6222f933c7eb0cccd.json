@@ -1,10 +1,10 @@
 {
  "schema": "RequirementsOut",
  "model": "claude-haiku-5-5",
- "latency_ms": 2234,
+ "latency_ms": 2591,
  "usage": {
   "input_tokens": 1843,
-  "output_tokens": 518,
+  "output_tokens": 684,
   "cache_read_tokens": 853,
   "cache_write_tokens": 0
  },
@@ -27,7 +27,7 @@
     "category": "years_experience"
    },
    {
-    "text": "1-3 years of strong programming experience with Python, C++, C, C#, Java, Rust, or Go, or similar experience",
+    "text": "1-3 years of strong programming experience with one of: Python, C++, C, C#, Java, Rust, or Go, or similar experience",
     "kind": "required",
     "category": "technical_skill"
    },
@@ -42,22 +42,32 @@
     "category": "technical_skill"
    },
    {
+    "text": "Ability to decompose problems, plan solutions, and design complex systems and interfaces",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
     "text": "Ability to write clean, efficient, and well-documented code",
     "kind": "required",
     "category": "technical_skill"
    },
    {
-    "text": "Self-starter with the ability to decompose a problem and plan a solution",
+    "text": "Troubleshoot and debug issues across the full stack, from user interface to database layer",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Excellent written and verbal communication skills, comfortable presenting to peers and C-level executives",
     "kind": "required",
     "category": "soft_skill"
    },
    {
-    "text": "Excellent written and verbal interpersonal skills",
+    "text": "Self-starter, highly adaptive, and able to learn new technologies quickly",
     "kind": "required",
     "category": "soft_skill"
    },
    {
-    "text": "Capable and comfortable effectively presenting in front of peers and C-level executives",
+    "text": "Excellent organization, project management, and multi-tasking skills",
     "kind": "required",
     "category": "soft_skill"
    },
@@ -67,9 +77,14 @@
     "category": "location"
    },
    {
-    "text": "Legally authorized to work in the country of the job position without sponsorship",
+    "text": "Must be legally authorized to work in the country of the job position without sponsorship",
     "kind": "required",
     "category": "location"
+   },
+   {
+    "text": "Familiarity with AI domains such as time series forecasting, anomaly detection, and natural language processing",
+    "kind": "preferred",
+    "category": "domain"
    }
   ]
  }

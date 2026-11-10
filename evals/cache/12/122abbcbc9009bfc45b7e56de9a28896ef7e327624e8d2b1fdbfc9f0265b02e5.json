@@ -1,0 +1,153 @@
+{
+ "schema": "FitOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 13657,
+ "usage": {
+  "input_tokens": 5405,
+  "output_tokens": 3390,
+  "cache_read_tokens": 1047,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: AI Engineer at OneStream\n<requirements>\n[r1] (required, education) Bachelor's degree or similar work experience\n    - skill.mentoring: Skill in Also used ",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "partial",
+    "evidence_ids": [
+     "edu.bas_it",
+     "sum.1"
+    ],
+    "note": "Bachelor's is in progress, not completed; 4+ years of experience may count as similar."
+   },
+   {
+    "req_id": "r2",
+    "status": "partial",
+    "evidence_ids": [
+     "edu.bas_it",
+     "cert.software_programming_specialist"
+    ],
+    "note": "Degree is Information Technology, in progress; no completed CS-related degree shown."
+   },
+   {
+    "req_id": "r3",
+    "status": "partial",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.4"
+    ],
+    "note": "Shipped LLM agent systems and NLP trading engine; production ML depth not explicitly shown."
+   },
+   {
+    "req_id": "r4",
+    "status": "met",
+    "evidence_ids": [
+     "skill.python",
+     "exp.tycodes.4"
+    ],
+    "note": "Python skill and a multi-signal Python trading engine shown."
+   },
+   {
+    "req_id": "r5",
+    "status": "met",
+    "evidence_ids": [
+     "skill.fastapi",
+     "exp.tycodes.9"
+    ],
+    "note": "FastAPI skill and agent shipped with FastAPI."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.cloudflare",
+     "skill.wrangler"
+    ],
+    "note": "Cloudflare edge and cloud deployment shown; no Azure or distributed-systems evidence."
+   },
+   {
+    "req_id": "r7",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "skill.claude_code",
+     "exp.tycodes.4"
+    ],
+    "note": "Designs multi-agent systems and complex trading engine architecture end to end."
+   },
+   {
+    "req_id": "r8",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.git",
+     "exp.tycodes.8"
+    ],
+    "note": "Git use and CI-gated eval suite shown; code documentation practice not explicit."
+   },
+   {
+    "req_id": "r9",
+    "status": "met",
+    "evidence_ids": [
+     "exp.tycodes.9",
+     "exp.linkme.1",
+     "skill.postgresql",
+     "exp.fairman.2"
+    ],
+    "note": "Full-stack work across React, Postgres, and database validation pipelines shown."
+   },
+   {
+    "req_id": "r10",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.71lbs.2"
+    ],
+    "note": "Mentoring and sales development shown; presenting to executives not evidenced."
+   },
+   {
+    "req_id": "r11",
+    "status": "met",
+    "evidence_ids": [
+     "exp.tycodes.4",
+     "sum.1"
+    ],
+    "note": "Founder building multiple systems across new AI and trading stacks shows self-direction and adaptability."
+   },
+   {
+    "req_id": "r12",
+    "status": "met",
+    "evidence_ids": [
+     "cert.project_management",
+     "skill.inventory_management"
+    ],
+    "note": "Project management certification and inventory and supply management experience shown."
+   },
+   {
+    "req_id": "r13",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence on travel availability or preferences."
+   },
+   {
+    "req_id": "r14",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence of work authorization status in the candidate's evidence."
+   },
+   {
+    "req_id": "r15",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.nlp_sentiment",
+     "exp.tycodes.4"
+    ],
+    "note": "NLP sentiment analysis shown; time series or anomaly detection not evidenced."
+   }
+  ],
+  "verdict_line": "The candidate fits the core Python, API, and full-stack requirements well, with gaps in Azure, degree completion, and work authorization evidence.",
+  "top_gaps": [
+   "Azure distributed cloud experience",
+   "Completed bachelor's or computer science related degree",
+   "Legal authorization to work without sponsorship"
+  ]
+ }
+}

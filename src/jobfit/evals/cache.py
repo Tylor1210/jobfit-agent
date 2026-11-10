@@ -105,3 +105,57 @@ def _usage_dict(u: Usage) -> dict[str, int]:
         "cache_read_tokens": u.cache_read_tokens,
         "cache_write_tokens": u.cache_write_tokens,
     }
+
+
+EMBED_CACHE = CACHE_DIR / "embeddings.npz"
+
+
+class CachedEmbedder:
+    """Record/replay for embedding vectors, keyed by (model, query?, text).
+
+    WHY: ONNX gives slightly different floats on x86 (CI) than on Apple Silicon. When two
+    evidence chunks score nearly the same, their order flips, the prompt text changes, and every
+    downstream LLM recording misses. Replaying the recorded vectors makes CI retrieval identical.
+    Misses fall through to the real embedder (they don't fail the run on their own).
+    """
+
+    def __init__(self, inner: Any, path: Path = EMBED_CACHE) -> None:
+        import numpy as np
+
+        self._np = np
+        self.inner = inner
+        self.name = inner.name
+        self.dim = inner.dim
+        self.path = path
+        self._vecs: dict[str, Any] = {}
+        self.dirty = False
+        if path.exists():
+            with np.load(path) as z:
+                self._vecs = {k: z[k] for k in z.files}
+
+    def _key(self, text: str, query: bool) -> str:
+        raw = f"{self.name}|{'q' if query else 'p'}|{text}"
+        return hashlib.sha256(raw.encode()).hexdigest()[:32]
+
+    def embed(self, texts: Any) -> list[Any]:
+        texts = list(texts)
+        keys = [self._key(t, False) for t in texts]
+        todo = [i for i, k in enumerate(keys) if k not in self._vecs]
+        if todo:
+            for i, v in zip(todo, self.inner.embed([texts[i] for i in todo]), strict=True):
+                self._vecs[keys[i]] = v
+            self.dirty = True
+        return [self._vecs[k] for k in keys]
+
+    def embed_query(self, text: str) -> Any:
+        k = self._key(text, True)
+        if k not in self._vecs:
+            self._vecs[k] = self.inner.embed_query(text)
+            self.dirty = True
+        return self._vecs[k]
+
+    def save(self) -> None:
+        if self.dirty:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            self._np.savez_compressed(self.path, **self._vecs)
+            self.dirty = False

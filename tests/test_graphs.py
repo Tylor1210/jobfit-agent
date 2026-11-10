@@ -396,3 +396,26 @@ def test_years_met_without_citation_gets_summary_evidence(
     years = next(x for x in fit.assessments if x.requirement.category == "years_experience")
     assert years.status == "met" and [e.id for e in years.evidence] == ["sum.1"]
     assert fit.fit_score == 100
+
+
+def test_claim_checker_counts_only_explicit_unsupported_verdicts(
+    deps: Deps, fake: FakeProvider, job: JobPosting
+) -> None:
+    from jobfit.schemas import ClaimCheckOut, ClaimVerdictOut
+
+    _prepare(deps, fake, job)
+    deps.verify_with_llm = True
+    fake.script(ResumeOut, resume()).script(CoverLetterOut, letter())
+    fake.script(
+        ClaimCheckOut,
+        ClaimCheckOut(
+            checks=[
+                ClaimVerdictOut(
+                    item=0, supported=True, claim="", reason="Supported; restates the record."
+                ),
+                ClaimVerdictOut(item=1, supported=True, claim="", reason="Matches evidence."),
+            ]
+        ),
+    )
+    res = start_tailor(job.id, deps, InMemorySaver())
+    assert res["issues"] == []  # "supported" verdicts never become issues, whatever the wording

@@ -1,0 +1,154 @@
+{
+ "schema": "FitOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 12816,
+ "usage": {
+  "input_tokens": 5564,
+  "output_tokens": 3169,
+  "cache_read_tokens": 1047,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Solutions Architect at Smartsheet\n<requirements>\n[r1] (required, years_experience) 3 years relevant work experience or equivalent combination of relevant ",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "met",
+    "evidence_ids": [
+     "exp.71lbs.2",
+     "edu.bas_it"
+    ],
+    "note": "About 4 years of professional experience meets the 3-year requirement; mentoring shown."
+   },
+   {
+    "req_id": "r2",
+    "status": "met",
+    "evidence_ids": [
+     "skill.python",
+     "skill.nodejs"
+    ],
+    "note": "Working skills in both Python and Node.js are shown."
+   },
+   {
+    "req_id": "r3",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.5"
+    ],
+    "note": "Shipped full-stack apps on React, Cloudflare Workers, and Hono."
+   },
+   {
+    "req_id": "r4",
+    "status": "met",
+    "evidence_ids": [
+     "skill.llm_evals",
+     "exp.tycodes.10"
+    ],
+    "note": "LLM evaluation and LLM API-driven pipelines are shown."
+   },
+   {
+    "req_id": "r5",
+    "status": "met",
+    "evidence_ids": [
+     "skill.prompt_engineering",
+     "skill.tool_calling",
+     "exp.tycodes.7"
+    ],
+    "note": "Built a LangGraph tool-using agent with prompt engineering."
+   },
+   {
+    "req_id": "r6",
+    "status": "met",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.langfuse"
+    ],
+    "note": "Claude Code orchestrator and sub-agent workflows are shown."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.linkme.3"
+    ],
+    "note": "Enterprise client integration blueprints are adjacent but not explicit SaaS/IPaaS work."
+   },
+   {
+    "req_id": "r8",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.linkme.3"
+    ],
+    "note": "Systems architect roles designing platforms and integrations; scale evidence is limited."
+   },
+   {
+    "req_id": "r9",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.etl",
+     "exp.fairman.2"
+    ],
+    "note": "Data validation pipelines shown; large data volume practices not evidenced."
+   },
+   {
+    "req_id": "r10",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.etl",
+     "exp.linkme.1",
+     "exp.fairman.2"
+    ],
+    "note": "ETL and CRM work shown; business analytics and reporting integration not evidenced."
+   },
+   {
+    "req_id": "r11",
+    "status": "met",
+    "evidence_ids": [
+     "exp.71lbs.2",
+     "exp.linkme.1"
+    ],
+    "note": "Sales development and client-facing success roles are shown."
+   },
+   {
+    "req_id": "r12",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.71lbs.2"
+    ],
+    "note": "Onboarding and mentoring shown; presentation to non-technical users not explicit."
+   },
+   {
+    "req_id": "r13",
+    "status": "met",
+    "evidence_ids": [
+     "exp.tycodes.4",
+     "exp.fairman.2",
+     "cert.project_management"
+    ],
+    "note": "Founder and lead roles delivered projects end to end; project management certification held."
+   },
+   {
+    "req_id": "r14",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence of travel experience or willingness to travel."
+   },
+   {
+    "req_id": "r15",
+    "status": "partial",
+    "evidence_ids": [
+     "edu.bas_it"
+    ],
+    "note": "Information Technology bachelor's is in progress, not completed; closely adjacent to MIS/CIS/CS."
+   }
+  ],
+  "verdict_line": "The candidate meets most technical requirements, with gaps in enterprise SaaS/IPaaS exposure, large data volume practices, and travel willingness.",
+  "top_gaps": [
+   "Experience with SaaS/IPaaS applications in an enterprise environment",
+   "Large data volume design best practices",
+   "Willing to travel periodically (up to 15%)"
+  ]
+ }
+}

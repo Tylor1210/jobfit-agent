@@ -1,0 +1,34 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "claude-sonnet-5-5",
+ "latency_ms": 2717,
+ "usage": {
+  "input_tokens": 1801,
+  "output_tokens": 226,
+  "cache_read_tokens": 808,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Secured 50+ qualified meetings per month against a daily team quota of 2, setting an organizational record of 120+ booked meetings in one month.\nEVID",
+ "output": {
+  "checks": [
+   {
+    "item": 0,
+    "supported": true,
+    "claim": "",
+    "reason": "Both the 50+ meetings against a daily quota of 2 and the 120+ record month appear verbatim in the evidence."
+   },
+   {
+    "item": 1,
+    "supported": true,
+    "claim": "",
+    "reason": "The 98% error reduction and the Systems Architect summary with 4+ years of experience match the evidence; the posting reference is not a claim about the candidate."
+   },
+   {
+    "item": 2,
+    "supported": true,
+    "claim": "",
+    "reason": "linkme-intops, the integration blueprints and demo environments, and Job Fit Agent with its LangGraph and human-approval step all match the evidence; posting statements are ignored."
+   }
+  ]
+ }
+}

@@ -35,14 +35,14 @@ attacks. Full report: [evals/report.md](evals/report.md).
 | Metric | Result |
 |---|---|
 | Hallucinated claims reaching review (CI gate, target 0) | **0** |
-| Unsupported claims caught by the verify loop in first drafts | 3 |
+| Unsupported claims caught by the verify loop in first drafts | 1 |
 | Prompt injection cases passed (CI gate) | **2/2** |
-| Verdict accuracy, exact / within one band | 88% / 88% |
+| Verdict accuracy, exact / within one band | 75% / 88% |
 | Gap recall (expected gaps the scorer named) | 71% |
-| LLM time, full suite (8 fits, 3 tailoring runs) | 4.4 min |
-| Cost, full suite | $0.046 on Claude Haiku 5.5 |
+| LLM time, full suite (8 fits, 3 tailoring runs) | 4.2 min |
+| Cost, full suite | $0.085 (Claude Haiku 5.5, Sonnet 5.5 for the fact check) |
 
-<sub>Run 2026-11-10 19:07 UTC, 8 cases (2 more are waiting on posting text).</sub>
+<sub>Run 2026-11-10 19:29 UTC, 8 cases (2 more are waiting on posting text).</sub>
 
 Each tailored draft starts with some unsupported claims (an invented number, a tool the evidence
 doesn't mention, a bullet moved under the wrong job). The verify loop catches them, so the count
@@ -181,7 +181,7 @@ uv run jobfit serve               # http://127.0.0.1:8000
 ## Stack
 
 Python 3.12, LangGraph, Pydantic v2, FastAPI, Postgres + pgvector (Supabase free tier),
-fastembed (bge-small, local, free), Claude Haiku 5.5 (Groq as a free fallback), Langfuse, Playwright, React + TypeScript +
+fastembed (bge-small, local, free), Claude Haiku 5.5 + Sonnet 5.5 (Groq as a free fallback), Langfuse, Playwright, React + TypeScript +
 Vite, Docker, GitHub Actions. Everything runs on free tiers.
 
 ## Layout
@@ -208,8 +208,8 @@ db/migrations/  SQL, applied in order
   enough info" rather than scored.
 - The eval set is small, so calibration misses stay visible instead of tuned away (one moderate
   role currently scores strong).
-- Every node runs on Claude Haiku 5.5, the cheapest Claude model (well under a cent per job
-  scored, about $0.05 per full eval run). It writes less well than larger models; swapping the
+- Scoring and drafting run on Claude Haiku 5.5, the cheapest Claude model (well under a cent
+  per job scored). The fact check runs on Sonnet 5.5: Haiku contradicted its own verdicts there. It writes less well than larger models; swapping the
   smart tier to Sonnet in `config/models.yaml` is one line. Groq's free tier still works
   (`LLM_PROVIDER=groq`) but caps at 200k tokens a day.
 - The image is large (about 3 GB) because it bundles Chromium for PDF rendering.

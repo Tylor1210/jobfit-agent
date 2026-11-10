@@ -1,10 +1,10 @@
 {
  "schema": "RequirementsOut",
  "model": "claude-haiku-5-5",
- "latency_ms": 2405,
+ "latency_ms": 2186,
  "usage": {
   "input_tokens": 2417,
-  "output_tokens": 610,
+  "output_tokens": 553,
   "cache_read_tokens": 853,
   "cache_write_tokens": 0
  },
@@ -62,12 +62,7 @@
     "category": "tool"
    },
    {
-    "text": "Ability and willingness to travel as needed, up to about once per quarter",
-    "kind": "required",
-    "category": "location"
-   },
-   {
-    "text": "Remote/hybrid work arrangement, headquartered in St. Petersburg, Florida",
+    "text": "Travel up to once per quarter as needed",
     "kind": "required",
     "category": "location"
    }

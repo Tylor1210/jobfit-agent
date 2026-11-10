@@ -1,10 +1,10 @@
 {
  "schema": "RequirementsOut",
  "model": "claude-haiku-5-5",
- "latency_ms": 3039,
+ "latency_ms": 3186,
  "usage": {
   "input_tokens": 3443,
-  "output_tokens": 896,
+  "output_tokens": 890,
   "cache_read_tokens": 853,
   "cache_write_tokens": 0
  },
@@ -12,7 +12,7 @@
  "output": {
   "requirements": [
    {
-    "text": "8+ years of professional software engineering experience building scalable distributed systems",
+    "text": "8+ years professional software engineering experience building scalable distributed systems",
     "kind": "required",
     "category": "years_experience"
    },
@@ -22,17 +22,12 @@
     "category": "technical_skill"
    },
    {
-    "text": "Cloud platform experience (AWS, Azure, or GCP) for cloud-native backend systems",
-    "kind": "required",
-    "category": "tool"
-   },
-   {
-    "text": "2–3+ years of hands-on experience designing, shipping, and maintaining production AI-enabled or AI-native applications",
+    "text": "2–3+ years hands-on experience designing, shipping, and maintaining production AI-enabled or AI-native applications",
     "kind": "required",
     "category": "years_experience"
    },
    {
-    "text": "Practical experience with AI orchestration frameworks (e.g., LangChain, LangGraph, LlamaIndex, CrewAI)",
+    "text": "Practical experience with orchestration frameworks (e.g., LangChain, LangGraph, LlamaIndex, CrewAI)",
     "kind": "required",
     "category": "tool"
    },
@@ -47,7 +42,7 @@
     "category": "technical_skill"
    },
    {
-    "text": "Proven experience implementing enterprise AI guardrails, real-time observability, latency/cost monitoring, automated evaluation pipelines, and fallback mechanisms",
+    "text": "Proven experience implementing enterprise AI guardrails, including observability, latency/cost monitoring, automated evaluation pipelines, and fallback mechanisms",
     "kind": "required",
     "category": "technical_skill"
    },
@@ -60,6 +55,11 @@
     "text": "Excellent cross-functional communication skills bridging Engineering, Product, Design, and Operations",
     "kind": "required",
     "category": "soft_skill"
+   },
+   {
+    "text": "Experience with cloud platforms (AWS, Azure, or GCP) for cloud-native applications",
+    "kind": "required",
+    "category": "tool"
    },
    {
     "text": "Experience building autonomous, multi-step agentic systems with multi-tier memory networks and recursive reasoning",

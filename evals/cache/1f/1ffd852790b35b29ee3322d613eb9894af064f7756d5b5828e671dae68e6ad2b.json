@@ -1,10 +1,10 @@
 {
  "schema": "RequirementsOut",
  "model": "claude-haiku-5-5",
- "latency_ms": 1203,
+ "latency_ms": 1002,
  "usage": {
   "input_tokens": 313,
-  "output_tokens": 120,
+  "output_tokens": 34,
   "cache_read_tokens": 853,
   "cache_write_tokens": 0
  },
@@ -12,7 +12,7 @@
  "output": {
   "requirements": [
    {
-    "text": "Remote work",
+    "text": "Remote work location",
     "kind": "required",
     "category": "location"
    }

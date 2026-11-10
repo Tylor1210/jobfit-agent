@@ -1,10 +1,10 @@
 {
  "schema": "RequirementsOut",
  "model": "claude-haiku-5-5",
- "latency_ms": 2307,
+ "latency_ms": 2405,
  "usage": {
   "input_tokens": 2365,
-  "output_tokens": 614,
+  "output_tokens": 610,
   "cache_read_tokens": 853,
   "cache_write_tokens": 0
  },
@@ -17,7 +17,7 @@
     "category": "years_experience"
    },
    {
-    "text": "Documents business requirements into BRDs, SCDs, and Epic/Feature briefs for traceability",
+    "text": "Documents business requirements into BRDs, SCDs, and Epic/Feature briefs",
     "kind": "required",
     "category": "technical_skill"
    },
@@ -67,7 +67,7 @@
     "category": "location"
    },
    {
-    "text": "Remote/hybrid work arrangement, headquartered in St. Petersburg, Florida",
+    "text": "Remote/hybrid work arrangement, headquarters in St. Petersburg, Florida",
     "kind": "required",
     "category": "location"
    }

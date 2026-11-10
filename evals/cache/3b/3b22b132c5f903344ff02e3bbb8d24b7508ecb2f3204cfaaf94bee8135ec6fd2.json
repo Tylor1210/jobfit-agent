@@ -1,10 +1,10 @@
 {
  "schema": "RequirementsOut",
  "model": "claude-haiku-5-5",
- "latency_ms": 2584,
+ "latency_ms": 2540,
  "usage": {
   "input_tokens": 2741,
-  "output_tokens": 663,
+  "output_tokens": 682,
   "cache_read_tokens": 853,
   "cache_write_tokens": 0
  },
@@ -47,7 +47,7 @@
     "category": "domain"
    },
    {
-    "text": "Understanding of systems architecture and designing scalable performance-driven solutions",
+    "text": "Understanding of systems architecture and designing scalable, performance-driven solutions",
     "kind": "required",
     "category": "technical_skill"
    },
@@ -67,7 +67,12 @@
     "category": "domain"
    },
    {
-    "text": "Strong communication skills explaining technical subjects to non-technical enterprise end users",
+    "text": "Strong communication skills (written, verbal, presentation) to explain technical subjects to non-technical enterprise users",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Proven ability to drive projects from concept through completion with minimal guidance",
     "kind": "required",
     "category": "soft_skill"
    },
@@ -80,11 +85,6 @@
     "text": "Bachelors in MIS, CIS, or CS",
     "kind": "preferred",
     "category": "education"
-   },
-   {
-    "text": "Remote eligible within US states where Smartsheet is registered",
-    "kind": "required",
-    "category": "location"
    }
   ]
  }
