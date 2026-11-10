@@ -37,7 +37,9 @@ class ModelsConfig:
             for p, spec in raw["providers"].items()
         }
         cap = float(os.getenv("DAILY_COST_CAP_USD", raw["daily_cost_cap_usd"]))
-        return cls(os.getenv("LLM_PROVIDER", raw["provider"]), cap, raw["node_tiers"], tiers)
+        # An empty LLM_PROVIDER (unset GitHub variable) means "use the config default".
+        provider = os.getenv("LLM_PROVIDER") or raw["provider"]
+        return cls(provider, cap, raw["node_tiers"], tiers)
 
 
 @dataclass

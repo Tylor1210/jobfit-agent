@@ -1,6 +1,6 @@
 # Daily job ingestion: fetch boards, close expired postings, prefilter, score the top N.
 # Runs at 11:00 UTC (~6 AM Eastern in winter, 7 AM in summer). Also runnable by hand.
-# Required repo secrets: DATABASE_URL, GROQ_API_KEY. Optional: ANTHROPIC_API_KEY,
+# Required repo secrets: DATABASE_URL, ANTHROPIC_API_KEY (or GROQ_API_KEY with LLM_PROVIDER=groq). Optional:
 # LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, USAJOBS_API_KEY, USAJOBS_EMAIL, ADZUNA_APP_ID,
 # ADZUNA_APP_KEY. Optional repo variables: LLM_PROVIDER, LANGFUSE_BASE_URL, DAILY_COST_CAP_USD.
 name: daily-ingest
@@ -38,7 +38,7 @@ jobs:
       USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
       ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
       ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
-      LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'groq' }}
+      LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}  # empty = config/models.yaml default
       DAILY_COST_CAP_USD: ${{ vars.DAILY_COST_CAP_USD || '1.00' }}
       FASTEMBED_CACHE_PATH: /home/runner/.cache/fastembed  # no ~ expansion in env
     steps:
