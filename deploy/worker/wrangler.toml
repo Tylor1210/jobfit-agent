@@ -1,0 +1,14 @@
+# Serves jobcheck.tycodes.app by forwarding every request to the Cloud Run service.
+# Cloudflare Access (configured in the Zero Trust dashboard for this hostname) runs before the
+# Worker, so only signed-in requests reach it, and they carry the Access JWT the app verifies.
+name = "jobcheck-proxy"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+routes = [
+  { pattern = "jobcheck.tycodes.app", custom_domain = true }
+]
+
+[vars]
+# Paste the Cloud Run URL printed by deploy/cloudrun.sh (no trailing slash).
+ORIGIN = "https://jobcheck-REPLACE-ME.a.run.app"

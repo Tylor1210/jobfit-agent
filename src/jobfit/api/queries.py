@@ -41,7 +41,11 @@ class Dashboard:
     def job(self, job_id: str) -> dict[str, Any] | None:
         rows = self._all(
             """select j.*, t.thread_id, t.status as tailor_status, t.drafts, t.issues,
-                 t.resume_pdf, t.cover_pdf, t.trace_url as tailor_trace_url,
+                 exists(select 1 from tailor_pdfs p where p.job_id = j.id and p.kind = 'resume')
+                   as has_resume_pdf,
+                 exists(select 1 from tailor_pdfs p where p.job_id = j.id and p.kind = 'cover')
+                   as has_cover_pdf,
+                 t.trace_url as tailor_trace_url,
                  t.updated_at as tailor_updated_at
                from jobs j left join tailor_runs t on t.job_id = j.id where j.id = %s""",
             (job_id,),

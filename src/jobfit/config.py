@@ -35,6 +35,12 @@ class Settings(BaseSettings):
     langfuse_secret_key: str | None = None
     langfuse_base_url: str = "https://cloud.langfuse.com"
 
+    # Cloudflare Access (see jobfit/api/access.py). All empty = no login check (local dev).
+    cf_access_team_domain: str | None = None  # e.g. tycodes.cloudflareaccess.com
+    cf_access_aud: str | None = None  # the Access application's AUD tag
+    cf_access_emails: str | None = None  # optional extra allow-list, comma-separated
+    require_access: bool = False  # set on Cloud Run: refuse to start without the two above
+
     @field_validator(
         "database_url",
         "anthropic_api_key",
@@ -42,6 +48,9 @@ class Settings(BaseSettings):
         "langfuse_public_key",
         "langfuse_secret_key",
         "langfuse_base_url",
+        "cf_access_team_domain",
+        "cf_access_aud",
+        "cf_access_emails",
         mode="before",
     )
     @classmethod

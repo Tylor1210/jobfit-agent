@@ -23,6 +23,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `uv run jobfit fit posting.txt --company X --title Y [--tailor]` live run (uses .env keys)
 - Docker: `make up` / `make down` (app + local pgvector, http://localhost:8000; .env keys, but the
   app uses the compose db unless COMPOSE_DATABASE_URL is set). `docker compose run --rm app ingest`.
+- Deploy (jobcheck.tycodes.app): `make deploy-secrets`, `make deploy` (Cloud Run), `make deploy-worker`
+  (Cloudflare Worker). Runbook: DEPLOY.md.
 - Dashboard: `make web`, then `uv run jobfit serve` (http://127.0.0.1:8000).
   UI dev with hot reload: `jobfit serve` + `cd web && npm run dev` (Vite on :5173 proxies /api).
 - `uv run playwright install chromium` once, for PDF rendering and `-m render` tests
@@ -71,3 +73,6 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - UI: dark default + light toggle, teal is the only accent, no gradients/pills/emoji, lucide icons,
   fonts bundled via @fontsource (no CDN). Keep `web/src/types.ts` in sync with schemas.py by hand.
 - Playwright sync API is per-thread: use `render.pdf.default_renderer()` (thread-local), never share one.
+- Production auth = Cloudflare Access; the app verifies the Access JWT (`api/access.py`) because the
+  raw *.run.app URL bypasses Cloudflare. REQUIRE_ACCESS=1 on Cloud Run fails closed. PDFs live in
+  Postgres (`tailor_pdfs`), never only on disk (Cloud Run's disk is wiped on restart).

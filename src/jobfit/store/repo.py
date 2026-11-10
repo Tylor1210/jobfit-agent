@@ -23,6 +23,8 @@ class Repo(Protocol):
     def get_fit(self, job_id: str) -> FitResult | None: ...
     def set_stage(self, job_id: str, stage: Stage) -> None: ...
     def save_tailor(self, job_id: str, thread_id: str, status: str, **fields: Any) -> None: ...
+    def save_pdf(self, job_id: str, kind: str, filename: str, data: bytes) -> None: ...
+    def get_pdf(self, job_id: str, kind: str) -> tuple[str, bytes] | None: ...
 
 
 class InMemoryRepo:
@@ -30,6 +32,7 @@ class InMemoryRepo:
         self.jobs: dict[str, JobPosting] = {}
         self.fits: dict[str, FitResult] = {}
         self.tailor: dict[str, dict[str, Any]] = {}
+        self.pdfs: dict[tuple[str, str], tuple[str, bytes]] = {}
 
     def upsert_job(self, job: JobPosting) -> None:
         self.jobs[job.id] = job
@@ -48,6 +51,12 @@ class InMemoryRepo:
 
     def save_tailor(self, job_id: str, thread_id: str, status: str, **fields: Any) -> None:
         self.tailor.setdefault(job_id, {}).update(thread_id=thread_id, status=status, **fields)
+
+    def save_pdf(self, job_id: str, kind: str, filename: str, data: bytes) -> None:
+        self.pdfs[(job_id, kind)] = (filename, data)
+
+    def get_pdf(self, job_id: str, kind: str) -> tuple[str, bytes] | None:
+        return self.pdfs.get((job_id, kind))
 
 
 _TAILOR_COLS = {"drafts", "issues", "resume_pdf", "cover_pdf", "trace_url"}
@@ -121,3 +130,20 @@ class PgRepo:
                 "updated_at = now()",
                 vals,
             )
+
+    def save_pdf(self, job_id: str, kind: str, filename: str, data: bytes) -> None:
+        with self._conn() as c:
+            c.execute(
+                """insert into tailor_pdfs (job_id, kind, filename, pdf) values (%s, %s, %s, %s)
+                   on conflict (job_id, kind) do update set filename = excluded.filename,
+                     pdf = excluded.pdf, created_at = now()""",
+                (job_id, kind, filename, data),
+            )
+
+    def get_pdf(self, job_id: str, kind: str) -> tuple[str, bytes] | None:
+        with self._conn() as c:
+            row = c.execute(
+                "select filename, pdf from tailor_pdfs where job_id = %s and kind = %s",
+                (job_id, kind),
+            ).fetchone()
+        return (row["filename"], bytes(row["pdf"])) if row else None

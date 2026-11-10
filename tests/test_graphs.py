@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import re
+import tempfile
+from pathlib import Path
 from typing import Any
 
 from factories import letter, plan, resume
@@ -166,9 +168,13 @@ def _prepare(deps: Deps, fake: FakeProvider, job: JobPosting) -> None:
     run_fit(job, deps)
     rendered: list[Any] = []
 
+    out = Path(tempfile.mkdtemp())
+
     def render(r: ResumeOut, c: CoverLetterOut, j: JobPosting) -> tuple[str, str]:
         rendered.append((r, c, j))
-        return "/out/resume.pdf", "/out/letter.pdf"
+        (out / "resume.pdf").write_bytes(b"%PDF-1.4 resume")
+        (out / "letter.pdf").write_bytes(b"%PDF-1.4 letter")
+        return str(out / "resume.pdf"), str(out / "letter.pdf")
 
     deps.render = render
     deps.page_count = lambda r: 1
@@ -189,7 +195,9 @@ def test_tailor_happy_path_interrupts_then_renders(
 
     done = resume_tailor(job.id, res["thread_id"], {"action": "approve"}, deps, saver)
     assert done["status"] == "rendered"
-    assert done["pdfs"] == ["/out/resume.pdf", "/out/letter.pdf"]
+    assert [Path(p).name for p in done["pdfs"]] == ["resume.pdf", "letter.pdf"]
+    # Bytes are stored in the repo, so downloads survive a container restart.
+    assert deps.repo.get_pdf(job.id, "resume") == ("resume.pdf", b"%PDF-1.4 resume")
 
 
 def test_verify_failure_loops_back_with_reasons(

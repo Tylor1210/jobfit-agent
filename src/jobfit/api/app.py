@@ -9,11 +9,11 @@ from __future__ import annotations
 import json
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from pathlib import Path
 from typing import Any, Literal
+from urllib.parse import quote
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -47,6 +47,19 @@ class ReviewIn(BaseModel):
 
 def _json(v: Any) -> Any:
     return json.loads(v) if isinstance(v, str) else v
+
+
+def _install_access(app: FastAPI) -> None:
+    st = get_settings()
+    if st.cf_access_team_domain and st.cf_access_aud:
+        from jobfit.api.access import AccessVerifier
+
+        emails = {e.strip() for e in (st.cf_access_emails or "").split(",") if e.strip()}
+        verifier = AccessVerifier(st.cf_access_team_domain, st.cf_access_aud, emails or None)
+        app.middleware("http")(verifier.middleware)
+    elif st.require_access:
+        # Fail closed: a public deploy without the login check must not start.
+        raise RuntimeError("REQUIRE_ACCESS is set but CF_ACCESS_TEAM_DOMAIN/CF_ACCESS_AUD are not")
 
 
 def create_app(
@@ -83,6 +96,7 @@ def create_app(
             closer.__exit__(None, None, None)
 
     app = FastAPI(title="Job Fit Agent", lifespan=lifespan)
+    _install_access(app)
 
     def dash() -> Dashboard:
         d: Dashboard = state["dash"]
@@ -116,10 +130,8 @@ def create_app(
             row[k] = _json(row.get(k))
         t = runner.get(job_id)
         row["task"] = t.__dict__ if t else None
-        row["has_resume_pdf"] = bool(row.get("resume_pdf") and Path(row["resume_pdf"]).exists())
-        row["has_cover_pdf"] = bool(row.get("cover_pdf") and Path(row["cover_pdf"]).exists())
-        for k in ("resume_pdf", "cover_pdf"):  # local paths are not the client's business
-            row.pop(k, None)
+        row["has_resume_pdf"] = bool(row.get("has_resume_pdf"))
+        row["has_cover_pdf"] = bool(row.get("has_cover_pdf"))
         return row
 
     @app.get("/api/evidence")
@@ -222,12 +234,17 @@ def create_app(
         return {"id": job_id, "status": nxt}
 
     @app.get("/api/jobs/{job_id}/pdf/{kind}")
-    def pdf(job_id: str, kind: Literal["resume", "cover"]) -> FileResponse:
-        row = dash().job(job_id)
-        path = row and row.get(f"{kind}_pdf")
-        if not path or not Path(path).exists():
+    def pdf(job_id: str, kind: Literal["resume", "cover"]) -> Response:
+        found = state["deps"].repo.get_pdf(job_id, kind)
+        if found is None:
             raise HTTPException(404, "PDF not rendered yet")
-        return FileResponse(path, media_type="application/pdf", filename=Path(path).name)
+        filename, data = found
+        quoted = quote(filename)
+        return Response(
+            data,
+            media_type="application/pdf",
+            headers={"Content-Disposition": f"attachment; filename*=UTF-8''{quoted}"},
+        )
 
     # ---- insights ----------------------------------------------------------------------------
 

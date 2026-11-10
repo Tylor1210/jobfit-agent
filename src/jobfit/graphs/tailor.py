@@ -375,6 +375,11 @@ def build_tailor_graph(
             )
         except RuntimeError as e:  # e.g. Chromium missing, font load failure, 2-page resume
             return {"error": f"render: {e}"}
+        # The bytes go to the database (survives container restarts); the local files stay for
+        # CLI use. GOTCHA: save the PDFs before marking "rendered", so the UI never shows a
+        # download button for a file that isn't there yet.
+        for kind, path in (("resume", resume_path), ("cover", cover_path)):
+            deps.repo.save_pdf(state["job_id"], kind, Path(path).name, Path(path).read_bytes())
         deps.repo.save_tailor(
             state["job_id"],
             state.get("thread_id", ""),

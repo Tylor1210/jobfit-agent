@@ -2,7 +2,7 @@
 UV ?= $(shell command -v /opt/homebrew/bin/uv || command -v uv)
 export PATH := /Applications/Docker.app/Contents/Resources/bin:$(PATH)
 
-.PHONY: install lint test check db-up migrate index eval eval-record eval-replay web up down
+.PHONY: install lint test check db-up migrate index eval eval-record eval-replay web up down deploy deploy-secrets deploy-worker
 
 install:
 	$(UV) sync
@@ -47,3 +47,13 @@ up:
 
 down:
 	docker compose down
+
+# Cloud Run + Cloudflare (see DEPLOY.md)
+deploy-secrets:
+	bash deploy/secrets.sh
+
+deploy:
+	bash deploy/cloudrun.sh
+
+deploy-worker:
+	cd deploy/worker && npx wrangler deploy
