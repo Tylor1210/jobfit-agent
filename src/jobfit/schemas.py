@@ -106,6 +106,7 @@ class FitResult(BaseModel):
     assessments: list[Assessment]
     top_gaps: list[str]
     injection_flags: list[str] = Field(default_factory=list)
+    trace_url: str | None = None  # Langfuse trace of the run that produced this result
 
 
 # ---- LLM outputs: tailor graph ----------------------------------------------------------------

@@ -413,10 +413,17 @@ def _invoke(
     return out
 
 
+def new_thread_id(job_id: str) -> str:
+    return f"tailor-{job_id}-{uuid.uuid4().hex[:8]}"
+
+
 def start_tailor(
-    job_id: str, deps: Deps, checkpointer: BaseCheckpointSaver[Any] | None
+    job_id: str,
+    deps: Deps,
+    checkpointer: BaseCheckpointSaver[Any] | None,
+    thread_id: str | None = None,
 ) -> dict[str, Any]:
-    thread_id = f"tailor-{job_id}-{uuid.uuid4().hex[:8]}"
+    thread_id = thread_id or new_thread_id(job_id)
     graph = build_tailor_graph(deps, checkpointer)
     return _invoke(graph, {"job_id": job_id, "thread_id": thread_id}, thread_id, deps, job_id)
 

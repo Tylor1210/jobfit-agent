@@ -13,6 +13,7 @@ from __future__ import annotations
 import base64
 import io
 import re
+import threading
 from dataclasses import dataclass
 from datetime import date
 from functools import lru_cache
@@ -197,6 +198,13 @@ def output_names(p: Profile, job: JobPosting) -> tuple[str, str]:
     return f"{base} Resume.pdf", f"{base} Cover Letter.pdf"
 
 
-@lru_cache(maxsize=1)
+_local = threading.local()
+
+
 def default_renderer() -> PdfRenderer:
-    return PdfRenderer()
+    """One renderer per thread. GOTCHA: Playwright's sync API is bound to the thread that
+    started it; the API runs tailoring on worker threads, so a shared instance would crash."""
+    r: PdfRenderer | None = getattr(_local, "renderer", None)
+    if r is None:
+        r = _local.renderer = PdfRenderer()
+    return r

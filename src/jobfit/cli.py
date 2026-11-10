@@ -63,6 +63,10 @@ def main(argv: list[str] | None = None) -> None:
     ev.add_argument("--only", action="append", help="run only these case ids (repeatable)")
     ev.add_argument("--no-tailor", action="store_true", help="skip tailor/hallucination checks")
     ev.add_argument("--save", action="store_true", help="also store the run in eval_runs")
+    srv = sub.add_parser("serve")
+    srv.add_argument("--host", default="127.0.0.1")
+    srv.add_argument("--port", type=int, default=8000)
+    srv.add_argument("--reload", action="store_true")
     fit = sub.add_parser("fit")
     fit.add_argument("posting", help="path to a text file with the posting")
     fit.add_argument("--company", required=True)
@@ -85,6 +89,17 @@ def main(argv: list[str] | None = None) -> None:
         return
     if args.group == "eval":
         _eval(args)
+        return
+    if args.group == "serve":
+        import uvicorn
+
+        uvicorn.run(
+            "jobfit.api.app:create_app",
+            factory=True,
+            host=args.host,
+            port=args.port,
+            reload=args.reload,
+        )
         return
 
     profile = load_profile()

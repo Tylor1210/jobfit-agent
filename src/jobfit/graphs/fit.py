@@ -230,9 +230,13 @@ def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
     @node("save", deps)
     def save(state: State) -> State:
         job: JobPosting = state["job"]
+        fit: FitResult = state["fit"]
+        url = deps.llm.tracer.url(state["trace_id"]) if state.get("trace_id") else None
+        if url:
+            fit = fit.model_copy(update={"trace_url": url})
         deps.repo.upsert_job(job)
-        deps.repo.save_fit(job.id, state["fit"])
-        return {}
+        deps.repo.save_fit(job.id, fit)
+        return {"fit": fit}
 
     g: Any = StateGraph(FitState)
     for name, fn in [
