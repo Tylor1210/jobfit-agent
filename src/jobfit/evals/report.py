@@ -25,7 +25,8 @@ def markdown(results: list[CaseResult], s: Summary) -> str:
         "# Eval report",
         "",
         f"Run {s.run_at} on `{s.provider}` ({s.mode} mode, {_pct(s.cache_hit_rate)} replayed "
-        f"from cache). Gate: **{gate}**.",
+        f"from cache{f', {s.cache_misses} missing recordings' if s.cache_misses else ''}). "
+        f"Gate: **{gate}**.",
         "",
         "| Metric | Result |",
         "|---|---|",
@@ -48,7 +49,8 @@ def markdown(results: list[CaseResult], s: Summary) -> str:
             lines.append(f"| {r.id} | {r.expected_verdict} | skipped ({r.error}) | | | | | | |")
             continue
         if r.status == "error":
-            lines.append(f"| {r.id} | {r.expected_verdict} | error | | | | | | |")
+            why = "needs re-record" if r.cache_misses else "error"
+            lines.append(f"| {r.id} | {r.expected_verdict} | {why} | | | | | | |")
             continue
         mark = "" if r.verdict_ok else (" (near)" if r.within_one else " (miss)")
         gaps = f"{r.gaps_found}/{r.gaps_expected}" if r.gaps_expected else "-"

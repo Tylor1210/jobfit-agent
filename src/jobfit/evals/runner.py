@@ -58,6 +58,7 @@ class CaseResult:
     final_issue_rules: list[str] = field(default_factory=list)
     llm_calls: int = 0
     cache_hits: int = 0
+    cache_misses: int = 0  # needed a recording that doesn't exist (prompt or profile changed)
     latency_ms: int = 0  # recorded LLM latency + local compute
     input_tokens: int = 0
     output_tokens: int = 0
@@ -147,6 +148,7 @@ def run_case(case: Case, base: Deps, provider: CachingProvider) -> CaseResult:
         events = provider.events[n_events:]
         res.llm_calls = len(events)
         res.cache_hits = sum(e.hit for e in events)
+        res.cache_misses = sum(e.missed for e in events)
         # Wall time already includes live calls; add back the latency that replays skipped.
         res.latency_ms = wall + sum(e.latency_ms for e in events if e.hit)
         res.input_tokens = sum(r.input_tokens for _, r in ledger.records)
@@ -175,6 +177,7 @@ class Summary:
     total_output_tokens: int
     total_cost_usd: float
     cache_hit_rate: float | None
+    cache_misses: int
     page_check: bool
     gate_passed: bool
     gate_failures: list[str]
@@ -195,7 +198,15 @@ def summarize(results: list[CaseResult], provider: str, mode: str, page_check: b
     if halluc:
         failures.append(f"{halluc} hallucinated claim(s) in final drafts")
     failures += [f"injection case {r.id} failed" for r in inj if not r.injection_ok]
-    failures += [f"case {r.id} errored: {r.error}" for r in ran if r.status == "error"]
+    misses = sum(r.cache_misses for r in ran)
+    if misses:
+        failures.append(
+            f"{misses} LLM call(s) had no recording (prompts, profile or retrieval changed). "
+            "Run `make eval-record` with GROQ_API_KEY set and commit evals/cache/."
+        )
+    failures += [
+        f"case {r.id} errored: {r.error}" for r in ran if r.status == "error" and not r.cache_misses
+    ]
     return Summary(
         run_at=datetime.now(UTC).isoformat(timespec="seconds"),
         provider=provider,
@@ -215,20 +226,36 @@ def summarize(results: list[CaseResult], provider: str, mode: str, page_check: b
         total_output_tokens=sum(r.output_tokens for r in ran),
         total_cost_usd=round(sum(r.cost_usd for r in ran), 6),
         cache_hit_rate=ratio(sum(r.cache_hits for r in ran), calls),
+        cache_misses=sum(r.cache_misses for r in ran),
         page_check=page_check,
         gate_passed=not failures,
         gate_failures=failures,
     )
 
 
+def _has_key(provider: str) -> bool:
+    import os
+
+    from jobfit.config import get_settings
+
+    st = get_settings()
+    if provider == "groq":
+        return bool(st.groq_api_key)
+    if provider == "anthropic":
+        return bool(st.anthropic_api_key or os.getenv("ANTHROPIC_AUTH_TOKEN"))
+    return False
+
+
 def run_eval(
     cases: list[Case], embedder: Embedder, mode: Mode = "auto", tailor: bool = True
 ) -> tuple[list[CaseResult], Summary]:
     cfg = ModelsConfig.load()
-    try:
-        inner = build_provider(cfg.provider) if mode != "replay" else None
-    except Exception:
-        inner = None  # no key: replay whatever is recorded, misses become errors
+    inner = None
+    # WHY: without a key the provider would fail at call time with a vague network error
+    # (CI turned a missing secret into "Connection error"). No key = replay only, and a miss
+    # says plainly that recordings need refreshing.
+    if mode != "replay" and _has_key(cfg.provider):
+        inner = build_provider(cfg.provider)
     provider = CachingProvider(inner, cfg.provider, mode)
     profile = load_profile()
     store = InMemoryStore(embedder)

@@ -38,6 +38,7 @@ class CallEvent:
     hit: bool
     latency_ms: int
     usage: Usage
+    missed: bool = False  # no recording and no provider to call
 
 
 @dataclass
@@ -67,6 +68,7 @@ class CachingProvider:
             self.events.append(CallEvent(schema.__name__, True, d["latency_ms"], usage))
             return schema.model_validate(d["output"]), usage, d["model"]
         if self.mode == "replay" or self.inner is None:
+            self.events.append(CallEvent(schema.__name__, False, 0, Usage(), missed=True))
             raise CacheMiss(
                 f"no recording for {schema.__name__} ({k[:12]}); "
                 "run `make eval-record` with an API key"

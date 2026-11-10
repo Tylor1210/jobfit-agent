@@ -44,6 +44,7 @@ def test_cache_records_then_replays(tmp_path: Path) -> None:
     assert out2 == out1 and u2 == u1 and replay.events[0].hit
     with pytest.raises(CacheMiss):
         replay.structured(tier=TIER, system="s", user="changed prompt", schema=RequirementsOut)
+    assert replay.events[-1].missed
 
 
 def test_gap_matching_and_bands() -> None:
@@ -76,3 +77,11 @@ def test_gate_fails_on_hallucination_injection_or_error() -> None:
 
     skipped = CaseResult("e", "skipped", "weak")
     assert summarize([ok, skipped], "groq", "replay", True).cases_skipped == ["e"]
+
+
+def test_missing_recordings_get_one_clear_gate_message() -> None:
+    a = CaseResult("a", "error", "strong", error="CacheMiss", llm_calls=1, cache_misses=1)
+    b = CaseResult("b", "error", "weak", error="CacheMiss", llm_calls=1, cache_misses=2)
+    s = summarize([a, b], "groq", "auto", True)
+    assert not s.gate_passed and s.cache_misses == 3
+    assert len(s.gate_failures) == 1 and "make eval-record" in s.gate_failures[0]
