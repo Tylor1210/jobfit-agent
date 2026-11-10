@@ -1,0 +1,15 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 1568,
+ "usage": {
+  "input_tokens": 2443,
+  "output_tokens": 1026,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect with 4+ years designing and shipping full-stack applications and AI-enhanced agent workflows. Built production-grade platforms on C",
+ "output": {
+  "unsupported": []
+ }
+}

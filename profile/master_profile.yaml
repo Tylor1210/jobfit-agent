@@ -1,4 +1,5 @@
-# Master evidence base. Source of truth: reference/Tylor-C-Resume1102.pdf
+# Master evidence base. Source of truth: reference/Tylor-C-Resume1110.pdf (replaced Resume1102
+# on 2026-11-10). IDs of facts that did not change were kept so citations stay stable.
 # CONSTRAINT: every claim the agent generates must cite an `id` from this file.
 # CONSTRAINT: edit facts here only when they are true. The agent can never add to this file.
 # ID scheme: exp.<company>.<n>, mil.<unit>.<n>, skill.<slug>, edu.<slug>, cert.<slug>, proj.<slug>, sum.<n>
@@ -18,53 +19,67 @@ years_experience: 4
 summary:
   - id: sum.1
     text: >-
-      Systems Architect with 4+ years of experience engineering full-stack platforms, business
-      automation tools, and AI-agent workflows. Experienced in shipping production systems end to
-      end, from serverless edge infrastructure and cloud deployment to multi-agent automation, with
-      an emphasis on cutting infrastructure overhead, automating mission workflows, and applying
-      disciplined operational rigor honed through military service.
+      Systems Architect focused on AI automation and agent engineering, with 4+ years of
+      experience building full-stack platforms, business automation tools, and AI agent
+      workflows. Ships agent systems end to end: LangGraph orchestration with human approval
+      steps, RAG, LLM evals, and prompt injection defense, deployed on serverless and
+      containerized infrastructure. Combines hands-on building with customer-facing experience in
+      client onboarding and sales, and operational rigor from military service.
 
 skills:
+  - category: AI & Agent Systems
+    items:
+      - {id: skill.langgraph, name: LangGraph, aliases: [LangGraph orchestration, agent graphs, state machines]}
+      - {id: skill.rag, name: RAG (pgvector), aliases: [RAG, retrieval-augmented generation, pgvector, vector search, embeddings]}
+      - {id: skill.llm_evals, name: LLM evals, aliases: [evals, LLM evaluation, evaluation frameworks]}
+      - {id: skill.structured_outputs, name: structured outputs, aliases: [JSON schema outputs]}
+      - {id: skill.prompt_injection_defense, name: prompt injection defense, aliases: [prompt injection, LLM security]}
+      - {id: skill.human_in_the_loop, name: human-in-the-loop review, aliases: [human in the loop, HITL, human approval]}
+      - {id: skill.tool_calling, name: tool-calling agents, aliases: [function calling, tool use, AI agents]}
+      - {id: skill.claude_code, name: Claude Code (orchestrator/sub-agent workflows), aliases: [Claude Code, multi-agent orchestration, sub-agents]}
+      - {id: skill.anthropic_api, name: Anthropic API, aliases: [Claude API, Anthropic]}
+      - {id: skill.openai_api, name: OpenAI API, aliases: [OpenAI]}
+      - {id: skill.gemini_api, name: Gemini API, aliases: [Gemini]}
+      - {id: skill.groq, name: Groq}
+      - {id: skill.codex, name: Codex}
+      - {id: skill.icm, name: Interpretable Context Methodology (ICM) pipelines, aliases: [ICM, context engineering]}
+      - {id: skill.prompt_engineering, name: prompt engineering, aliases: [prompting, LLM prompting]}
+      - {id: skill.langfuse, name: Langfuse tracing, aliases: [Langfuse, LLM tracing, observability]}
   - category: Languages & Core Web
     items:
-      - {id: skill.cpp, name: C++}
-      - {id: skill.javascript, name: JavaScript, aliases: [JS, ES6]}
-      - {id: skill.typescript, name: TypeScript, aliases: [TS]}
       - {id: skill.python, name: Python}
+      - {id: skill.typescript, name: TypeScript, aliases: [TS]}
+      - {id: skill.javascript, name: JavaScript, aliases: [JS, ES6]}
+      - {id: skill.sql, name: SQL}
+      - {id: skill.cpp, name: C++}
       - {id: skill.html5, name: HTML5, aliases: [HTML]}
       - {id: skill.css3, name: CSS3, aliases: [CSS]}
-      - {id: skill.sql, name: SQL}
       - {id: skill.react, name: React, aliases: [React.js, ReactJS]}
       - {id: skill.threejs, name: three.js, aliases: [threejs, WebGL]}
       - {id: skill.vite, name: Vite}
       - {id: skill.git, name: Git/GitHub, aliases: [Git, GitHub]}
-  - category: AI & Agent Systems
-    items:
-      - {id: skill.claude_code, name: Claude Code (orchestrator/sub-agent workflows), aliases: [Claude Code, multi-agent orchestration, sub-agents]}
-      - {id: skill.anthropic_api, name: Anthropic API, aliases: [Claude API, Anthropic]}
-      - {id: skill.codex, name: Codex}
-      - {id: skill.gemini_api, name: Gemini API, aliases: [Gemini]}
-      - {id: skill.tool_calling, name: tool-calling agents, aliases: [function calling, tool use, AI agents]}
-      - {id: skill.icm, name: Interpretable Context Methodology (ICM) pipelines, aliases: [ICM, context engineering]}
-      - {id: skill.prompt_engineering, name: prompt engineering, aliases: [prompting, LLM prompting]}
   - category: Cloud & Deployment
     items:
       - {id: skill.cloudflare, name: "Cloudflare (Workers, Workflows, Pages, R2, D1)", aliases: [Cloudflare, Cloudflare Workers, Cloudflare Workflows, Cloudflare Pages, R2, D1, serverless, edge computing]}
+      - {id: skill.docker, name: Docker, aliases: [containers, Dockerfile]}
+      - {id: skill.docker_compose, name: Docker Compose}
+      - {id: skill.github_actions, name: GitHub Actions (CI), aliases: [GitHub Actions, CI/CD, continuous integration]}
       - {id: skill.nodejs, name: Node.js, aliases: [Node, NodeJS]}
       - {id: skill.express, name: Express, aliases: [Express.js]}
       - {id: skill.routing_middleware, name: custom routing middleware, aliases: [middleware]}
-      # Docker: on the master resume, and shipped in this project (Dockerfile + docker compose,
-      # verified 2026-11-10), so it moved out of constraints.yaml pending_tools.
-      - {id: skill.docker, name: Docker, aliases: [Docker Compose, containers, Dockerfile]}
       - {id: skill.wrangler, name: Wrangler}
   - category: Data & Backend
     items:
-      - {id: skill.supabase, name: Supabase}
+      - {id: skill.fastapi, name: FastAPI}
       - {id: skill.postgresql, name: PostgreSQL, aliases: [Postgres]}
+      - {id: skill.supabase, name: Supabase}
       - {id: skill.mongodb, name: MongoDB, aliases: [Mongo]}
-      - {id: skill.google_sheets_api, name: Google Sheets API (serverless backend patterns), aliases: [Google Sheets API, Google Workspace APIs]}
+      - {id: skill.pydantic, name: Pydantic}
       - {id: skill.zod, name: zod schema validation, aliases: [zod, schema validation]}
+      - {id: skill.google_sheets_api, name: Google Sheets API (serverless backend patterns), aliases: [Google Sheets API, Google Workspace APIs]}
+      - {id: skill.google_places_api, name: Google Places API, aliases: [Google Places, Google Maps API]}
       - {id: skill.etl, name: automated ETL/validation, aliases: [ETL, data pipelines, data validation]}
+      - {id: skill.pytest, name: pytest, aliases: [unit testing, automated testing]}
   # WHY: these appear only inside experience bullets, not the skills line. They are real (bullet-backed)
   # so the agent may cite them, but they are not rendered in the skills table unless a job asks for them.
   - category: Also used (from experience)
@@ -73,16 +88,66 @@ skills:
       - {id: skill.tailwind, name: Tailwind CSS, aliases: [Tailwind], evidence: [exp.tycodes.5]}
       - {id: skill.hono, name: Hono, evidence: [exp.tycodes.5]}
       - {id: skill.firecrawl, name: Firecrawl, evidence: [exp.tycodes.5]}
-      - {id: skill.openai_api, name: OpenAI API, aliases: [OpenAI], evidence: [exp.tycodes.5]}
-      - {id: skill.oauth, name: OAuth, evidence: [exp.tycodes.6]}
       - {id: skill.nlp_sentiment, name: NLP sentiment analysis, aliases: [NLP, sentiment analysis], evidence: [exp.tycodes.4]}
       - {id: skill.backtesting, name: backtesting and grid-search optimization, aliases: [backtesting, grid search], evidence: [exp.tycodes.4]}
-      - {id: skill.crm, name: CRM development, aliases: [CRM], evidence: [exp.linkme.1]}
+      - {id: skill.crm, name: CRM development, aliases: [CRM], evidence: [exp.linkme.1, exp.tycodes.10]}
+      - {id: skill.cost_controls, name: LLM cost caps, aliases: [cost controls, daily cost cap], evidence: [exp.tycodes.9]}
       - {id: skill.sales_development, name: sales development and prospecting, aliases: [SDR, outbound sales, prospecting], evidence: [exp.71lbs.1]}
       - {id: skill.mentoring, name: mentoring and onboarding, aliases: [mentoring, training, onboarding], evidence: [exp.71lbs.2]}
       - {id: skill.inventory_management, name: inventory and supply management, aliases: [logistics, supply chain, inventory], evidence: [mil.flarng.1]}
 
 experience:
+  - id: exp.tycodes
+    company: TYcodes LLC
+    title: Founder & Systems Architect
+    start: 2022-01
+    end: present
+    bullets:
+      - id: exp.tycodes.7
+        text: >-
+          Built Job Fit Agent, a LangGraph agent that ingests job postings daily from public APIs,
+          scores each against an evidence base using RAG on pgvector, and drafts tailored
+          documents behind a human approval step (github.com/Tylor1210/jobfit-agent).
+        skills: [skill.langgraph, skill.rag, skill.human_in_the_loop, skill.python]
+      - id: exp.tycodes.8
+        text: >-
+          Enforced evidence-cited outputs with a mostly deterministic verify loop and layered
+          prompt injection defense; an eval suite with record/replay gates CI on zero unsupported
+          claims in final drafts and on passing both injection test cases.
+        skills: [skill.llm_evals, skill.prompt_injection_defense, skill.structured_outputs, skill.github_actions]
+      - id: exp.tycodes.9
+        text: >-
+          Shipped the agent with FastAPI, a React/TypeScript dashboard, Postgres, Langfuse
+          tracing, a daily cost cap, Docker, and GitHub Actions CI covering linting, strict
+          typing, 70 tests, and the eval gate.
+        skills: [skill.fastapi, skill.react, skill.typescript, skill.postgresql, skill.langfuse, skill.cost_controls, skill.docker, skill.github_actions, skill.pytest]
+      - id: exp.tycodes.10
+        text: >-
+          Built tycodes-pipeline, a staged Python pipeline (ICM) that finds local businesses via
+          Google Places, audits their sites, tests whether Google AI answers name them, and scores
+          AI visibility into report cards, with a Google Sheets CRM and draft-only outreach behind
+          human approval.
+        skills: [skill.python, skill.icm, skill.google_places_api, skill.google_sheets_api, skill.crm, skill.human_in_the_loop]
+      - id: exp.tycodes.1
+        text: >-
+          Built tycodes.app, an AI demo generator converting business URLs into shoppable 3D
+          scroll demos in ~1 min on Cloudflare Workers, Workflows, R2, and D1, with a 6-stage
+          agent pipeline and automated verification of pricing and claims
+          (github.com/Tylor1210/DEMO-Generator).
+        skills: [skill.cloudflare, skill.tool_calling, skill.icm]
+      - id: exp.tycodes.5
+        text: >-
+          Engineered tycodes.dev on edge infrastructure (Vite, React, TS, Tailwind on Cloudflare
+          Workers) with a Hono Worker running Firecrawl and OpenAI for automated audit and
+          pricing models.
+        skills: [skill.vite, skill.react, skill.typescript, skill.tailwind, skill.cloudflare, skill.hono, skill.firecrawl, skill.openai_api]
+      - id: exp.tycodes.4
+        text: >-
+          Engineered Tradecrumb, a multi-signal Python trading engine combining technical
+          indicators, NLP sentiment, and political triggers with backtesting and grid-search
+          optimization.
+        skills: [skill.python, skill.nlp_sentiment, skill.backtesting]
+
   - id: exp.linkme
     company: Linkme
     title: VIP Success Manager & Systems Architect
@@ -105,47 +170,6 @@ experience:
           Designed integration blueprints and live demo environments to reliably onboard
           high-value enterprise clients onto the core platform.
         skills: []
-
-  - id: exp.tycodes
-    company: TYcodes LLC
-    title: Founder & Systems Architect
-    start: 2022-01
-    end: present
-    bullets:
-      - id: exp.tycodes.1
-        text: >-
-          Built tycodes.app, an AI demo generator converting business URLs into shoppable 3D
-          scroll demos in ~1 min on Cloudflare Workers, Workflows, R2, and D1 via a public form
-          (github.com/Tylor1210/DEMO-Generator).
-        skills: [skill.cloudflare, skill.tool_calling]
-      - id: exp.tycodes.2
-        text: >-
-          Designed a 6-stage agent pipeline (intake, collect, brief, config, verify, publish) with
-          Interpretable Context Methodology, enforcing automated verification to eliminate
-          hallucinated pricing and claims.
-        skills: [skill.icm, skill.tool_calling, skill.prompt_engineering]
-      - id: exp.tycodes.3
-        text: >-
-          Rendered demos from a unified Vite, React, and three.js template driven by zod schemas
-          with parametric models, low-end fallbacks, and strict daily cost caps.
-        skills: [skill.vite, skill.react, skill.threejs, skill.zod]
-      - id: exp.tycodes.4
-        text: >-
-          Engineered Tradecrumb, a multi-signal Python trading engine combining technical
-          indicators, NLP sentiment, and political triggers with backtesting and grid-search
-          optimization.
-        skills: [skill.python, skill.nlp_sentiment, skill.backtesting]
-      - id: exp.tycodes.5
-        text: >-
-          Engineered tycodes.dev on edge infrastructure (Vite, React, TS, Tailwind on Cloudflare
-          Workers) with a Hono Worker running Firecrawl and OpenAI for automated audit and
-          pricing models.
-        skills: [skill.vite, skill.react, skill.typescript, skill.tailwind, skill.cloudflare, skill.hono, skill.firecrawl, skill.openai_api]
-      - id: exp.tycodes.6
-        text: >-
-          Designed zero-maintenance serverless application backends utilizing Google Sheets via
-          OAuth, eliminating dedicated server costs.
-        skills: [skill.google_sheets_api, skill.oauth]
 
   - id: exp.71lbs
     company: 71lbs
@@ -182,10 +206,12 @@ experience:
           transactional and invoicing errors.
         skills: [skill.etl, skill.sql]
 
-# WHY: tycodes.app, Tradecrumb, tycodes.dev and linkme-intops are described inside experience
-# bullets. Projects point at those bullets instead of duplicating text, so there is one fact per claim.
+# WHY: projects point at the bullets that describe them instead of duplicating text, so there is
+# one fact per claim.
 projects:
-  - {id: proj.demo_generator, name: tycodes.app (AI demo generator), url: github.com/Tylor1210/DEMO-Generator, evidence: [exp.tycodes.1, exp.tycodes.2, exp.tycodes.3]}
+  - {id: proj.jobfit_agent, name: Job Fit Agent, url: github.com/Tylor1210/jobfit-agent, evidence: [exp.tycodes.7, exp.tycodes.8, exp.tycodes.9]}
+  - {id: proj.tycodes_pipeline, name: tycodes-pipeline, evidence: [exp.tycodes.10]}
+  - {id: proj.demo_generator, name: tycodes.app (AI demo generator), url: github.com/Tylor1210/DEMO-Generator, evidence: [exp.tycodes.1]}
   - {id: proj.tradecrumb, name: Tradecrumb, evidence: [exp.tycodes.4]}
   - {id: proj.tycodes_dev, name: tycodes.dev, url: tycodes.dev, evidence: [exp.tycodes.5]}
   - {id: proj.linkme_intops, name: linkme-intops, evidence: [exp.linkme.1]}

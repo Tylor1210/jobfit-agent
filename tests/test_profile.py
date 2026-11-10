@@ -42,7 +42,6 @@ def test_no_unclaimable_tools_in_profile(profile: Profile) -> None:
         "kubernetes",
         "jenkins",
         "chef",
-        "github actions",
     ]:
         assert tool not in names
 

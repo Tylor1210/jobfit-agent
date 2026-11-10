@@ -27,7 +27,7 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - On this Mac use `/opt/homebrew/bin/uv` (the one in ~/.local/bin is x86_64 and won't run).
 
 ## Layout
-- `profile/master_profile.yaml` evidence base, every fact has an ID. Source: `reference/Tylor-C-Resume1102.pdf`.
+- `profile/master_profile.yaml` evidence base, every fact has an ID. Source: `reference/Tylor-C-Resume1110.pdf`.
 - `profile/constraints.yaml` hard rules, enforced by `jobfit.profile.constraints.check_text`.
 - `reference/layout/` PDF layout references only. `reference/voice/` tone examples only. Neither is evidence.
 - `src/jobfit/rag/` embedder + vector store (pgvector and in-memory, same interface).
@@ -49,8 +49,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 
 ## Hard rules
 - Never add a fact to the profile that isn't true. Generated text cites evidence IDs or it's rejected.
-- No Terraform/Ansible/Puppet/Kubernetes/Jenkins/Chef. GitHub Actions only after ci.yml runs green
-  on GitHub (see `pending_tools` in constraints.yaml). Docker is in the profile (shipped here).
+- No Terraform/Ansible/Puppet/Kubernetes/Jenkins/Chef. A tool goes in the profile only once Tylor
+  has really used it (`pending_tools` in constraints.yaml holds ones waiting on that).
 - BAS in IT is "In progress". No bachelor's degree claims.
 - No em dashes in generated text. No banned phrases (constraints.yaml).
 - No LinkedIn/Indeed scraping. Only public job-board APIs. `ingest/manual.py` refuses those hosts.

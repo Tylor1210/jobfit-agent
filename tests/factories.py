@@ -20,7 +20,7 @@ def resume(**overrides: object) -> ResumeOut:
             "platforms on Cloudflare Workers, with automated verification that blocks "
             "hallucinated claims before anything ships."
         ),
-        summary_evidence_ids=["sum.1", "exp.tycodes.2"],
+        summary_evidence_ids=["sum.1", "exp.tycodes.1"],
         skill_rows=[
             SkillRowOut(
                 label="AI & Agent Systems",
@@ -36,7 +36,7 @@ def resume(**overrides: object) -> ResumeOut:
                         text="Built a 6-stage agent pipeline (intake, collect, brief, "
                         "config, verify, publish) with automated verification that "
                         "stops hallucinated pricing and claims.",
-                        source_ids=["exp.tycodes.2"],
+                        source_ids=["exp.tycodes.1"],
                     ),
                     DraftBulletOut(
                         text="Built tycodes.app, which turns a business URL into a 3D "
@@ -92,11 +92,11 @@ def letter(**overrides: object) -> CoverLetterOut:
     base = CoverLetterOut(
         greeting="Dear TribalScale Hiring Team,",
         paragraphs=[
-            ParagraphOut(kind="opening", text=_P1, evidence_ids=["exp.tycodes.2"]),
+            ParagraphOut(kind="opening", text=_P1, evidence_ids=["exp.tycodes.1"]),
             ParagraphOut(
                 kind="evidence",
                 text=_P2,
-                evidence_ids=["exp.tycodes.1", "exp.tycodes.2", "exp.fairman.2"],
+                evidence_ids=["exp.tycodes.1", "exp.tycodes.1", "exp.fairman.2"],
             ),
             ParagraphOut(kind="gap", text=_P3, evidence_ids=[]),
             ParagraphOut(kind="closing", text=_P4, evidence_ids=[]),
@@ -109,6 +109,6 @@ def plan() -> EmphasisOut:
     return EmphasisOut(
         angle="Agent engineer who ships verified pipelines for clients.",
         skill_ids=["skill.tool_calling", "skill.python"],
-        bullet_ids=["exp.tycodes.2", "exp.tycodes.1", "exp.fairman.2"],
+        bullet_ids=["exp.tycodes.1", "exp.tycodes.1", "exp.fairman.2"],
         posting_hooks=["AI agent workflows with tool calling", "enterprise clients"],
     )

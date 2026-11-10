@@ -1,0 +1,50 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 41204,
+ "usage": {
+  "input_tokens": 2658,
+  "output_tokens": 4473,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "greeting": "Dear TribalScale Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "The posting highlights building and deploying production‑grade software, especially AI‑powered agentic systems. My experience as a Systems Architect building end‑to‑end AI automation pipelines matches that requirement. I also move from unclear requirements to a working prototype, validate with users, and evolve the code into a maintainable system.",
+    "evidence_ids": [
+     "sum.1"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "I built the Job Fit Agent, a LangGraph‑based system that pulls daily job postings via public APIs, scores them with RAG on pgvector, and drafts tailored documents behind a human‑approval step. The pipeline runs on FastAPI, a React/TypeScript dashboard, Postgres, and Docker, and it includes Langfuse tracing, a daily cost cap, and a CI suite with 70 tests that blocks unsupported claims. I also added an evaluation suite that records and replays each step, and it enforces a verify loop that blocks any output lacking cited evidence. The CI pipeline runs the suite on every commit and fails if injection tests fail. The system logs decisions in Langfuse, letting me trace intermediate states and diagnose failures. This implementation covers the full agent loop, plan, tool selection, execution, observation, reflection, recovery, and termination, and it provides evaluation gates that reject prompt‑injection failures.",
+    "evidence_ids": [
+     "exp.tycodes.7",
+     "exp.tycodes.9",
+     "exp.tycodes.8"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "One area that is still developing is formal product judgment around cost, latency, and security trade‑offs. I plan to close that gap by working with senior engineers on TribalScale’s evaluation frameworks, studying existing cost‑capped deployments, and applying the same tracing and gating approach I used in my projects. My background in rapid prototyping and quick learning will let me adopt those practices quickly. I have also integrated new APIs and built client‑facing tools for linkme and Fairman projects, delivering functional dashboards and validation pipelines in weeks.",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.9",
+     "linkme.1",
+     "linkme.3",
+     "fairman.1",
+     "fairman.2"
+    ]
+   },
+   {
+    "kind": "closing",
+    "text": "I would welcome a conversation to discuss how my agent platforms can serve TribalScale’s clients.",
+    "evidence_ids": []
+   }
+  ]
+ }
+}

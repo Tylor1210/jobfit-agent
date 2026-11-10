@@ -1,0 +1,49 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 44872,
+ "usage": {
+  "input_tokens": 3349,
+  "output_tokens": 3902,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Solutions Architect at Smartsheet\n<requirements>\n- (required) 3 years relevant work experience or equivalent combination of relevant work experience and ed",
+ "output": {
+  "greeting": "Dear Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "Solutions Architect at Smartsheet, the need for an engineer who can design, build, and ship full‑stack applications that embed LLM APIs aligns with my four years of end‑to‑end system delivery and recent work on edge‑based platforms. I have mentored incoming representatives and helped them achieve conversion‑rate benchmarks, and I regularly secured more than 50 qualified meetings each month.",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.5",
+     "exp.71lbs.2",
+     "exp.71lbs.1"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "I built tycodes.app, an AI demo generator that turns a business URL into a live, shoppable 3D experience in about a minute. The pipeline runs on Cloudflare Workers, Workflows, R2 and D1 and includes a six‑stage agent flow with verification of pricing and claims. I also created the Job Fit Agent, a LangGraph system that pulls daily job postings via public APIs, scores them with RAG on pgvector, and drafts personalized documents behind a human approval step. Additionally, I architected linkme‑intops, a CRM module built with React and TypeScript on Cloudflare Workers that gives staff a dedicated interface for high‑value subscription accounts. I designed integration blueprints and live demo environments that streamline onboarding of enterprise customers onto core platforms. Earlier I engineered tycodes.dev, a Vite‑based React and TypeScript front‑end deployed on Cloudflare Workers with Tailwind styling, and I created a Python ICM pipeline that audits local business sites, scores AI visibility, and records results in a Google Sheets CRM.",
+    "evidence_ids": [
+     "exp.tycodes.1",
+     "exp.tycodes.7",
+     "exp.linkme.1",
+     "exp.linkme.3",
+     "exp.tycodes.5",
+     "exp.tycodes.10"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "One gap is that I have not documented a willingness to travel up to 15 %. I will address this by adding quarterly on‑site visits to client locations and coordinating remote work windows around travel needs.",
+    "evidence_ids": []
+   },
+   {
+    "kind": "closing",
+    "text": "Thank you for your time; I look forward to speaking soon. I would welcome a conversation to discuss how my full‑stack and AI integration experience can serve Smartsheet’s enterprise customers.",
+    "evidence_ids": []
+   }
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+ "schema": "EmphasisOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 7579,
+ "usage": {
+  "input_tokens": 2521,
+  "output_tokens": 1410,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "angle": "Tylor is a systems architect who builds end‑to‑end AI‑agent platforms with LangGraph orchestration, robust evaluation and tracing, and production‑grade cloud deployment—exactly the blend TribalScale needs for forward‑deployed engineering.",
+  "skill_ids": [
+   "skill.langgraph",
+   "skill.python",
+   "skill.typescript",
+   "skill.llm_evals",
+   "skill.prompt_engineering",
+   "skill.langfuse",
+   "skill.human_in_the_loop",
+   "skill.tool_calling",
+   "skill.rag",
+   "skill.docker",
+   "skill.cloudflare",
+   "skill.fastapi",
+   "skill.react",
+   "skill.sql"
+  ],
+  "bullet_ids": [
+   "exp.tycodes.7",
+   "exp.tycodes.8",
+   "exp.tycodes.9",
+   "exp.tycodes.10",
+   "exp.linkme.1",
+   "exp.linkme.3",
+   "exp.fairman.1",
+   "exp.fairman.2",
+   "exp.71lbs.1",
+   "exp.71lbs.2"
+  ],
+  "posting_hooks": [
+   "Built and shipped a LangGraph‑based Job Fit Agent that ingests job postings, performs RAG scoring, and outputs drafts behind a human‑approval loop – matching the need for production‑grade AI agents and agent loops.",
+   "Designed and integrated a full evaluation suite with Langfuse tracing, prompt‑injection defenses, and cost‑capped deployments, directly supporting TribalScale’s requirements for AI evaluation systems and decision‑traceability.",
+   "Architected and delivered cloud‑native, serverless platforms (FastAPI, React/TypeScript on Cloudflare Workers, Docker CI) that automate multi‑step workflows and integrate APIs, satisfying the demand for distributed systems, APIs, and rapid prototyping."
+  ]
+ }
+}

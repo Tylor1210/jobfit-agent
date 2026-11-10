@@ -13,9 +13,9 @@
   url: https://job-boards.greenhouse.io/tribalscale/jobs/4722069006
   expected_verdict: strong
   tailor: true
-  expected_gaps:
-    - {name: evaluation frameworks, match: [eval, evaluation framework], confirmed: false}
-    - {name: graph / state-machine orchestration, match: [graph, state machine, orchestration, langgraph], confirmed: false}
+  # Was "evaluation frameworks" and "graph orchestration"; Resume1110 now lists LangGraph and LLM
+  # evals with evidence, so neither is a gap any more.
+  expected_gaps: []
 
 - id: smartsheet-sa
   company: Smartsheet
@@ -43,7 +43,6 @@
   expected_gaps:
     - {name: production machine learning, match: [machine learning, ml ], confirmed: false}
     - {name: Azure, match: [azure], confirmed: false}
-    - {name: Flask / FastAPI, match: [flask, fastapi], confirmed: false}
 
 - id: aquila-tech-support-govtech
   company: Aquila
