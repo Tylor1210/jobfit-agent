@@ -69,3 +69,12 @@ def test_check_text_allows_clean_text() -> None:
 def test_word_boundaries() -> None:
     c = load_constraints()
     assert check_text("We visited Chefchaouen and Cuba in May.", c) == []
+
+
+def test_settings_strip_pasted_whitespace(monkeypatch: pytest.MonkeyPatch) -> None:
+    from jobfit.config import Settings
+
+    monkeypatch.setenv("GROQ_API_KEY", "gsk_test\n")
+    monkeypatch.setenv("LANGFUSE_PUBLIC_KEY", "  ")
+    s = Settings()
+    assert s.groq_api_key == "gsk_test" and s.langfuse_public_key is None

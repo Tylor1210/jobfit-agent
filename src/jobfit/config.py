@@ -8,7 +8,7 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import AliasChoices, Field
+from pydantic import AliasChoices, Field, ValidationInfo, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -34,6 +34,26 @@ class Settings(BaseSettings):
     langfuse_public_key: str | None = None
     langfuse_secret_key: str | None = None
     langfuse_base_url: str = "https://cloud.langfuse.com"
+
+    @field_validator(
+        "database_url",
+        "anthropic_api_key",
+        "groq_api_key",
+        "langfuse_public_key",
+        "langfuse_secret_key",
+        "langfuse_base_url",
+        mode="before",
+    )
+    @classmethod
+    def _strip(cls, v: object, info: ValidationInfo) -> object:
+        # GOTCHA: a key pasted into a GitHub secret often carries a trailing newline. In an
+        # HTTP header that is invalid, and the SDKs report it as a vague "Connection error".
+        if isinstance(v, str):
+            v = v.strip()
+            if not v and info.field_name == "langfuse_base_url":
+                return "https://cloud.langfuse.com"
+            return v or None
+        return v
 
 
 @lru_cache(maxsize=1)
