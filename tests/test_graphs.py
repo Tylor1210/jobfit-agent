@@ -265,3 +265,62 @@ def test_too_few_requirements_is_unknown_not_zero(
     fit = run_fit(job, deps)["fit"]
     assert fit.verdict == "unknown" and not fit.assessments
     assert not any(s == "FitOut" for s, _, _ in fake.calls)  # no paid scoring call
+
+
+def test_years_judged_in_code() -> None:
+    from jobfit.graphs.fit import SEVERE_YEARS_CAP, judge_years, required_years
+    from jobfit.schemas import Assessment, Requirement
+
+    assert required_years("8+ years of software engineering") == 8
+    assert required_years("1-3 years building ML") == 1
+    assert required_years("Strong Python") is None
+    assert judge_years("3+ years", 4) == "met"
+    assert judge_years("5+ years", 4) == "partial"
+    assert judge_years("8+ years", 4) == "missing"
+
+    def a(text: str, cat: str, status: str) -> Assessment:
+        req = Requirement.model_validate(
+            {"id": "r", "text": text, "kind": "required", "category": cat}
+        )
+        return Assessment.model_validate(
+            {"requirement": req, "status": status, "evidence": [], "note": ""}
+        )
+
+    items = [a("8+ years", "years_experience", "missing")] + [
+        a("Python", "technical_skill", "met") for _ in range(9)
+    ]
+    assert compute_score(items, years_have=4) == SEVERE_YEARS_CAP
+
+
+def test_model_cannot_call_a_big_years_gap_partial(
+    deps: Deps, fake: FakeProvider, job: JobPosting
+) -> None:
+    reqs = RequirementsOut(
+        requirements=[
+            RequirementOut(
+                text="8+ years building production software",
+                kind="required",
+                category="years_experience",
+            ),
+            RequirementOut(text="Python", kind="required", category="technical_skill"),
+        ]
+    )
+
+    def generous(system: str, user: str) -> FitOut:
+        ids = re.findall(r"\[(r\d+)\]", user)
+        ev = re.findall(r"- ([\w.]+):", user)
+        return FitOut(
+            assessments=[
+                AssessmentOut(
+                    req_id=i, status="partial" if i == "r1" else "met", evidence_ids=ev[:1], note=""
+                )
+                for i in ids
+            ],
+            verdict_line="ok",
+            top_gaps=[],
+        )
+
+    fake.script(RequirementsOut, reqs).script(FitOut, generous)
+    fit = run_fit(job, deps)["fit"]
+    years = next(x for x in fit.assessments if x.requirement.category == "years_experience")
+    assert years.status == "missing" and fit.verdict == "not_a_fit"

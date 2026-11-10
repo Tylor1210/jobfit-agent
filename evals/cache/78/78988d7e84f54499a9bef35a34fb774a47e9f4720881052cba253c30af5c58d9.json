@@ -1,0 +1,46 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 4899,
+ "usage": {
+  "input_tokens": 1889,
+  "output_tokens": 4198,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect with 4+ years designing and deploying full-stack SaaS platforms and automation pipelines. Built cloud-native CRM and data-ingestion",
+ "output": {
+  "unsupported": [
+   {
+    "item": 0,
+    "claim": "serverless backends that ensure configuration accuracy and eliminate errors",
+    "reason": "evidence shows serverless backends for cost elimination and separate validation pipelines for error elimination; claim conflates functions not supported"
+   },
+   {
+    "item": 0,
+    "claim": "applies disciplined operational rigor from military logistics to manage complex configuration tasks across cross‑functional teams",
+    "reason": "evidence mentions operational rigor but does not reference cross‑functional teams"
+   },
+   {
+    "item": 11,
+    "claim": "I’m applying for the Configuration Specialist II role",
+    "reason": "evidence does not include application statement"
+   },
+   {
+    "item": 12,
+    "claim": "Each configuration change triggers the automated validation pipeline, catching errors before they reach production",
+    "reason": "evidence does not mention this process"
+   },
+   {
+    "item": 12,
+    "claim": "Collaboration with product and engineering teams ensured the module met roadmap goals",
+    "reason": "evidence does not mention collaboration or roadmap goals"
+   },
+   {
+    "item": 12,
+    "claim": "ensuring configuration accuracy across a growing caseload",
+    "reason": "evidence does not specify caseload growth"
+   }
+  ]
+ }
+}

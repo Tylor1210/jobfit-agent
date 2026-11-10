@@ -138,3 +138,13 @@ def test_clean_model_maps_lookalikes_but_keeps_em_dash() -> None:
 
     r = clean_model(resume(summary="Six\u2011stage $100\u00a0M pipeline \u2014 shipped."))
     assert r.summary == "Six-stage $100 M pipeline \u2014 shipped."
+
+
+def test_employer_name_is_not_an_unsupported_tool() -> None:
+    lt = letter()
+    paras = list(lt.paragraphs)
+    paras[0] = paras[0].model_copy(update={"text": paras[0].text + " Smartsheet is the place."})
+    edited = lt.model_copy(update={"paragraphs": paras})
+    fit = _fit_with_gap("Kubernetes")
+    assert "unsupported_tool" in rules(verify_cover_letter(edited, P, C, fit))
+    assert verify_cover_letter(edited, P, C, fit, allow_terms=["Smartsheet"]) == []

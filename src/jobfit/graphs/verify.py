@@ -151,12 +151,19 @@ def _voice(text: str) -> list[Issue]:
 
 
 def verify_resume(
-    r: ResumeOut, p: Profile, c: Constraints, page_count: Callable[[ResumeOut], int] | None = None
+    r: ResumeOut,
+    p: Profile,
+    c: Constraints,
+    page_count: Callable[[ResumeOut], int] | None = None,
+    allow_terms: Iterable[str] = (),
 ) -> list[Issue]:
+    """`allow_terms`: names that may appear without being in the profile, i.e. the employer
+    the draft is addressed to ("Smartsheet" is both a lexicon tool and the company)."""
     f = ProfileFacts.of(p)
+    allow = list(allow_terms)
     issues = _rules("resume", r.summary, c)
     issues += _voice(r.summary)
-    issues += _claim_checks("resume", r.summary, r.summary_evidence_ids, f)
+    issues += _claim_checks("resume", r.summary, r.summary_evidence_ids, f, allow)
     for row in r.skill_rows:
         issues += _rules("resume", row.label, c)
         bad = [s for s in row.skill_ids if s not in f.skill_ids]
@@ -186,7 +193,7 @@ def verify_resume(
                         detail=f"{foreign} used under {job.job_id}: {b.text[:60]}",
                     )
                 )
-            issues += _claim_checks("resume", b.text, b.source_ids, f)
+            issues += _claim_checks("resume", b.text, b.source_ids, f, allow)
     if n_bullets == 0:
         issues.append(Issue(doc="resume", rule="empty", detail="no experience bullets"))
     if page_count and not any(i.rule in HARD_RULES for i in issues):
@@ -208,9 +215,14 @@ def letter_words(letter: CoverLetterOut) -> int:
 
 
 def verify_cover_letter(
-    letter: CoverLetterOut, p: Profile, c: Constraints, fit: FitResult | None = None
+    letter: CoverLetterOut,
+    p: Profile,
+    c: Constraints,
+    fit: FitResult | None = None,
+    allow_terms: Iterable[str] = (),
 ) -> list[Issue]:
     f = ProfileFacts.of(p)
+    employer = list(allow_terms)
     issues = _rules("cover_letter", letter.greeting, c)
     # A gap paragraph may *name* a tool the job wants and Tylor lacks. Only those terms, only there.
     gap_terms: list[str] = []
@@ -223,7 +235,7 @@ def verify_cover_letter(
             if _term_rx(t).search(gap_text) or t.lower() in gap_text.lower()
         ]
     for para in letter.paragraphs:
-        allow = gap_terms if para.kind == "gap" else []
+        allow = [*employer, *(gap_terms if para.kind == "gap" else [])]
         issues += _rules("cover_letter", para.text, c, skip_tools=allow)
         issues += _claim_checks("cover_letter", para.text, para.evidence_ids, f, allow_terms=allow)
         if para.kind in ("opening", "evidence") and not para.evidence_ids and _nums(para.text):

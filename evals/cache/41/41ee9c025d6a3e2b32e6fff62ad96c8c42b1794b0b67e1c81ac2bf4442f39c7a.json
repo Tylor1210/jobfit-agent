@@ -1,0 +1,86 @@
+{
+ "schema": "RequirementsOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 2555,
+ "usage": {
+  "input_tokens": 1181,
+  "output_tokens": 2075,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Configuration Specialist II\nCompany: CentralReach\n\n<job_posting>\nCentralReach is a leading provider of autism and IDD care software for Applied Behavior A",
+ "output": {
+  "requirements": [
+   {
+    "text": "1–3 years of experience in a technical configuration, implementation, or SaaS operations role.",
+    "kind": "required",
+    "category": "years_experience"
+   },
+   {
+    "text": "Manage multiple configuration tasks concurrently with strong attention to detail.",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Comfortable working cross-functionally with Implementation, Product, and Engineering teams, including direct client-facing coordination.",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Track record of resolving moderately complex configuration issues with limited guidance.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Provision and configure customer accounts across internal systems and tools.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Translate documented business and implementation requirements/features into backend system configurations, workflows, and AI rule settings.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Set up, modify, and validate configurations to support approved customer use cases, including moderately ambiguous requirements.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Ensure configuration accuracy, consistency, and adherence to internal standards across a growing caseload.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Maintain accurate configuration documentation and change logs.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Triage configuration issues and risks, escalating what cannot be resolved independently.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Contribute to continuous improvement of configuration standards, templates, and internal playbooks.",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Identify recurring configuration challenges and recommend process or tooling improvements.",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Support scalability by enabling repeatable, efficient setup processes across customer segments.",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Hybrid work arrangement; offices in Ft. Lauderdale, FL; Holmdel, NJ; and Verona, Italy.",
+    "kind": "required",
+    "category": "location"
+   }
+  ]
+ }
+}

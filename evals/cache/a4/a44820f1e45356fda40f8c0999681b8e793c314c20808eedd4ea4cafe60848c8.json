@@ -1,0 +1,76 @@
+{
+ "schema": "RequirementsOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 2276,
+ "usage": {
+  "input_tokens": 1864,
+  "output_tokens": 1722,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Solutions Architect\nCompany: Kobie\n\n<job_posting>\nJoin a National Top Workplace \nNamed a Top Workplace in the USA and Top Remote Workplace, Kobie is where",
+ "output": {
+  "requirements": [
+   {
+    "text": "3-5 years of experience in solutions architecture, business requirements analysis, or technical pre‑sales within a technology environment.",
+    "kind": "required",
+    "category": "years_experience"
+   },
+   {
+    "text": "Document business requirements into BRDs, SCDs, and Epic/Feature briefs that keep solutions traceable from discovery through delivery.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Validate delivery cost estimates (COGS) across data/analytics, software, CS, and strategy workstreams to confirm feasibility.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Apply Agile/Scrum, waterfall, and iterative delivery methodologies to structure solution plans that fit each client’s approach.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Build solution demos, proposals, and pitch materials that establish technical credibility in RFP, RFI, and upsell settings.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Coordinate dependencies across marketing, data/analytics, and partner integration workstreams to keep multi‑team solutions aligned.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Identify scope drift and delivery risk, translating findings into corrective action plans for delivery and client teams.",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Working knowledge of loyalty marketing programs and mechanics.",
+    "kind": "preferred",
+    "category": "domain"
+   },
+   {
+    "text": "Delivery experience in retail, financial services, or travel & hospitality.",
+    "kind": "preferred",
+    "category": "domain"
+   },
+   {
+    "text": "Familiarity with MarTech platforms (e.g., campaign management, CDP, personalization tools) to align solutions with a client’s tech stack.",
+    "kind": "preferred",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Willingness and ability to travel as needed, up to once per quarter.",
+    "kind": "required",
+    "category": "other"
+   },
+   {
+    "text": "Remote/hybrid work model.",
+    "kind": "required",
+    "category": "location"
+   }
+  ]
+ }
+}

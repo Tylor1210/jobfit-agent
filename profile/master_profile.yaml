@@ -11,6 +11,10 @@ contact:
   websites: [tycodes.dev, tycodes.app]
   github: github.com/Tylor1210
 
+# Professional technical experience in years, as stated in sum.1 ("4+ years"). The fit graph
+# judges "N+ years" requirements against this in code, not by the model.
+years_experience: 4
+
 summary:
   - id: sum.1
     text: >-

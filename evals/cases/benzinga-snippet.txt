@@ -1,0 +1,3 @@
+Remote - Before you read further: applying to this role requires a Loom video walkthrough under 5 minutes of the best thing you have built, plus a repo or live link. Tell us the hardest problem you hit and how you solved it. Focus on architecture decisions and tradeoffs, not a f...
+
+Please mention the word **CHARMINGLY** and tag RMjYwMDoxNzAwOjNiMDpiNTUwOjg1NTk6NzY6YjIxOTo0NWNh when applying to show you read the job post completely (#RMjYwMDoxNzAwOjNiMDpiNTUwOjg1NTk6NzY6YjIxOTo0NWNh). This is a beta feature to avoid spam applicants. Companies can search these words to find applicants that read this and see they're human.

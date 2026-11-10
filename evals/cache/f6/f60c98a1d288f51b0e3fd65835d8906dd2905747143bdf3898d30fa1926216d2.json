@@ -1,0 +1,48 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 46831,
+ "usage": {
+  "input_tokens": 2557,
+  "output_tokens": 3893,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Solutions Architect at Smartsheet\n<requirements>\n- (required) 3 years relevant work experience or equivalent combination of relevant work experience and ed",
+ "output": {
+  "greeting": "Dear Smartsheet Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "The Solutions Architect opening at Smartsheet emphasizes end‑to‑end full‑stack delivery and AI integration. My four‑plus years as a systems architect have been spent designing, building, and shipping production‑grade platforms that run on edge infrastructure and combine UI, backend, and LLM services. I routinely explain system design to non‑technical stakeholders, a skill sharpened by direct customer engagements.",
+    "evidence_ids": [
+     "sum.1",
+     "exp.linkme.1"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "I built tycodes.app, a web service that turns a business URL into a live, shoppable 3D demo in about a minute. The system runs a six‑stage agent pipeline on Cloudflare Workers, uses Vite, React, TypeScript, and Tailwind for the UI, and calls OpenAI through a Hono worker for pricing models. I added a verification stage that stops unsupported claims from publishing, eliminating hallucinated pricing. I architected linkme‑intops, an operations CRM module built with React and TypeScript on Cloudflare Workers. The tool gives staff a dedicated interface for high‑value subscription accounts and serves as the front end for a suite of integration blueprints that onboard enterprise clients. I also engineered custom data ingestion modules and analytics pipelines that cut service delivery time by over 30%. A zero‑maintenance serverless backend I built used Google Sheets via OAuth, removing the need for dedicated servers.",
+    "evidence_ids": [
+     "exp.tycodes.1",
+     "exp.tycodes.5",
+     "exp.tycodes.2",
+     "exp.linkme.1",
+     "exp.linkme.3",
+     "exp.linkme.2",
+     "exp.tycodes.6"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "I have not yet taken regular travel beyond local client sites, so the 15 % travel requirement is a gap for me. I will address it by aligning travel with project milestones, using remote preparation to keep onsite time focused, and scheduling trips well in advance to meet Smartsheet’s needs.",
+    "evidence_ids": []
+   },
+   {
+    "kind": "closing",
+    "text": "I would welcome a conversation to discuss how my full‑stack and AI‑agent experience can support Smartsheet’s solutions.",
+    "evidence_ids": []
+   }
+  ]
+ }
+}

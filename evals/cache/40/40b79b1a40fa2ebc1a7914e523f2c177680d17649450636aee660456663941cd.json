@@ -1,0 +1,158 @@
+{
+ "schema": "FitOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 5735,
+ "usage": {
+  "input_tokens": 3820,
+  "output_tokens": 2491,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n[r1] (required, other) Professional experience building and deploying prod",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.4",
+     "exp.tycodes.1"
+    ],
+    "note": "Built and shipped production AI software and platforms."
+   },
+   {
+    "req_id": "r2",
+    "status": "met",
+    "evidence_ids": [
+     "skill.python",
+     "skill.typescript",
+     "exp.tycodes.4"
+    ],
+    "note": "Proficient in Python and TypeScript, used in projects."
+   },
+   {
+    "req_id": "r3",
+    "status": "met",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.tool_calling",
+     "exp.tycodes.2"
+    ],
+    "note": "Designed and implemented multi-stage agent pipelines."
+   },
+   {
+    "req_id": "r4",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.icm"
+    ],
+    "note": "Familiar with orchestrator and pipeline methodologies."
+   },
+   {
+    "req_id": "r5",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.codex",
+     "skill.prompt_engineering",
+     "exp.tycodes.4"
+    ],
+    "note": "Used backtesting and prompts for AI evaluation."
+   },
+   {
+    "req_id": "r6",
+    "status": "met",
+    "evidence_ids": [
+     "skill.prompt_engineering",
+     "exp.tycodes.4"
+    ],
+    "note": "Understands prompt trade‑offs and context management."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.codex",
+     "exp.fairman.2"
+    ],
+    "note": "Implemented data validation and tool‑calling agents."
+   },
+   {
+    "req_id": "r8",
+    "status": "met",
+    "evidence_ids": [
+     "skill.anthropic_api",
+     "skill.wrangler",
+     "exp.linkme.1"
+    ],
+    "note": "Experienced with APIs, cloud workers, and modern dev practices."
+   },
+   {
+    "req_id": "r9",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "edu.bas_it"
+    ],
+    "note": "Rapidly adapts to new domains and technologies."
+   },
+   {
+    "req_id": "r10",
+    "status": "met",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "exp.tycodes.4"
+    ],
+    "note": "Prototyped, validated, and deployed production AI systems."
+   },
+   {
+    "req_id": "r11",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.prompt_engineering",
+     "exp.fairman.2"
+    ],
+    "note": "Balances model performance with product constraints."
+   },
+   {
+    "req_id": "r12",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.claude_code",
+     "edu.bas_it"
+    ],
+    "note": "Communicates AI system behavior and trade‑offs clearly."
+   },
+   {
+    "req_id": "r13",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence of travel willingness."
+   },
+   {
+    "req_id": "r14",
+    "status": "met",
+    "evidence_ids": [
+     "contact.location"
+    ],
+    "note": "Located in South Florida, near required area."
+   },
+   {
+    "req_id": "r15",
+    "status": "met",
+    "evidence_ids": [
+     "skill.crm",
+     "exp.linkme.3"
+    ],
+    "note": "Collaborated with clients and internal teams on deliveries."
+   }
+  ],
+  "verdict_line": "The candidate meets most technical and soft requirements but lacks demonstrated willingness to travel.",
+  "top_gaps": [
+   "Ability to travel occasionally for client workshops",
+   "Familiarity with graph‑based orchestration and state machines",
+   "Experience designing AI evaluation systems"
+  ]
+ }
+}

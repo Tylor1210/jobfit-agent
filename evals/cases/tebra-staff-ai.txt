@@ -1,0 +1,123 @@
+Tebra only initiates contact with candidates via email from an official Tebra email address (@tebra.com, @patientpop.com, or @kareo.com) or through our applicant tracking system, Greenhouse. We will only ask you to provide sensitive personal information through our official application portal — not via social media or text message. We do not conduct interviews via instant messaging.
+
+About the Role
+
+The Revenue Cycle Management (RCM) team is seeking a Staff Software Engineer to lead the design, development, and adoption of AI-native capabilities across our billing and revenue cycle platform.
+
+This role combines deep software engineering expertise with hands-on experience building production AI systems. You will help transform how healthcare organizations manage billing, payments, claims, and operational workflows by applying Large Language Models (LLMs), intelligent automation, retrieval systems, and agentic AI architectures to solve real-world business problems.
+
+As a senior individual contributor, you will operate at the intersection of platform architecture, AI systems engineering, and business transformation. You will influence technical strategy across teams, design reusable AI capabilities, and establish engineering standards for building reliable, secure, and scalable AI-powered systems.
+
+Your impact will come through technical leadership, architectural ownership, hands-on implementation, and your ability to translate complex business challenges into intelligent software solutions that deliver measurable outcomes.
+
+Your Area of Focus
+
+- Identify and implement practical opportunities to embed AI into backend services and business workflows where it can improve efficiency, accuracy, or decision support.
+
+- Design and build production-ready AI-enabled services that combine application logic, APIs, and AI models to support real customer and operational use cases.
+
+- Integrate LLMs, ML models, and external AI services into existing systems using strong engineering patterns for reliability, observability, and maintainability.
+
+- Build workflows that use AI in a bounded, auditable way, with clear fallback behavior, evaluation, and human review where appropriate.
+
+- Partner with product, design, data, and operational teams to turn workflow pain points into scalable software solutions with measurable impact.
+
+- Lead Software Development: Design, develop, test, and deploy scalable and maintainable software applications using Spring Boot, Java, React, and cloud technologies.
+
+- Architect and Design: Collaborate with product managers, designers, and cross-functional teams to architect robust and scalable solutions that meet business requirements. Provide input into the technical direction of the team and product.
+
+- Cloud Technology Expertise: Leverage experience with cloud platforms (AWS, Azure, Google Cloud, etc.) to design cloud-native applications. Ensure that applications are optimized for scalability, reliability, and cost-efficiency in a cloud environment.
+
+- Code Reviews & Mentorship: Conduct thorough code reviews, ensuring that the team adheres to best practices for clean, maintainable, and efficient code. Mentor junior and mid-level engineers, fostering a culture of continuous learning and improvement.
+
+- Collaboration and Communication: Work closely with product and design teams to define requirements, deliver timely solutions, and provide technical expertise throughout the product lifecycle.
+
+- Performance and Optimization: Monitor and optimize the performance of applications. Identify bottlenecks and implement performance improvements across both frontend (React) and backend (Java/Spring Boot) layers.
+
+- Agile Development: Participate in Agile development processes, including sprint planning, daily standups, retrospectives, and backlog grooming. Contribute to defining and prioritizing work within the team.
+
+- Stay Current: Continuously research and apply emerging technologies and industry best practices to improve the development process and product quality.
+
+Your Professional Qualifications
+
+- Experience & Seniority: 8+ years of professional software engineering experience building scalable distributed systems, with a track record of driving technical direction and architecture decisions without formal authority.
+
+- Core Technical Stack: Absolute mastery of Java, Spring Boot, and Python for developing secure, high-throughput, cloud-native backend systems (AWS, Azure, or GCP).
+
+- Production AI Experience: 2–3+ years of hands-on experience designing, shipping, and maintaining production AI-enabled or AI-native applications (combining LLMs, core application logic, and business workflows).
+
+- AI Orchestration & Architecture: Practical experience with orchestration frameworks (e.g., LangChain, LangGraph, LlamaIndex, CrewAI) and a deep understanding of RAG, tool calling, prompt engineering, context/state management, and human-in-the-loop patterns.
+
+- Systems Infrastructure & Data: Strong background in distributed systems, event-driven architectures, asynchronous processing, and messaging platforms (e.g., Kafka).
+
+- Production Safeguards & MLOps: Proven experience implementing enterprise AI guardrails, including real-time observability, latency/cost monitoring, automated evaluation pipelines, and robust fallback mechanisms.
+
+- Collaboration: Impact-driven mindset with excellent cross-functional communication skills to bridge Engineering, Product, Design, and Operations.
+
+- Advanced Agentic AI: Experience building autonomous, multi-step agentic systems utilizing multi-tier memory networks and recursive reasoning preferred.
+
+- Domain Expertise: Prior background in Healthcare IT, Revenue Cycle Management (RCM), billing, claims processing, fintech, or similarly regulated, high-compliance transaction environments preferred.
+
+- Deep Data Retrieval: Hands-on experience with vector databases, semantic search architectures, and enterprise knowledge graph construction preferred.
+
+- Advanced ML Tooling: Exposure to PyTorch, Hugging Face Transformers, custom embedding models, fine-tuning methodologies, or model serving optimization.
+
+- Leadership Pedigree: Past experience serving as a Founding Engineer, Principal Architect, or early-stage platform lead driving organization-wide AI/ML adoption frameworks preferred.
+
+(For Recruiter use only) #LI-SS1 #LI-Remote
+
+We are dedicated to attracting and retaining top talent with competitive and fair compensation. For this position, this range reflects our Zone 1 (National Average) pay band. Your specific compensation is thoughtfully determined by your experience, qualifications, the specific requirements of the role, and your Geo Zone. Our geo-zone system ensures your pay is competitive for your location, recognizing varying costs of labor across regions.
+
+Our four geo zones are designed to reflect this:
+Zone 1: National Average
+Zone 2: Moderately Higher Cost Regions
+Zone 3: High-Cost Regions
+Zone 4: Lower-Cost Regions
+
+Beyond base compensation, Tebra offers eligible employees the opportunity for variable pay and a robust benefits package, reflecting our commitment to your overall well-being. In compliance with California pay transparency laws, the specific compensation range applicable to your Geo Zone will be shared during your initial talent screen.
+
+Zone 1 (National Average)
+
+$216,000—$224,250 USD
+
+About Tebra
+
+Tebra is the only all-in-one EHR+ platform built exclusively for independent healthcare practices. Designed to replace the clunky, fragmented tools built for corporate systems, Tebra connects EHR software, billing, automation, telehealth solution, and marketing — so providers can spend less time on admin and more time with patients. More than 42,000 private practices trust Tebra to streamline operations, increase revenue, and reduce burnout — helping clinicians leave work on time and rediscover their purpose. Learn more at www.tebra.com.
+
+Our Values
+
+Start with the Customer
+
+We get to know our customers - and their patients - and look at the world through their lens.
+
+Keep It Simple
+
+Healthcare is too complex. We aim to simplify it for everyone.
+
+Stay Entrepreneurial
+
+We reject the status quo and solve problems with creativity, perseverance, and a bias to action.
+
+Better Together
+
+We are diverse, humble, and collaborative. We put the team first and win together.
+
+Celebrate Success
+
+Life is short and joy is underrated. We take time to have fun and celebrate success.
+
+Perks & Benefits
+
+United States: In addition to our healthcare benefits, we also offer amazing perks! Need work from home basics? We offer a discount through Dell! We also offer a number of resources to help you keep your mind and body healthy. Check out Gympass for a great workout, or TelusEmployee Assistance Program to find mental health resources, along with other resources for everyday occurrences.
+
+Costa Rica: To assist with all of life’s needs, Tebra also offers a wellness and childcare subsidy and a University/Education discount! We also offer a number of resources to help you keep your mind and body healthy. Check out Gympass for access to health and fitness apps, or Telus Employee Assistance Program to find mental health resources, along with other resources for everyday occurrences.
+
+Compliance & Privacy Disclosures
+
+NOTE: Tebra is an equal opportunity employer. All applicants will be considered for employment without attention to age, race, color, religion, sex, sexual orientation, gender identity, national origin, veteran or disability status.
+
+California residents who apply or are recruited for a job with us: please carefully review our California-specific Privacy Notice under the California Consumer Protection Act here: https://www.tebra.com/privacy-policy/california-supplemental-notice/
+
+If you would like to report a fraudulent Tebra job posting, please contact us at talentacquisition@tebra.com and consider reporting your experience to the FBI's Internet Crime Complaint Center or the Better Business Bureau to help keep others safe online, too.
+
+As part of our commitment to a fair and efficient hiring process, Tebra utilizes Greenhouse Notetaker, Greenhouse's native interview intelligence tool, for our phone and video screenings. This technology records and transcribes interviews to help us ensure consistency, reduce bias, and make more informed hiring decisions. By applying for this position, you acknowledge that your interview may be recorded.

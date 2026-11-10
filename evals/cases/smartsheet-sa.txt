@@ -1,0 +1,123 @@
+For over 20 years, Smartsheet has empowered teams to manage work seamlessly and scale solutions smarter. Now, in our most ambitious chapter yet, we are uniting human teams with AI agents. By orchestrating the work agents do best, automating manual tasks and uncovering insights at scale, we create the space for people to focus on what truly matters: judgment, creativity, and big thinking. That is magic at work, and it’s what we show up for every day.
+
+Smartsheet is a tech company with a human story to tell. We’re here to empower teams to manage projects, automate workflows, and rapidly build new secure solutions, using simple no-code tools. We’re revolutionaries – so for us changing the way the world works is all in a day’s work.
+
+Smartsheet is looking for a Solutions Architect to drive quality, efficiency and customer satisfaction within our Professional Services’ business by leading customer conversations and assisting customers with developing, building, testing and deploying solutions that leverage Smartsheet, the Smartsheet API and integrations between Smartsheet and other products. The right candidate will have a passion for working with leading edge, web-based, and AI-powered technologies and a desire to deeply understand Smartsheet’s benefits, use cases, and business and technical elements.
+
+As a Solutions Architect, you will work with Smartsheet customers and partners on engagements to convert business requirements into Smartsheet solutions. Within this role, you will be considered the Subject Matter Expert pertaining to advanced Smartsheet functionalities in order to propose solutions for use cases across different industries and business groups. The right candidate is a strong communicator, detail-oriented, and is motivated by both working independently and leading impactful customer conversations.
+
+You will report to the Director, Solution Architect. This is a remote eligible position and you may work remotely from anywhere in the US where Smartsheet is registered.
+
+You Will:
+
+- Develop, build, test and deploy custom software solutions leveraging a wide array of Smartsheet product & third party APIs
+
+- Design and build AI-powered workflows and automations — leveraging LLMs, AI agents, and Smartsheet’s native AI capabilities — to solve customer problems that traditional configuration can’t
+
+- Leverage AI coding assistants such as Claude Code to accelerate custom development, prototyping, and solution delivery across customer engagements
+
+- Evaluate emerging AI tools and techniques and apply them to accelerate time-to-value for customers
+
+- Lead technical consulting engagements that require custom software development by leading design sessions, defining technical requirements, and validating solution architecture against product best practices
+
+- Design and document technical solutions aligned with client business objectives
+
+- Partner directly with customer teams throughout an engagement, embedding deeply enough in their workflows to translate real-world pain points into working solutions quickly
+
+- Rapidly prototype and iterate on solutions in close collaboration with customers, refining scope and design based on hands-on feedback rather than waiting for formal review cycles
+
+- Own solutions end-to-end — from initial discovery through deployment, adoption, and ongoing refinement in production
+
+- Build reusable components, frameworks, and accelerators that can be extended and redeployed across future customer engagements
+
+- Serve as the Smartsheet subject matter expert (SME) on Smartsheet product capabilities and AI-powered extensibility scenarios that leverage the API
+
+- Manage all aspects of technical projects, including, but not limited to, the schedule, deliverables, deadlines and client relationships
+
+- Drive the technical delivery of custom development, integrations, and data migration elements of a Smartsheet implementation
+
+- Maintain a target billable utilization aligned to the role
+
+- Provide feedback to our Product & Platform Engineering teams that inform product improvements and identify feature gaps
+
+- Other duties as assigned
+
+You Have:
+
+- 3 years relevant work experience or equivalent combination of relevant work experience and education
+
+- Working experience with two or more of our primary languages (.Net, NodeJS, Python, Java, Ruby)
+
+- Full-stack development skills, with the ability to independently design, build, and ship production-quality applications — not just configure existing tools
+
+- Familiarity with AI/LLM technologies and experience integrating them into applications via APIs
+
+- Working knowledge of prompt engineering and AI agent design patterns, with curiosity for applying AI to solve real business problems
+
+- Hands-on experience with AI-assisted development tools such as Claude Code, with comfort integrating them into a daily engineering workflow
+
+- Willing to travel periodically (up to 15%) based on customer and business need
+
+- Strong communication skills (written, verbal, presentation), with the ability to explain technical subjects to non-technical end user personnel in large enterprises
+
+- Proven ability to drive projects from concept through completion with minimal guidance
+
+- Customer facing experience
+
+- Comfort operating with high autonomy in ambiguous, fast-changing environments where requirements evolve in real time
+
+- A strong bias toward ownership — treating customer problems as your own and staying engaged through to a successful outcome
+
+- Experience rapidly prototyping and iterating on solutions based on direct, hands-on customer feedback
+
+- Experience working with SaaS/IPaaS applications in an enterprise environment
+
+- Understanding of systems architecture and ability to design scalable performance-driven solutions
+
+- Understanding of key design patterns and large data volume best practices
+
+- Knowledge of data integration and experience integrating SaaS applications with different business systems (ETL, CRM, business analytics, reporting, etc.)
+
+- Bachelors in MIS, CIS, CS preferred but not required
+
+Current US Perks & Benefits:
+
+- Employer subsidized medical/vision and dental coverage for full-time employees
+
+- 401k Match to help you save for your future (50% of your contribution up to the first 6% of your eligible pay)
+
+- Monthly stipend to support your work and productivity
+
+- Flexible Time Away Program, plus Sick Time Off
+
+- US employees are automatically covered under Smartsheet-sponsored life insurance, short-term, and long-term disability plans
+
+- US employees receive 12 paid holidays per year
+
+- Up to 24 weeks of Parental Leave
+
+- Personal paid Volunteer Day to support our community
+
+- Opportunities for professional growth and development including access to Udemy online courses
+
+- Company Funded Perks, including a counseling membership, local retail discounts, and your own personal Smartsheet account
+
+- Teleworking options from any registered location in the U.S. (role specific)
+
+Smartsheet provides a competitive base salary range for roles that may be hired in different geographic areas we are licensed to operate our business from. Actual compensation is determined by several factors including, but not limited to, level of professional, educational experience, skills, and specific candidate location. In addition, this role will be eligible for a market competitive incentive opportunity.
+
+US Base Salary Pay Range
+
+$127,500—$165,000 USD
+
+Get to Know Us:
+
+At Smartsheet, your ideas are heard, your potential is supported, and your contributions have real impact. You’ll have the freedom to explore, push boundaries, and grow beyond your role. We welcome diverse perspectives and nontraditional paths—because we know that impact comes from individuals who care deeply and challenge thoughtfully. When you’re doing work that stretches you, excites you, and connects you to something bigger, that’s magic at work. Let’s build what’s next, together.
+
+Equal Opportunity Employer:
+
+Smartsheet is an Equal Opportunity (EEO) employer committed to fostering an inclusive environment with the best employees. It is our policy to provide equal employment opportunities to all qualified applicants in accordance with applicable laws in the US, UK, Australia, Germany, Costa Rica, Japan, Bulgaria, India, and Singapore. All qualified applicants will receive consideration without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, age, protected veteran or disabled status, or genetic information.
+
+If there are preparations we can make to help ensure you have a comfortable and positive interview experience, please let us know.
+
+#LI-Remote

@@ -1,0 +1,91 @@
+{
+ "schema": "RequirementsOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 2957,
+ "usage": {
+  "input_tokens": 2091,
+  "output_tokens": 2302,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Solutions Architect\nCompany: Smartsheet\n\n<job_posting>\nFor over 20 years, Smartsheet has empowered teams to manage work seamlessly and scale solutions sma",
+ "output": {
+  "requirements": [
+   {
+    "text": "3 years relevant work experience or equivalent combination of relevant work experience and education",
+    "kind": "required",
+    "category": "years_experience"
+   },
+   {
+    "text": "Working experience with two or more of our primary languages (.Net, NodeJS, Python, Java, Ruby)",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Full-stack development skills, with the ability to independently design, build, and ship production-quality applications — not just configure existing tools",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Familiarity with AI/LLM technologies and experience integrating them into applications via APIs",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Working knowledge of prompt engineering and AI agent design patterns, with curiosity for applying AI to solve real business problems",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Hands-on experience with AI-assisted development tools such as Claude Code, with comfort integrating them into a daily engineering workflow",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Strong communication skills (written, verbal, presentation), with the ability to explain technical subjects to non-technical end user personnel in large enterprises",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Proven ability to drive projects from concept through completion with minimal guidance",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Customer facing experience",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Comfort operating with high autonomy in ambiguous, fast-changing environments where requirements evolve in real time",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Experience rapidly prototyping and iterating on solutions based on direct, hands-on customer feedback",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Understanding of systems architecture and ability to design scalable performance-driven solutions",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Knowledge of data integration and experience integrating SaaS applications with different business systems (ETL, CRM, business analytics, reporting, etc.)",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Willing to travel periodically (up to 15%) based on customer and business need",
+    "kind": "required",
+    "category": "other"
+   },
+   {
+    "text": "Bachelor's in MIS, CIS, CS preferred but not required",
+    "kind": "preferred",
+    "category": "education"
+   }
+  ]
+ }
+}

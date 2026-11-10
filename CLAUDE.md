@@ -15,6 +15,9 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `uv run jobfit profile validate|index|search "query"`
 - `uv run jobfit ingest [--source greenhouse] [--no-score] [--top N]` daily pipeline
 - `uv run jobfit add URL` or `add --text FILE --company X --title Y` manual posting + score
+- `make eval` (replay recorded LLM calls, call the API only on a miss) / `make eval-record` (re-record
+  after prompt or model changes, needs a key) / `make eval-replay` (CI, no key). Gate: exit 1 on
+  any hallucinated claim in final drafts, failed injection case, or errored case.
 - `uv run jobfit fit posting.txt --company X --title Y [--tailor]` live run (uses .env keys)
 - `uv run playwright install chromium` once, for PDF rendering and `-m render` tests
 - On this Mac use `/opt/homebrew/bin/uv` (the one in ~/.local/bin is x86_64 and won't run).
@@ -32,6 +35,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `config/watchlist.yaml` company boards; `config/ingest.yaml` sources, prefilter, top N.
 - `src/jobfit/ingest/` source adapters, prefilter, pipeline, manual add. `store/ingest_store.py` closing rules.
 - `.github/workflows/daily-ingest.yml` 11:00 UTC cron; secrets listed in its header.
+- `evals/cases/cases.yaml` + `<id>.txt` postings; `evals/cache/` recorded LLM calls (commit it);
+  `evals/report.md` + `history.jsonl` committed, `report.json` gitignored. Code in `src/jobfit/evals/`.
 
 ## Hard rules
 - Never add a fact to the profile that isn't true. Generated text cites evidence IDs or it's rejected.
@@ -48,3 +53,4 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - Fit score is computed in code (`graphs/fit.py:compute_score`), never taken from the model.
 - Titles, companies, dates, education, skill names on the PDF come from the profile, not the LLM.
 - Groq free tier is ~8k tokens/min per model: a tailor run takes 2 to 4 minutes. That's expected.
+- Any prompt change invalidates the eval cache: run `make eval-record` and commit `evals/cache/`.

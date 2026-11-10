@@ -1,0 +1,196 @@
+Shape the Future with TribalScale
+
+TribalScale is a digital innovation firm that helps organizations adapt and thrive in a rapidly changing world. We partner with clients to build transformative digital products, modernize technology platforms, and apply emerging technologies—including artificial intelligence—to meaningful business challenges.
+Our teams work closely with clients from strategy through execution. We value curiosity, ownership, practical innovation, and people who are comfortable turning ambiguity into action.
+
+Our Digital Expertise
+
+- Transformation Experts: We transform traditional business models into agile, AI-powered ecosystems.
+
+- Strategic Visionaries: We navigate the uncharted waters of technological evolution.
+
+- Product Virtuosos: We orchestrate the creation of world-class digital solutions.
+
+- Code Optimizers: We leverage AI to refine and perfect digital systems.
+
+Our Technological Toolkit
+
+- Mobile & Web Development: (iOS, Android, React Native, React, Node.js)
+
+- Voice-Activated Platforms: (Amazon Alexa, Google Home)
+
+- Connected Ecosystems: (Cars and Homes)
+
+- Streaming Platforms: (Roku, Fire TV, Android TV, tvOS)
+
+The TribalScale Professional
+
+You thrive in challenging environments where innovation is key. Your passion for technology is matched only by your drive to redefine its limits. You seek more than a job; you seek a calling—a chance to make a lasting impact on the digital landscape.
+
+The Opportunity
+
+TribalScale is looking for a Forward Deployed Engineer to work at the intersection of software engineering, artificial intelligence, product development, and client delivery.
+In this role, you will embed with client and internal teams to understand complex business problems, rapidly design solutions, and deploy production-quality software in real-world environments. You will operate as both a hands-on engineer and a trusted technical partner—translating business needs into working products while helping clients make sound technology decisions.
+You will be expected to understand more than models and prompts. You will help design the systems around AI models: the harnesses, agent loops, state graphs, tools, context, evaluations, observability, permissions, and human controls required to make AI applications useful and reliable in production.
+
+This role is ideal for an adaptable engineer who enjoys direct customer interaction, can move comfortably between discovery and delivery, and wants to see their work create immediate, measurable impact.
+
+What You’ll Do
+
+- Partner directly with clients to understand their objectives, workflows, technical environments, data, and operational constraints.
+
+- Translate ambiguous business challenges into clear technical requirements, solution architectures, prototypes, and delivery plans.
+
+- Design and build AI-enabled applications, agentic workflows, developer tools, APIs, data pipelines, and full-stack products.
+
+- Engineer the harnesses around AI models, including prompts, tools, context, memory, permissions, runtime controls, observability, and feedback mechanisms.
+
+- Build and refine agent loops that support planning, tool selection, execution, observation, reflection, recovery, and termination.
+
+- Model complex workflows as graphs, state machines, or other orchestration patterns that coordinate models, tools, data, systems, and human approvals.
+
+- Create evaluation frameworks that measure task completion, accuracy, reliability, safety, latency, cost, and user value.
+
+- Develop rapid prototypes and proofs of concept, validate them with real users and representative evaluations, and evolve successful ideas into secure, scalable products.
+
+- Integrate solutions with client systems, enterprise data sources, cloud platforms, and third-party services.
+
+- Work across the technology stack, contributing wherever needed—from user interfaces and backend services to AI infrastructure, data workflows, and deployment pipelines.
+
+- Implement appropriate safeguards, permission boundaries, approval steps, and fallbacks for autonomous and semi-autonomous systems.
+
+- Instrument AI applications so teams can inspect traces, understand intermediate states, diagnose failures, and improve system performance.
+
+- Identify and address failure modes such as hallucinations, looping, brittle tool calls, context loss, prompt injection, non-deterministic behavior, and unsafe actions.
+
+- Troubleshoot complex technical and operational issues in client environments.
+
+- Communicate technical decisions, risks, trade-offs, and progress clearly to both technical and non-technical audiences.
+
+- Collaborate with product managers, designers, engineers, data specialists, security teams, and client stakeholders throughout the delivery lifecycle.
+
+- Establish strong engineering practices, including automated testing, documentation, observability, security, and continuous delivery.
+
+- Capture reusable patterns, components, and insights that strengthen TribalScale’s engineering capabilities and future client engagements.
+
+- Support technical discovery, solution demonstrations, workshops, and pre-sales conversations when needed.
+
+What You Bring
+
+- Professional experience building and deploying production-grade software, ideally including AI-powered or agentic systems.
+
+- Strong proficiency in Python, TypeScript, or another language commonly used to build AI applications, platforms, and developer tooling.
+
+- A practical understanding of harness engineering: designing the infrastructure, context, tools, permissions, controls, and feedback mechanisms that enable AI agents to operate reliably.
+
+- Experience building or working with agent loops, including planning, tool selection, execution, observation, reflection, recovery, and termination.
+
+- Familiarity with graph-based orchestration, state machines, and multi-step workflows for coordinating agents, tools, data, and human approvals.
+
+- Experience designing evaluation systems for AI applications, including task-based benchmarks, regression suites, model-graded evaluations, human review, and production monitoring.
+
+- Understanding of the trade-offs involved in prompts, context management, memory, retrieval, tool use, structured outputs, and model selection.
+
+- Experience instrumenting AI systems to trace decisions, inspect intermediate states, measure quality, and diagnose failures.
+
+- Strong knowledge of APIs, distributed systems, databases, cloud infrastructure, and modern software-development practices.
+
+- Ability to quickly understand unfamiliar systems, technologies, and business domains.
+
+- Ability to move from an ambiguous customer problem to a working prototype, validate it with real users and evaluations, and evolve it into a secure, maintainable production system.
+
+- Strong product judgment and the ability to balance model capability, reliability, latency, cost, security, and user experience.
+
+- Experience collaborating directly with customers, stakeholders, or cross-functional delivery teams.
+
+- Excellent written and verbal communication skills, including the ability to explain AI-system behavior, limitations, risks, and technical trade-offs clearly.
+
+- Comfort working in fast-moving environments where requirements and technical constraints continue to evolve.
+
+- A high degree of ownership, curiosity, empathy, and bias toward action.
+
+- Ability to travel occasionally for client workshops or on-site delivery, where required.
+
+We recognize that strong candidates may not meet every qualification listed. If this role excites you and your experience is adjacent to what we have described, we encourage you to apply.
+
+Nice to Have
+
+- Experience with agent frameworks, workflow engines, coding agents, or custom model-orchestration systems.
+
+- Experience creating tool interfaces, execution sandboxes, permission models, and human-in-the-loop controls for autonomous or semi-autonomous systems.
+
+- Familiarity with retrieval-augmented generation, embeddings, vector search, knowledge graphs, fine-tuning, and model-routing strategies.
+
+- Experience evaluating AI systems using golden datasets, simulators, adversarial testing, online experiments, and production feedback.
+
+- Familiarity with AI observability, including traces, token and cost analysis, latency measurement, failure classification, and quality dashboards.
+
+- Experience building systems that use multiple models or specialized agents to complete complex tasks.
+
+- Understanding of AI security concerns, including prompt injection, data leakage, excessive agency, insecure tool use, and supply-chain risks.
+
+- Experience with cloud platforms such as AWS, Microsoft Azure, or Google Cloud.
+
+- Experience with containers, Kubernetes, infrastructure as code, and CI/CD tooling.
+
+- Contributions to AI infrastructure, evaluation tooling, agent frameworks, or related open-source projects.
+
+- Experience working in regulated or complex enterprise environments.
+
+- Experience in consulting, professional services, solutions engineering, sales engineering, or another customer-facing technical role.
+
+- A history of taking products from initial discovery through production launch and ongoing adoption.
+
+- Claude Certified Architect - Foundations or Professional certification (or equivalent), with practical experience designing and implementing Claude-based AI solutions, agentic workflows, and enterprise integrations.
+
+- Experience with agentic AI and harness-driven development, including designing, building, and optimizing autonomous AI agents, multi-agent workflows, tool integrations, and agent harnesses that support reliable, scalable, and production-ready AI applications.
+
+What Success Looks Like
+
+In your first few months, you will have built trusted relationships with client and TribalScale teams, developed a strong understanding of the client’s operating environment, and contributed working software to a meaningful business challenge.
+
+As you grow in the role, you will:
+
+- Turn loosely defined client needs into clear, executable technical plans.
+
+- Deliver AI-enabled products that perform reliably outside of controlled demonstrations.
+
+- Establish evaluation and observability practices that make quality measurable and regressions visible.
+
+- Improve agent behavior by refining harnesses, loops, tools, graphs, context, and safeguards—not only by changing prompts or models.
+
+- Help client teams understand what their AI systems can do, where they can fail, and how they should be operated responsibly.
+
+- Create reusable technical patterns that accelerate future TribalScale engagements.
+
+- Become a trusted partner who can navigate uncertainty, solve difficult technical problems, and help promising ideas reach production.
+
+Why TribalScale
+
+- Work on high-impact challenges across industries and technology domains.
+
+- Build real products and production systems—not just recommendations or presentations.
+
+- Work directly with clients and see the impact of your decisions.
+
+- Explore emerging approaches to AI, agentic systems, product development, and software delivery.
+
+- Collaborate with multidisciplinary teams that value experimentation and continuous learning.
+
+- Influence both client outcomes and TribalScale’s evolving technical practices.
+
+- Join an environment where ownership, diverse perspectives, and thoughtful innovation are encouraged.
+
+Why Choose TribalScale
+
+At TribalScale, collaboration is at the heart of our innovative approach. We don't simply work for clients; we form partnerships, building transformative solutions that redefine what's possible. Our team, once at the forefront of the mobile revolution, now leads the charge in AI-driven innovation.
+
+We empower each team member to be a catalyst for change, adhering to our principles of meritocracy, empowerment, and transparency. Diversity isn't just celebrated—it's fundamental to our strength. Our mission to "Right the Future" is a call to action to make a significant impact in the world of innovation.
+
+Diversity: Our Collective Strength
+
+TribalScale proudly stands as a beacon of equal opportunity in employment and workplace culture. We are steadfastly committed to equal employment opportunity, transcending the boundaries of race, color, ancestry, religion, sex, national origin, sexual orientation, age, citizenship, marital status, able-bodiedness, or gender identity.
+
+We not only welcome but actively encourage applications from individuals of all abilities, ages, citizenships, marital statuses, and gender identities. Your unique perspective is the key to our collective innovation.
+
+Should you require any accommodations, we implore you to inform us. Our commitment to inclusivity knows no bounds, and we stand ready to adapt our processes to ensure your comfort and success.

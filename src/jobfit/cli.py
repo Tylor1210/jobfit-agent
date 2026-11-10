@@ -58,6 +58,11 @@ def main(argv: list[str] | None = None) -> None:
     add.add_argument("--company")
     add.add_argument("--title")
     add.add_argument("--location")
+    ev = sub.add_parser("eval")
+    ev.add_argument("--mode", choices=["auto", "replay", "record"], default="auto")
+    ev.add_argument("--only", action="append", help="run only these case ids (repeatable)")
+    ev.add_argument("--no-tailor", action="store_true", help="skip tailor/hallucination checks")
+    ev.add_argument("--save", action="store_true", help="also store the run in eval_runs")
     fit = sub.add_parser("fit")
     fit.add_argument("posting", help="path to a text file with the posting")
     fit.add_argument("--company", required=True)
@@ -78,6 +83,9 @@ def main(argv: list[str] | None = None) -> None:
     if args.group == "add":
         _add(args)
         return
+    if args.group == "eval":
+        _eval(args)
+        return
 
     profile = load_profile()
     if args.cmd == "validate":
@@ -89,6 +97,25 @@ def main(argv: list[str] | None = None) -> None:
     elif args.cmd == "search":
         for h in PgVectorStore(_dsn(), get_embedder()).search(args.query, k=args.k):
             print(f"{h.score:.3f}  {h.id:<28} {h.text[:90]}")
+
+
+def _eval(args: argparse.Namespace) -> None:
+    import logging
+
+    from jobfit.evals.cases import load_cases
+    from jobfit.evals.report import save_to_db, write_reports
+    from jobfit.evals.runner import run_eval
+    from jobfit.rag.embedder import get_embedder
+
+    logging.basicConfig(level=logging.WARNING)
+    cases = load_cases(only=set(args.only) if args.only else None)
+    results, summary = run_eval(cases, get_embedder(), mode=args.mode, tailor=not args.no_tailor)
+    write_reports(results, summary)
+    if args.save and get_settings().database_url:
+        save_to_db(get_settings().database_url or "", results, summary)
+    print((ROOT / "evals" / "report.md").read_text())
+    if not summary.gate_passed:
+        sys.exit(1)
 
 
 def _add(args: argparse.Namespace) -> None:

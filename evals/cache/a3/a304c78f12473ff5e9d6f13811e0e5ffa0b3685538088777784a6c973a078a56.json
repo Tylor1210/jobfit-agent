@@ -1,0 +1,48 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 38916,
+ "usage": {
+  "input_tokens": 2646,
+  "output_tokens": 3478,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "greeting": "Dear TribalScale Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "I’m applying for the Forward Deployed Engineer role because it calls for building and deploying production‑grade AI software. My background as a systems architect includes four years of end‑to‑end platform delivery and AI‑agent workflows.",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.2"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "At tycodes.app I built a six‑stage agent pipeline that ingests a business URL, collects data, generates a brief, configures pricing, verifies claims, and publishes a shoppable 3D demo. The verification stage automatically blocks hallucinated prices before publishing. The flow runs on Cloudflare Workers and Workflows and finishes in about a minute. I also created the demo generator that stitches together Cloudflare R2 storage, D1 database, and OpenAI models to produce the interactive experience. Separately, I architected and deployed linkme‑intops, a CRM module built with React and TypeScript on Cloudflare Workers, giving staff a dedicated interface for high‑value accounts. I added custom data ingestion modules and analytics pipelines that cut service delivery times by over 30 percent. Earlier, I led a modernization effort that moved a legacy desktop system to cloud‑native web infrastructure, lowering manual data processing overhead by 68 percent.",
+    "evidence_ids": [
+     "exp.tycodes.2",
+     "exp.tycodes.1",
+     "exp.linkme.1",
+     "exp.linkme.2",
+     "exp.fairman.1"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "I have limited exposure to graph‑based orchestration and state‑machine frameworks. To close that gap I will complete a focused training course on workflow graph design, then build a prototype that maps multi‑agent steps onto a state machine using an open‑source library. I will review the prototype with senior engineers and iterate based on feedback.",
+    "evidence_ids": []
+   },
+   {
+    "kind": "closing",
+    "text": "I would welcome a conversation to explore how my end‑to‑end AI pipeline experience can help TribalScale deliver production systems. Thank you for your consideration.",
+    "evidence_ids": [
+     "sum.1"
+    ]
+   }
+  ]
+ }
+}

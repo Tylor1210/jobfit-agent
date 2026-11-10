@@ -1,0 +1,61 @@
+CentralReach is a leading provider of autism and IDD care software for Applied Behavior Analysis (ABA), multidisciplinary therapy, and special education. Trusted by more than 200,000 users, we enable therapy providers, educators, and employers to scale the way they deliver ABA and related therapies with innovative technology, market-leading industry expertise, and world-class customer satisfaction.
+
+The Configuration Specialist II independently owns moderately complex configuration work, from technical setup and testing to provisioning and data entry. Using sound judgment when requirements are not fully defined, this role works with minimal oversight and coordinates directly with Implementation Managers and customer stakeholders to drive successful project delivery.
+
+Key Responsibilities:
+
+Account Provisioning, Configuration & Validation
+
+- Provision and configure customer accounts across internal systems and tools, independently and with minimal oversight.
+
+- Translate documented business and implementation requirements/features into backend system configurations, workflows, and AI rule settings.
+
+- Set up, modify, and validate configurations to support approved customer use cases, including moderately ambiguous requirements.
+
+- Ensure configuration accuracy, consistency, and adherence to internal standards across a growing caseload.
+
+Implementation & Readiness Support
+
+- Support Implementation Managers and Professional Services teams by completing configuration tasks aligned to implementation plans and readiness gates.
+
+- Assist with foundational and pre-go-live setup for customers who may not yet be fully operational.
+
+- Ensure configuration milestones are completed in alignment with delivery timelines and go-live readiness.
+
+- Maintain accurate configuration documentation and change logs.
+
+- Triage configuration issues and risks, escalating what cannot be resolved independently.
+
+Operational Excellence
+
+- Contribute to continuous improvement of configuration standards, templates, and internal playbooks.
+
+- Identify recurring configuration challenges and recommend process or tooling improvements.
+
+- Support scalability by enabling repeatable, efficient setup processes across customer segments.
+
+Qualifications:
+
+- 1–3 years of experience in a technical configuration, implementation, or SaaS operations role.
+
+- Demonstrated ability to manage multiple configuration tasks concurrently with strong attention to detail.
+
+- Comfortable working cross-functionally with Implementation, Product, and Engineering teams, including direct client-facing coordination.
+
+- Track record of resolving moderately complex configuration issues with limited guidance.
+
+#LI-Hybrid
+
+Base Salary Range
+
+$65,000—$85,000 USD
+
+Backed by Roper Technologies, Inc. (Nasdaq: ROP), CentralReach is entering an exciting phase of growth, innovation, and scale.
+
+Recognized as one of the best places to work over 10 times by organizations such as Inc, Built In, and NJBIZ, our culture is centered around impact, inclusion, and flexibility. As a hybrid company with collaborative offices in Ft. Lauderdale, FL; Holmdel, NJ; and Verona, Italy, we foster a workplace where top talent can thrive and make a real difference in the lives of those we serve.
+
+We offer competitive compensation, comprehensive health benefits, generous PTO, 401(k) matching, and paid parental leave to our full-time employees. Our team members also enjoy hybrid work schedules, career development support, wellness programs, and opportunities to give back through CR Cares™, our community engagement initiative.
+
+Be part of a market leader driving the future of care. Explore opportunities at centralreach.com/careers.
+
+Protecting your information is important to us. Please take a moment to review our Notice of Privacy Practices for Job Applicants. Applicant-Privacy-Notice-110725 to understand how we collect, use, store, and protect your personal information during the recruitment process.

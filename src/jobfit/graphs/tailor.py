@@ -19,9 +19,10 @@ Entry points: start_tailor(job_id, deps, checkpointer) and resume_tailor(...).
 from __future__ import annotations
 
 import json
+import operator
 import uuid
 from pathlib import Path
-from typing import Any, Literal, TypedDict
+from typing import Annotated, Any, Literal, TypedDict
 
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.graph import END, START, StateGraph
@@ -32,7 +33,12 @@ from pydantic import BaseModel
 from jobfit.config import ROOT
 from jobfit.graphs import prompts
 from jobfit.graphs.common import Deps, State, node
-from jobfit.graphs.verify import HARD_RULES, verify_cover_letter, verify_resume
+from jobfit.graphs.verify import (
+    HARD_RULES,
+    hallucination_count,
+    verify_cover_letter,
+    verify_resume,
+)
 from jobfit.schemas import (
     ClaimCheckOut,
     CoverLetterOut,
@@ -91,6 +97,9 @@ class TailorState(TypedDict, total=False):
     mode: Literal["auto", "human"]  # human = re-check edits without redrafting
     review: dict[str, Any]
     pdfs: list[str]
+    # One entry per verify pass, appended (operator.add): lets evals and the dashboard show how
+    # many unsupported claims the first draft had and how many the loop removed.
+    verify_log: Annotated[list[dict[str, Any]], operator.add]
     error: str
     error_node: str
 
@@ -122,12 +131,22 @@ def _job_brief(job: JobPosting, fit: FitResult) -> str:
     return "\n".join(lines)
 
 
-def _feedback(items: list[str] | None) -> str:
+def _feedback(items: list[str] | None, previous: BaseModel | None = None) -> str:
     if not items:
         return ""
-    return "\n\nFeedback from the last check. Fix all of these:\n" + "\n".join(
+    out = "\n\nFeedback from the last check. Fix all of these:\n" + "\n".join(
         f"- {i}" for i in items
     )
+    if previous is not None:
+        # WHY: a from-scratch redraft fixes the listed problems and invents new ones (seen in
+        # evals: a word-count fix brought 4 unsupported numbers). Editing converges.
+        out += (
+            "\n\n<previous_draft>\n" + previous.model_dump_json() + "\n</previous_draft>\n"
+            "Return the previous draft with only these problems fixed. Keep every other line "
+            "as it is unless a fix requires changing it. To fix an unsupported claim, delete it "
+            "or reword it to say only what the cited evidence says."
+        )
+    return out
 
 
 def build_tailor_graph(
@@ -163,7 +182,7 @@ def build_tailor_graph(
             f"{_job_brief(state['job'], state['fit'])}\n\nAngle: {plan.angle}\n"
             f"Feature skills: {', '.join(plan.skill_ids)}\n"
             f"Keep bullets (priority order): {', '.join(plan.bullet_ids)}\n\n"
-            f"{_catalog(deps, plan)}{_feedback(state.get('resume_feedback'))}"
+            f"{_catalog(deps, plan)}{_feedback(state.get('resume_feedback'), state.get('resume'))}"
         )
         res = deps.llm.structured("draft_resume", prompts.DRAFT_RESUME, user, ResumeOut)
         return {"resume": clean_model(res.output), "resume_feedback": []}
@@ -181,7 +200,7 @@ def build_tailor_graph(
             f"Posting hooks: {'; '.join(plan.posting_hooks)}\n\n"
             f"<evidence>\n{evidence}\n[sum.1] {idx['sum.1']}\n</evidence>\n\n"
             + (f"<voice_samples>\n{voice}\n</voice_samples>\n" if voice else "")
-            + _feedback(state.get("letter_feedback"))
+            + _feedback(state.get("letter_feedback"), state.get("cover_letter"))
         )
         res = deps.llm.structured(
             "draft_cover_letter", prompts.DRAFT_COVER_LETTER, user, CoverLetterOut
@@ -218,12 +237,28 @@ def build_tailor_graph(
     def verify(state: State) -> State:
         resume: ResumeOut = state["resume"]
         letter: CoverLetterOut = state["cover_letter"]
-        issues = verify_resume(resume, deps.profile, deps.constraints, deps.page_count)
-        issues += verify_cover_letter(letter, deps.profile, deps.constraints, state["fit"])
+        employer = [state["job"].company]
+        issues = verify_resume(
+            resume, deps.profile, deps.constraints, deps.page_count, allow_terms=employer
+        )
+        issues += verify_cover_letter(
+            letter, deps.profile, deps.constraints, state["fit"], allow_terms=employer
+        )
         # The paid semantic check only runs once the free deterministic ones pass.
         if not issues and deps.verify_with_llm:
             issues += _llm_claim_check(resume, letter)
-        out: State = {"issues": issues}
+        out: State = {
+            "issues": issues,
+            "verify_log": [
+                {
+                    "round": state.get("retries", 0),
+                    "mode": state.get("mode", "auto"),
+                    "issues": len(issues),
+                    "hallucinations": hallucination_count(issues),
+                    "rules": sorted({i.rule for i in issues}),
+                }
+            ],
+        }
         if issues and state.get("mode") == "auto" and state.get("retries", 0) < MAX_RETRIES:
             out["retries"] = state.get("retries", 0) + 1
             out["resume_feedback"] = [f"{i.rule}: {i.detail}" for i in issues if i.doc == "resume"]

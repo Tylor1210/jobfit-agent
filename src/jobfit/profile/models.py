@@ -91,6 +91,7 @@ class Certification(_Strict):
 
 class Profile(_Strict):
     contact: Contact
+    years_experience: int
     summary: list[SummaryItem]
     skills: list[SkillCategory]
     experience: list[Job]

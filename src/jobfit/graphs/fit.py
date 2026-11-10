@@ -7,6 +7,7 @@ Entry point: run_fit(job, deps). One trace per run.
 from __future__ import annotations
 
 import itertools
+import re
 from typing import Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -24,6 +25,7 @@ from jobfit.schemas import (
     JobPosting,
     Requirement,
     RequirementsOut,
+    Status,
     Verdict,
 )
 
@@ -47,6 +49,26 @@ _CREDIT = {"met": 1.0, "partial": 0.5, "missing": 0.0}
 # up for 8+ years asked vs ~4 held, or a clearance Tylor does not have.
 _KNOCKOUT = {"years_experience", "clearance", "education"}
 KNOCKOUT_CAP = 54
+# Asked for far more years than Tylor has (less than 60% of the ask, e.g. 4 vs 8+): not a fit,
+# however well the tools line up. Also enforced in code so the model can't call it "partial".
+SEVERE_YEARS_RATIO = 0.6
+SEVERE_YEARS_CAP = 34
+_YEARS = re.compile(r"(\d+)\s*\+?\s*(?:(?:-|to|\u2013)\s*(\d+)\s*)?\+?\s*years?", re.I)
+
+
+def required_years(text: str) -> int | None:
+    """Lowest number of years a requirement asks for: "8+ years" -> 8, "1-3 years" -> 1."""
+    nums = [int(m.group(1)) for m in _YEARS.finditer(text)]
+    return min(nums) if nums else None
+
+
+def judge_years(text: str, have: int) -> Status | None:
+    need = required_years(text)
+    if need is None:
+        return None
+    if have >= need:
+        return "met"
+    return "partial" if have >= need * 0.75 else "missing"
 
 
 class FitState(TypedDict, total=False):
@@ -72,7 +94,7 @@ def verdict_for(score: int) -> Verdict:
     return "not_a_fit"
 
 
-def compute_score(assessments: list[Assessment]) -> int:
+def compute_score(assessments: list[Assessment], years_have: int | None = None) -> int:
     if not assessments:
         return 0
     total = sum(_WEIGHT[a.requirement.kind] for a in assessments)
@@ -84,6 +106,16 @@ def compute_score(assessments: list[Assessment]) -> int:
         and a.requirement.category in _KNOCKOUT
         for a in assessments
     )
+    if years_have is not None:
+        for a in assessments:
+            need = required_years(a.requirement.text)
+            if (
+                a.requirement.kind == "required"
+                and a.requirement.category == "years_experience"
+                and need
+                and years_have < need * SEVERE_YEARS_RATIO
+            ):
+                return min(score, SEVERE_YEARS_CAP)
     return min(score, KNOCKOUT_CAP) if knocked else score
 
 
@@ -158,11 +190,22 @@ def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
             cited = [allowed[i] for i in dict.fromkeys(a.evidence_ids) if i in allowed]
             status = a.status
             note = a.note
+            if r.category == "years_experience":
+                yrs = judge_years(r.text, deps.profile.years_experience)
+                if yrs and yrs != status:
+                    note = f"{deps.profile.years_experience} years vs asked: {r.text}"
+                    status = yrs
+                    if status != "missing" and not cited:
+                        summary = next((e for e in ev.get(r.id, []) if e.id == "sum.1"), None)
+                        cited = [
+                            summary
+                            or EvidenceRef(id="sum.1", text=deps.profile.summary[0].text, score=1.0)
+                        ]
             if status != "missing" and not cited:
                 status, note = "missing", f"no valid evidence cited ({note})"
             assessments.append(Assessment(requirement=r, status=status, evidence=cited, note=note))
 
-        fit_score = compute_score(assessments)
+        fit_score = compute_score(assessments, deps.profile.years_experience)
         # GOTCHA: models sometimes return requirement IDs ("r7") as gaps; map them back to text.
         req_text = {r.id: r.text for r in reqs}
         gaps = [req_text.get(g.strip(), g.strip()) for g in res.output.top_gaps if g.strip()]

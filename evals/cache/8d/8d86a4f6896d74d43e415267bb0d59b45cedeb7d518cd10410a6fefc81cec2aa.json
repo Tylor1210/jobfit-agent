@@ -1,0 +1,50 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 51330,
+ "usage": {
+  "input_tokens": 2587,
+  "output_tokens": 2216,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Configuration Specialist II at CentralReach\n<requirements>\n- (required) 1–3 years of experience in a technical configuration, implementation, or SaaS opera",
+ "output": {
+  "greeting": "Dear CentralReach Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "Configuration Specialist II – the posting’s call for provisioning and configuring customer accounts matches the work I did building linkme-intops, an operations CRM module that gives staff a dedicated interface for high-value subscription accounts. I also delivered custom data ingestion modules that supported VIP workflows, showing I can handle several configuration streams at once. I bring four years of systems architecture experience to the role.",
+    "evidence_ids": [
+     "exp.linkme.1",
+     "exp.linkme.2",
+     "sum.1"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "At Fairman & Associates I built database-layer validation pipelines that caught 98 % of transactional and invoicing errors, guaranteeing configuration accuracy across a growing caseload. The pipelines run automatically after each change, so I can verify settings without manual review. On the tycodes platform I designed a six-stage agent pipeline that includes a verification stage to reject unsupported pricing claims before they reach production. I also designed integration blueprints and live demo environments that let product, engineering, and client teams test configurations together before launch.",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "exp.tycodes.2",
+     "exp.linkme.3"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "One gap is maintaining detailed configuration documentation and change logs. My plan is to create a single source of truth document that records each configuration item, its purpose, and the date of the last change. I will add a brief changelog entry for every update and review it weekly with the implementation team to keep it current. Each entry will include fields for the configuration name, related business rule, and any dependent services, mirroring the template I used for the validation pipelines. This disciplined approach builds on the rigor I practiced in the validation pipelines.",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "sum.1"
+    ]
+   },
+   {
+    "kind": "closing",
+    "text": "I welcome a conversation to discuss how these experiences align with CentralReach’s configuration needs. Please let me know a convenient time to speak.",
+    "evidence_ids": [
+     "sum.1"
+    ]
+   }
+  ]
+ }
+}

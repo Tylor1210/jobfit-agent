@@ -1,0 +1,139 @@
+{
+ "schema": "FitOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 39280,
+ "usage": {
+  "input_tokens": 3770,
+  "output_tokens": 2654,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Staff Software Engineer, AI Engineering at Tebra\n<requirements>\n[r1] (required, years_experience) 8+ years of professional software engineering experience",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "partial",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.5"
+    ],
+    "note": "4+ years experience, below 8-year requirement."
+   },
+   {
+    "req_id": "r2",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.tycodes.4"
+    ],
+    "note": "Python experience present, but no Java/Spring Boot evidence."
+   },
+   {
+    "req_id": "r3",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.5"
+    ],
+    "note": "AI-enabled apps shipped with >2 years experience."
+   },
+   {
+    "req_id": "r4",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.prompt_engineering"
+    ],
+    "note": "Orchestration experience shown, but not specific frameworks."
+   },
+   {
+    "req_id": "r5",
+    "status": "partial",
+    "evidence_ids": [
+     "sum.1",
+     "skill.etl"
+    ],
+    "note": "Distributed systems background present, no Kafka experience."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.claude_code",
+     "sum.1"
+    ],
+    "note": "AI guardrails mentioned, lacking explicit observability details."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.wrangler",
+     "exp.tycodes.5"
+    ],
+    "note": "Cloudflare Workers used, but no AWS/Azure/GCP listed."
+   },
+   {
+    "req_id": "r8",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.mentoring"
+    ],
+    "note": "Mentoring indicates communication, but cross-functional examples missing."
+   },
+   {
+    "req_id": "r9",
+    "status": "met",
+    "evidence_ids": [
+     "skill.claude_code",
+     "exp.tycodes.2"
+    ],
+    "note": "Built multi-step agent pipelines."
+   },
+   {
+    "req_id": "r10",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No healthcare or regulated domain experience."
+   },
+   {
+    "req_id": "r11",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.icm"
+    ],
+    "note": "Context methodology hints at knowledge graph, no vector DB."
+   },
+   {
+    "req_id": "r12",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No PyTorch or Hugging Face exposure."
+   },
+   {
+    "req_id": "r13",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.5"
+    ],
+    "note": "Founded and led AI platform development."
+   },
+   {
+    "req_id": "r14",
+    "status": "met",
+    "evidence_ids": [
+     "skill.react",
+     "exp.tycodes.3"
+    ],
+    "note": "React proficiency demonstrated."
+   }
+  ],
+  "verdict_line": "Candidate shows solid AI and full‑stack experience but lacks the required seniority, Java/Spring expertise, and Kafka‑based distributed systems background.",
+  "top_gaps": [
+   "8+ years professional software engineering experience (r1)",
+   "Java and Spring Boot mastery (r2)",
+   "Kafka or similar messaging platform experience (r5)"
+  ]
+ }
+}

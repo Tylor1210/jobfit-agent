@@ -1,0 +1,114 @@
+At OneStream, we're on a mission to empower every Finance organization and professional to exceed their potential. Our global teams span continents, cultures, and time zones, united by a shared purpose as we build the operating system for modern Finance and help organizations move with greater speed, clarity, and confidence.
+
+That mission comes to life through our people. Behind every innovation, customer success, and milestone are talented people working together to make a difference. That's why we're looking for people who are bold enough to think big, authentic in how they lead and collaborate, curious about what's possible, and committed to delivering results.
+
+Want a closer look before you apply? Explore our Careers site to learn more about our people, culture, and benefits.
+
+Summary
+
+As an AI Engineer, you will be a critical member in executing our AI initiatives within the OneStream platform. The AI Product and Engineering team is focused on bridging the gap between AI research and AI products, bringing tangible and quantifiable value to our end users. Our AI solutions incorporate applications across the AI and machine learning spectrum, including but not limited to time series forecasting, anomaly detection, and natural language processing. Our mission is to lower the barrier for organizations and people to get value out of AI capabilities.
+
+Primary Duties and Responsibilities
+
+- Design and develop scalable, high-performance applications and services using a variety of software architecture design patterns.
+
+- Implement robust AI systems and functionalities, ensuring optimal performance and scalability.
+
+- Troubleshoot and debug issues across the full stack, from the user interface to the database layer to ensure the reliability of releases.
+
+- Participate in and eventually lead technical design sessions to decompose and design complex systems and interfaces.
+
+- Collaborate with cross-functional teams to ensure technical and user requirements are met.
+
+- Be a self-starter, continuously learning both best code practices and the latest technologies in the AI ecosystem.
+
+Required Education and Experience
+
+- Bachelor’s degree or similar work experience.
+
+- CS/DS/EE/CE degree or similar experience.
+
+- 1-3 years of experience building and deploying production-level machine learning solutions or similar experience.
+
+- 1-3 years of strong programming experience with one of the following: Python, C++, C, C#, Java, Rust, or Go, or similar experience.
+
+Preferred Education and Experience
+
+- Experience with web services and API frameworks such as Flask and FastAPI.
+
+- Knowledge of distributed systems and cloud-based computing, including Azure.
+
+Knowledge, Skills, and Abilities
+
+- Self-starter with the ability to decompose a problem and plan a solution.
+
+- Ability to quickly learn new technologies and adapt to changes in technology and the business environment.
+
+- Highly adaptive to changing circumstances, with the ability to tackle problems quickly.
+
+- Excellent written and verbal interpersonal skills.
+
+- Excellent organization, scheduling, project management, and multi-tasking skills.
+
+- Ability to write clean, efficient, and well-documented code.
+
+- Interest in continuous learning opportunities as the AI landscape continues to evolve.
+
+- Capable and comfortable effectively presenting in front of peers.
+
+- Proficient in effectively prioritizing and executing tasks in fast-paced, high-pressure environments.
+
+- Highly self-motivated and proactive.
+
+- Demonstrates meticulous attention to detail.
+
+- Comfortable engaging and presenting to C-level executives from time to time.
+
+Supervisory Responsibilities
+
+None
+
+Travel
+
+Travel Requirement: minimal travel will be required.
+
+Work Authorization and Security Clearance
+
+Employee must be legally authorized to work in the country of the job position as a precondition of employment.
+
+Benefits at OneStream
+OneStream employees are passionate, hardworking individuals who go above and beyond to keep our customers happy and follow through on our mission statement. They consistently deliver the best and in turn, we make every effort to keep them cared for and happy. A sample of the benefits we provide are:
+
+- Excellent Medical Plan
+
+- Dental & Vision Insurance
+
+- Life Insurance
+
+- Short & Long Term Disability
+
+- Vacation Time
+
+- Paid Holidays
+
+- Professional Development
+
+- Retirement Plan
+
+#LI-HYBRID #LI-AS1
+
+Total compensation is based on experience, skills, and location using objective, job-related criteria. Additional variable compensation and benefits may apply.
+
+Gross annual base salary
+
+$114,000—$148,000 USD
+
+All candidates must be legally authorized to work for any company in the country where this position is located without sponsorship.
+
+OneStream Software is an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, sex (including pregnancy, sexual orientation, or gender identity), national origin, age, disability, genetic information, veteran status, or any other characteristic protected by applicable local laws, regulations, and ordinances.
+
+If you need assistance and/or a reasonable accommodation during the application process, reach out to RecruitingAccommodations@onestreamsoftware.com.
+
+OneStream may use the personal information you provide to process your application and contact you, in accordance with applicable privacy laws such as the CCPA and GDPR. For more information about how we handle your personal information, please review OneStream's Privacy Policy.
+
+Emails about job opportunities at OneStream are only sent by employees with an @onestreamsoftware.com email address. Reach out to your contact at OneStream if you suspect a phishing scam.
