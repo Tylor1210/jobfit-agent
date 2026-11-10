@@ -110,8 +110,13 @@ def test_fit_graph_drops_invented_evidence_ids(
 
     fake.script(RequirementsOut, REQS).script(FitOut, liar)
     fit = run_fit(job, deps)["fit"]
-    assert all(a.status == "missing" and not a.evidence for a in fit.assessments)
-    assert fit.fit_score <= KNOCKOUT_CAP
+    for a in fit.assessments:
+        if a.requirement.category == "years_experience":
+            # Years are judged in code (4 >= 3), with the summary as evidence, not the model's.
+            assert a.status == "met" and [e.id for e in a.evidence] == ["sum.1"]
+        else:
+            assert a.status == "missing" and not a.evidence
+    assert fit.fit_score < 50
 
 
 def test_injection_cannot_raise_score(deps: Deps, fake: FakeProvider, job: JobPosting) -> None:
@@ -341,3 +346,53 @@ def test_exact_skill_match_finds_listed_languages() -> None:
     assert not exact_skill_hits("Strong written communication", idx)
     # short aliases don't fire inside other words ("R2" alias must not match "R2D2-ish" text)
     assert "skill.cloudflare" not in {s for s, _ in exact_skill_hits("teamwork", idx)}
+
+
+def test_scoring_ignores_logistics_and_halves_soft_skills() -> None:
+    from jobfit.schemas import Assessment, Requirement
+
+    def a(cat: str, status: str) -> Assessment:
+        req = Requirement.model_validate(
+            {"id": "r", "text": "t", "kind": "required", "category": cat}
+        )
+        return Assessment.model_validate(
+            {"requirement": req, "status": status, "evidence": [], "note": ""}
+        )
+
+    base = [a("technical_skill", "met")] * 3
+    assert compute_score([*base, a("location", "missing")]) == 100
+    # soft skill missing costs half as much as a technical one would
+    assert compute_score([*base, a("soft_skill", "missing")]) == round(100 * 9 / 10.5)
+
+
+def test_years_met_without_citation_gets_summary_evidence(
+    deps: Deps, fake: FakeProvider, job: JobPosting
+) -> None:
+    reqs = RequirementsOut(
+        requirements=[
+            RequirementOut(
+                text="1-3 years in a SaaS implementation role",
+                kind="required",
+                category="years_experience",
+            ),
+            RequirementOut(text="Python", kind="required", category="technical_skill"),
+        ]
+    )
+
+    def no_cite(system: str, user: str) -> FitOut:
+        out = []
+        for block in re.split(r"\n(?=\[r\d+\])", user):
+            m = re.match(r"\[(r\d+)\]", block)
+            if m:
+                ev = re.findall(r"- ([\w.]+):", block)  # this requirement's own evidence
+                cite = [] if m.group(1) == "r1" else ev[:1]
+                out.append(
+                    AssessmentOut(req_id=m.group(1), status="met", evidence_ids=cite, note="")
+                )
+        return FitOut(assessments=out, verdict_line="ok", top_gaps=[])
+
+    fake.script(RequirementsOut, reqs).script(FitOut, no_cite)
+    fit = run_fit(job, deps)["fit"]
+    years = next(x for x in fit.assessments if x.requirement.category == "years_experience")
+    assert years.status == "met" and [e.id for e in years.evidence] == ["sum.1"]
+    assert fit.fit_score == 100

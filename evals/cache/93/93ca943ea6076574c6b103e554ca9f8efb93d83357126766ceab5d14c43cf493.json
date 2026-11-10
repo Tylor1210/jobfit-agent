@@ -1,0 +1,21 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 3826,
+ "usage": {
+  "input_tokens": 2201,
+  "output_tokens": 857,
+  "cache_read_tokens": 714,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect with 4+ years building full-stack AI agent platforms, from LangGraph pipelines to customer-facing integrations. Shipped Job Fit Age",
+ "output": {
+  "unsupported": [
+   {
+    "item": 4,
+    "claim": "At link.me I built analytics pipelines",
+    "reason": "The evidence names the employer as Linkme, not link.me. The company name is an added detail the evidence does not state."
+   }
+  ]
+ }
+}

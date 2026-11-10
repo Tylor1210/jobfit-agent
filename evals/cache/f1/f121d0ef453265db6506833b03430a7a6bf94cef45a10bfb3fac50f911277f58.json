@@ -1,0 +1,151 @@
+{
+ "schema": "ResumeOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 14920,
+ "usage": {
+  "input_tokens": 3848,
+  "output_tokens": 4230,
+  "cache_read_tokens": 1752,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Solutions Architect at Smartsheet\n<requirements>\n- (required) 3 years relevant work experience or equivalent combination of relevant work experience and ed",
+ "output": {
+  "summary": "Systems architect with 4+ years building full-stack AI agent platforms, from LangGraph pipelines to customer-facing integrations. Shipped Job Fit Agent end to end with RAG on pgvector, LLM evals, and human approval steps, deployed on Cloudflare and Docker. Recent work designed integration blueprints and live demo environments to onboard enterprise clients onto core platforms. Fits a Solutions Architect role connecting SaaS integration, data pipelines, and AI tooling for business users.",
+  "summary_evidence_ids": [
+   "sum.1",
+   "exp.tycodes.7",
+   "exp.tycodes.9",
+   "exp.linkme.3"
+  ],
+  "skill_rows": [
+   {
+    "label": "AI Agents and LLMs",
+    "skill_ids": [
+     "skill.langgraph",
+     "skill.rag",
+     "skill.llm_evals",
+     "skill.tool_calling",
+     "skill.anthropic_api",
+     "skill.openai_api",
+     "skill.claude_code",
+     "skill.prompt_engineering",
+     "skill.cost_controls"
+    ]
+   },
+   {
+    "label": "Backend and Data",
+    "skill_ids": [
+     "skill.python",
+     "skill.nodejs",
+     "skill.fastapi",
+     "skill.postgresql",
+     "skill.etl",
+     "skill.crm",
+     "skill.google_sheets_api",
+     "skill.cloudflare",
+     "skill.typescript"
+    ]
+   },
+   {
+    "label": "Frontend and Delivery",
+    "skill_ids": [
+     "skill.react",
+     "skill.tailwind",
+     "skill.docker",
+     "skill.github_actions",
+     "skill.git",
+     "skill.hono",
+     "skill.mentoring"
+    ]
+   }
+  ],
+  "jobs": [
+   {
+    "job_id": "exp.tycodes",
+    "bullets": [
+     {
+      "text": "Built Job Fit Agent, a LangGraph agent that scores job postings against an evidence base using RAG on pgvector and drafts documents behind a human approval step.",
+      "source_ids": [
+       "exp.tycodes.7"
+      ]
+     },
+     {
+      "text": "Shipped the agent with FastAPI, a React/TypeScript dashboard, Postgres, Langfuse tracing, a daily cost cap, Docker, and GitHub Actions CI with 70 tests and an eval gate.",
+      "source_ids": [
+       "exp.tycodes.9"
+      ]
+     },
+     {
+      "text": "Built tycodes-pipeline, a staged Python ICM pipeline that scores AI visibility for local businesses and feeds a Google Sheets CRM with draft-only outreach behind human approval.",
+      "source_ids": [
+       "exp.tycodes.10"
+      ]
+     },
+     {
+      "text": "Enforced evidence-cited outputs with a verify loop and layered prompt injection defense, gated in CI by an eval suite that checks for zero unsupported claims.",
+      "source_ids": [
+       "exp.tycodes.8"
+      ]
+     },
+     {
+      "text": "Engineered tycodes.dev on Cloudflare Workers using Vite, React, TypeScript, and Tailwind, with a Hono Worker calling Firecrawl and OpenAI for automated audits and pricing models.",
+      "source_ids": [
+       "exp.tycodes.5"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.linkme",
+    "bullets": [
+     {
+      "text": "Architected and deployed linkme-intops, an operations CRM module on React and TypeScript with Cloudflare Workers, giving staff a dedicated interface for high-value subscription accounts.",
+      "source_ids": [
+       "exp.linkme.1"
+      ]
+     },
+     {
+      "text": "Designed integration blueprints and live demo environments to reliably onboard high-value enterprise clients onto the core platform.",
+      "source_ids": [
+       "exp.linkme.3"
+      ]
+     },
+     {
+      "text": "Engineered custom data ingestion modules and analytics pipelines for VIP workflows, reducing service delivery times by over 30%.",
+      "source_ids": [
+       "exp.linkme.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.71lbs",
+    "bullets": [
+     {
+      "text": "Mentored and onboarded incoming representatives to reach 15%+ conversion rate benchmarks.",
+      "source_ids": [
+       "exp.71lbs.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.fairman",
+    "bullets": [
+     {
+      "text": "Constructed database-layer automated data validation pipelines that eliminated 98% of transactional and invoicing errors.",
+      "source_ids": [
+       "exp.fairman.2"
+      ]
+     },
+     {
+      "text": "Led end-to-end modernization from legacy desktop systems to cloud-native web infrastructure, reducing manual data processing overhead by 68%.",
+      "source_ids": [
+       "exp.fairman.1"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

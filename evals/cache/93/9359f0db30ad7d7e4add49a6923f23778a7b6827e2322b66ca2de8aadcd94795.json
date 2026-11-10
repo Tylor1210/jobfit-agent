@@ -1,0 +1,91 @@
+{
+ "schema": "RequirementsOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 3886,
+ "usage": {
+  "input_tokens": 3849,
+  "output_tokens": 855,
+  "cache_read_tokens": 853,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Forward Deployed Engineer (Fort Lauderdale/Miami)\nCompany: TribalScale\n\n<job_posting>\nShape the Future with TribalScale\nTribalScale is a digital innovatio",
+ "output": {
+  "requirements": [
+   {
+    "text": "Professional experience building and deploying production-grade software, ideally AI-powered or agentic systems",
+    "kind": "required",
+    "category": "years_experience"
+   },
+   {
+    "text": "Strong proficiency in Python, TypeScript, or another language used to build AI applications",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Practical understanding of harness engineering (infrastructure, context, tools, permissions, controls, feedback for AI agents)",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Experience building or working with agent loops (planning, tool selection, execution, observation, reflection, recovery, termination)",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Familiarity with graph-based orchestration, state machines, and multi-step workflows for agents, tools, and human approvals",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Experience designing evaluation systems for AI applications (benchmarks, regression suites, model-graded evals, human review, production monitoring)",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Understanding of trade-offs in prompts, context management, memory, retrieval, tool use, structured outputs, and model selection",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Experience instrumenting AI systems to trace decisions, inspect intermediate states, measure quality, and diagnose failures",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Strong knowledge of APIs, distributed systems, databases, cloud infrastructure, and modern software-development practices",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Experience collaborating directly with customers, stakeholders, or cross-functional delivery teams",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Excellent written and verbal communication skills, including explaining AI behavior, limitations, risks, and trade-offs",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Ability to travel occasionally for client workshops or on-site delivery, where required",
+    "kind": "required",
+    "category": "location"
+   },
+   {
+    "text": "Experience with agent frameworks, workflow engines, coding agents, or custom model-orchestration systems",
+    "kind": "preferred",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Experience with cloud platforms such as AWS, Microsoft Azure, or Google Cloud",
+    "kind": "preferred",
+    "category": "tool"
+   },
+   {
+    "text": "Claude Certified Architect - Foundations or Professional certification (or equivalent)",
+    "kind": "preferred",
+    "category": "certification"
+   }
+  ]
+ }
+}

@@ -63,10 +63,10 @@ Vite + React + TS frontend. Everything must stay on free tiers.
   `@pytest.mark.db` and Chromium tests `@pytest.mark.render`.
 - Fit score is computed in code (`graphs/fit.py:compute_score`), never taken from the model.
 - Titles, companies, dates, education, skill names on the PDF come from the profile, not the LLM.
-- Groq free tier is ~8k tokens/min per model: a tailor run takes 2 to 4 minutes. That's expected.
-- Any prompt, profile or retrieval change invalidates the eval cache: run `make eval-record` and commit
-  `evals/cache/`. Groq free tier caps gpt-oss-120b at 200k tokens/day, shared with daily ingest;
-  a full re-record needs ~150k, so do it on a day without heavy tailoring.
+- Default LLM is Claude Haiku 5.5 for every node (cheapest; Tylor's call). Groq is the free fallback
+  (`LLM_PROVIDER=groq`, ~8k tokens/min, 200k/day).
+- Any prompt, profile, model or retrieval change invalidates the eval cache: `rm -rf evals/cache &&
+  make eval-record` (~$0.05 on Haiku), then commit `evals/cache/`. CI only replays.
 - UI: dark default + light toggle, teal is the only accent, no gradients/pills/emoji, lucide icons,
   fonts bundled via @fontsource (no CDN). Keep `web/src/types.ts` in sync with schemas.py by hand.
 - Playwright sync API is per-thread: use `render.pdf.default_renderer()` (thread-local), never share one.

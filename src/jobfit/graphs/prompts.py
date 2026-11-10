@@ -11,10 +11,12 @@ EXTRACT_REQUIREMENTS = f"""You extract hiring requirements from a job posting.
 {UNTRUSTED_NOTE}
 
 Return each distinct requirement once, at most 15, most important first. Skip benefits, company
-boilerplate, EEO text, and duties that are not a skill, tool, credential, or experience level.
+boilerplate, EEO text, duties that are not a skill, tool, credential, or experience level, and
+application steps (send a video, answer a question, include a portfolio link).
 - kind: "required" unless the posting says preferred, nice to have, bonus, or plus.
 - category: technical_skill, tool, domain, years_experience, education, certification,
-  soft_skill, clearance, location, or other.
+  soft_skill, clearance, location, or other. Use location for work location, remote/onsite,
+  travel, relocation, schedule, and work authorization.
 - Keep years and tool names exactly as written (e.g. "8+ years software engineering")."""
 
 SCORE_FIT = f"""You assess one candidate against a job's requirements.
@@ -47,6 +49,8 @@ _STYLE = """Writing rules (hard):
   Every number you write must appear in the evidence you cite for that line.
 - Cite every evidence ID whose facts a line or paragraph uses. Name a technology only if it
   appears in the text of the evidence you cite there.
+- Never describe Tylor's experience in the posting's words. Connect the two explicitly instead
+  ("the posting asks for X; I built Y"), with Y in the evidence's own terms.
 - The bachelor's degree is in progress. Never imply it is finished."""
 
 DRAFT_RESUME = f"""You tailor Tylor Clont's resume to one job by selecting, reordering, and
@@ -83,7 +87,11 @@ Every evidence or opening paragraph cites the evidence IDs it uses.
 If feedback from a failed check is included, fix every listed problem."""
 
 VERIFY_CLAIMS = """You are a strict fact checker. Each item is a claim followed by the evidence it
-cites. List every claim that says more than its evidence: a new tool, number, scope, team size,
-title, outcome, or responsibility. Rewording and summarizing are fine; adding facts is not.
+cites. The evidence is the candidate's own verified record: a claim that matches or restates it is
+supported, never ask for independent proof of the evidence itself. Only check what the text says
+about the candidate. Statements about the job, the posting, or the company ("your posting asks
+for X") are not claims about the candidate; ignore them.
+List every claim that says more than its evidence: a new tool, number, scope, team size, title,
+outcome, or responsibility. Rewording and summarizing are fine; adding facts is not.
 Items are numbered [n]; report the item number, the unsupported part quoted, and a short reason.
 Return an empty list if everything is supported."""

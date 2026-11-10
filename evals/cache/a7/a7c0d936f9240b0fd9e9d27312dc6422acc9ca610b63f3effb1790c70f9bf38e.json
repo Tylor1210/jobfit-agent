@@ -1,0 +1,190 @@
+{
+ "schema": "FitOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 13528,
+ "usage": {
+  "input_tokens": 6327,
+  "output_tokens": 3490,
+  "cache_read_tokens": 1047,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n[r1] (required, years_experience) Professional experience building and dep",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "skill.claude_code",
+     "skill.tool_calling",
+     "exp.tycodes.7",
+     "exp.tycodes.4"
+    ],
+    "note": "About 4 years building and shipping AI agent systems, including a LangGraph agent end to end."
+   },
+   {
+    "req_id": "r2",
+    "status": "met",
+    "evidence_ids": [
+     "skill.python",
+     "skill.typescript",
+     "exp.tycodes.10",
+     "exp.tycodes.4",
+     "exp.tycodes.1"
+    ],
+    "note": "Python and TypeScript used in multiple production-style projects."
+   },
+   {
+    "req_id": "r3",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.langfuse",
+     "skill.icm",
+     "sum.1",
+     "exp.tycodes.7",
+     "exp.tycodes.10",
+     "skill.tool_calling"
+    ],
+    "note": "Covers tracing, context pipelines and tools, but permissions, controls and feedback are not shown."
+   },
+   {
+    "req_id": "r4",
+    "status": "met",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.human_in_the_loop",
+     "sum.1",
+     "exp.tycodes.7",
+     "exp.tycodes.1"
+    ],
+    "note": "Built LangGraph agents with tool use and human review in the loop."
+   },
+   {
+    "req_id": "r5",
+    "status": "met",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.langgraph",
+     "sum.1",
+     "exp.tycodes.7",
+     "exp.linkme.1"
+    ],
+    "note": "LangGraph state-machine agent graphs and human approval workflows are shown."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.llm_evals",
+     "skill.human_in_the_loop",
+     "sum.1",
+     "exp.tycodes.4",
+     "exp.tycodes.1"
+    ],
+    "note": "Lists LLM evals and HITL skills, but no evidence of designing eval systems."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.backtesting",
+     "skill.prompt_engineering",
+     "exp.tycodes.4",
+     "exp.linkme.1",
+     "exp.tycodes.7",
+     "skill.structured_outputs",
+     "skill.tool_calling"
+    ],
+    "note": "Prompting, RAG, structured outputs and tool use shown; model selection trade-offs are not."
+   },
+   {
+    "req_id": "r8",
+    "status": "met",
+    "evidence_ids": [
+     "skill.langfuse",
+     "skill.codex",
+     "sum.1",
+     "exp.fairman.2",
+     "exp.tycodes.4"
+    ],
+    "note": "Langfuse tracing used to observe LLM behavior and diagnose issues."
+   },
+   {
+    "req_id": "r9",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.anthropic_api",
+     "skill.openai_api",
+     "sum.1",
+     "exp.tycodes.9",
+     "exp.linkme.1"
+    ],
+    "note": "APIs, Postgres, Docker, CI and cloud shown; distributed systems depth is not evidenced."
+   },
+   {
+    "req_id": "r10",
+    "status": "met",
+    "evidence_ids": [
+     "exp.linkme.1",
+     "exp.linkme.3",
+     "skill.mentoring",
+     "skill.crm"
+    ],
+    "note": "Onboarded enterprise clients and delivered CRM and integration work with stakeholders."
+   },
+   {
+    "req_id": "r11",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.tool_calling",
+     "sum.1",
+     "exp.tycodes.4",
+     "exp.tycodes.7"
+    ],
+    "note": "Strong AI and agent work shown, but no explicit evidence of explaining risks to others."
+   },
+   {
+    "req_id": "r12",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "No evidence of travel for client workshops or on-site delivery."
+   },
+   {
+    "req_id": "r13",
+    "status": "met",
+    "evidence_ids": [
+     "skill.claude_code",
+     "sum.1",
+     "skill.structured_outputs",
+     "exp.tycodes.7",
+     "exp.tycodes.9"
+    ],
+    "note": "LangGraph agent framework and Claude Code orchestration are used in projects."
+   },
+   {
+    "req_id": "r14",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.wrangler",
+     "exp.linkme.1",
+     "exp.tycodes.5"
+    ],
+    "note": "Cloudflare Workers experience only; no AWS, Azure or Google Cloud evidence."
+   },
+   {
+    "req_id": "r15",
+    "status": "missing",
+    "evidence_ids": [],
+    "note": "Has Claude Code skill but no Claude Architect certification listed."
+   }
+  ],
+  "verdict_line": "The candidate meets most core agent and engineering requirements, with gaps in eval design, travel, and named cloud platforms.",
+  "top_gaps": [
+   "Experience designing AI evaluation systems",
+   "Travel for client workshops or on-site delivery",
+   "AWS, Microsoft Azure, or Google Cloud experience"
+  ]
+ }
+}

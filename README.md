@@ -35,14 +35,14 @@ attacks. Full report: [evals/report.md](evals/report.md).
 | Metric | Result |
 |---|---|
 | Hallucinated claims reaching review (CI gate, target 0) | **0** |
-| Unsupported claims caught by the verify loop in first drafts | 10 |
+| Unsupported claims caught by the verify loop in first drafts | 3 |
 | Prompt injection cases passed (CI gate) | **2/2** |
-| Verdict accuracy, exact / within one band | 75% / 100% |
-| Gap recall (expected gaps the scorer named) | 80% |
-| LLM time, full suite (8 fits, 3 tailoring runs) | 12 min on the Groq free tier |
-| Cost, full suite (list price) | $0.053 |
+| Verdict accuracy, exact / within one band | 88% / 88% |
+| Gap recall (expected gaps the scorer named) | 71% |
+| LLM time, full suite (8 fits, 3 tailoring runs) | 4.4 min |
+| Cost, full suite | $0.046 on Claude Haiku 5.5 |
 
-<sub>Run 2026-11-10 04:39 UTC, 8 cases (2 more are waiting on posting text).</sub>
+<sub>Run 2026-11-10 19:07 UTC, 8 cases (2 more are waiting on posting text).</sub>
 
 Each tailored draft starts with some unsupported claims (an invented number, a tool the evidence
 doesn't mention, a bullet moved under the wrong job). The verify loop catches them, so the count
@@ -148,14 +148,14 @@ auto-close never moves a job I've already applied to.
 runs offline, and a prompt change shows up as a cache miss that has to be re-recorded on purpose.
 
 **Provider socket.** One interface, three adapters: Anthropic (structured outputs via
-`messages.parse`, server-side refusal fallback), Groq (JSON schema with a fallback to JSON mode and
+`messages.parse`; the default, on Haiku 5.5), Groq (JSON schema with a fallback to JSON mode and
 one repair attempt, rate-limit backoff), and a scripted fake for tests. Each node asks for a tier
 (fast or smart) and `config/models.yaml` maps tiers to models and prices.
 
 ## Run it
 
 ```bash
-cp .env.example .env              # add GROQ_API_KEY (free) and optionally Langfuse keys
+cp .env.example .env              # add ANTHROPIC_API_KEY (or GROQ_API_KEY for free) and Langfuse keys
 docker compose up --build         # app + Postgres/pgvector at http://localhost:8000
 docker compose run --rm app ingest   # pull and score today's jobs
 ```
@@ -181,7 +181,7 @@ uv run jobfit serve               # http://127.0.0.1:8000
 ## Stack
 
 Python 3.12, LangGraph, Pydantic v2, FastAPI, Postgres + pgvector (Supabase free tier),
-fastembed (bge-small, local, free), Groq or Anthropic, Langfuse, Playwright, React + TypeScript +
+fastembed (bge-small, local, free), Claude Haiku 5.5 (Groq as a free fallback), Langfuse, Playwright, React + TypeScript +
 Vite, Docker, GitHub Actions. Everything runs on free tiers.
 
 ## Layout
@@ -208,7 +208,8 @@ db/migrations/  SQL, applied in order
   enough info" rather than scored.
 - The eval set is small, so calibration misses stay visible instead of tuned away (one moderate
   role currently scores strong).
-- Groq's free tier allows about 8,000 tokens a minute (a tailoring run takes 2 to 4 minutes) and
-  200,000 a day, shared by daily scoring, tailoring and eval re-recording. Switching
-  `config/models.yaml` to Anthropic removes both limits at a cost.
+- Every node runs on Claude Haiku 5.5, the cheapest Claude model (well under a cent per job
+  scored, about $0.05 per full eval run). It writes less well than larger models; swapping the
+  smart tier to Sonnet in `config/models.yaml` is one line. Groq's free tier still works
+  (`LLM_PROVIDER=groq`) but caps at 200k tokens a day.
 - The image is large (about 3 GB) because it bundles Chromium for PDF rendering.

@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import operator
+import re
 import uuid
 from pathlib import Path
 from typing import Annotated, Any, Literal, TypedDict
@@ -56,6 +57,18 @@ MAX_RETRIES = 2
 # Roboto Latin subset may not have, and that break plain-text search in the PDF. The em dash is
 # deliberately NOT mapped: verify must still see and reject it.
 _LOOKALIKES = str.maketrans({"\u2010": "-", "\u2011": "-", "\u00a0": " ", "\u202f": " "})
+
+
+RESTATE_OVERLAP = 0.85
+
+
+def restates(claim: str, evidence: str) -> bool:
+    """True when nearly every word of the claim appears in its evidence (a lightly edited copy)."""
+    words = re.findall(r"[a-z0-9$%+.]+", claim.lower())
+    if not words or not evidence:
+        return False
+    ev = set(re.findall(r"[a-z0-9$%+.]+", evidence.lower()))
+    return sum(w in ev for w in words) / len(words) >= RESTATE_OVERLAP
 
 
 def clean_text(s: str) -> str:
@@ -208,7 +221,14 @@ def build_tailor_graph(
         return {"cover_letter": clean_model(res.output), "letter_feedback": []}
 
     def _llm_claim_check(resume: ResumeOut, letter: CoverLetterOut) -> list[Issue]:
-        idx = deps.profile.evidence_index()
+        # WHY: bullets carry their employer and title here. Without it the checker flagged
+        # "At Linkme, ..." as unsupported because the bullet text never names the company.
+        idx = dict(deps.profile.evidence_index())
+        roles = [(j.company, j.title, j.bullets) for j in deps.profile.experience]
+        roles += [(m.branch, m.title, m.bullets) for m in deps.profile.military]
+        for org, title, bullets in roles:
+            for b in bullets:
+                idx[b.id] = f"{org} ({title}): {b.text}"
         items: list[tuple[Literal["resume", "cover_letter"], str, list[str]]] = [
             ("resume", resume.summary, resume.summary_evidence_ids)
         ]
@@ -219,6 +239,12 @@ def build_tailor_graph(
             for p in letter.paragraphs
             if p.evidence_ids and p.kind != "gap"
         ]
+        # Lines that mostly restate their own evidence need no semantic check: the deterministic
+        # checks already ran on them. WHY: Haiku flagged verbatim resume bullets as "unsupported"
+        # (it wanted independent proof of the evidence itself), and it saves tokens.
+        items = [it for it in items if not restates(it[1], " ".join(idx.get(i, "") for i in it[2]))]
+        if not items:
+            return []
         prompt = "\n\n".join(
             f"[{n}] CLAIM: {text}\nEVIDENCE: {' | '.join(idx.get(i, '?') for i in ids)}"
             for n, (_, text, ids) in enumerate(items)

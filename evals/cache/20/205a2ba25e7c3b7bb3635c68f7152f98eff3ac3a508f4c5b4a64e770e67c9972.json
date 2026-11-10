@@ -1,0 +1,50 @@
+{
+ "schema": "EmphasisOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 2874,
+ "usage": {
+  "input_tokens": 4008,
+  "output_tokens": 499,
+  "cache_read_tokens": 660,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "angle": "Position Tylor as a hands-on agent engineer who has shipped LangGraph and tool-calling systems end to end with human approval, tracing, and eval gates, and who pairs that with real client-facing onboarding and integration work.",
+  "skill_ids": [
+   "skill.langgraph",
+   "skill.tool_calling",
+   "skill.claude_code",
+   "skill.langfuse",
+   "skill.llm_evals",
+   "skill.python",
+   "skill.typescript",
+   "skill.human_in_the_loop",
+   "skill.structured_outputs",
+   "skill.anthropic_api",
+   "skill.openai_api",
+   "skill.icm",
+   "skill.prompt_injection_defense",
+   "skill.postgresql",
+   "skill.codex"
+  ],
+  "bullet_ids": [
+   "exp.tycodes.7",
+   "exp.tycodes.8",
+   "exp.tycodes.9",
+   "exp.tycodes.10",
+   "exp.tycodes.1",
+   "exp.linkme.1",
+   "exp.linkme.3",
+   "exp.linkme.2",
+   "exp.fairman.2",
+   "exp.tycodes.4",
+   "exp.71lbs.2"
+  ],
+  "posting_hooks": [
+   "Agent loops with tool selection, execution, and human approval steps, backed by LangGraph-style orchestration (Job Fit Agent)",
+   "Tracing and diagnosing AI system failures with Langfuse plus an eval suite gating CI on unsupported claims",
+   "Hands-on Python/TypeScript delivery paired with client onboarding and live demo environments for enterprise customers"
+  ]
+ }
+}

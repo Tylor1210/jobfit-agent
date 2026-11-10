@@ -1,0 +1,91 @@
+{
+ "schema": "RequirementsOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 3039,
+ "usage": {
+  "input_tokens": 3443,
+  "output_tokens": 896,
+  "cache_read_tokens": 853,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Staff Software Engineer, AI Engineering\nCompany: Tebra\n\n<job_posting>\nTebra only initiates contact with candidates via email from an official Tebra email ",
+ "output": {
+  "requirements": [
+   {
+    "text": "8+ years of professional software engineering experience building scalable distributed systems",
+    "kind": "required",
+    "category": "years_experience"
+   },
+   {
+    "text": "Absolute mastery of Java, Spring Boot, and Python for secure, high-throughput, cloud-native backend systems",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Cloud platform experience (AWS, Azure, or GCP) for cloud-native backend systems",
+    "kind": "required",
+    "category": "tool"
+   },
+   {
+    "text": "2–3+ years of hands-on experience designing, shipping, and maintaining production AI-enabled or AI-native applications",
+    "kind": "required",
+    "category": "years_experience"
+   },
+   {
+    "text": "Practical experience with AI orchestration frameworks (e.g., LangChain, LangGraph, LlamaIndex, CrewAI)",
+    "kind": "required",
+    "category": "tool"
+   },
+   {
+    "text": "Deep understanding of RAG, tool calling, prompt engineering, context/state management, and human-in-the-loop patterns",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Strong background in distributed systems, event-driven architectures, asynchronous processing, and messaging platforms (e.g., Kafka)",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Proven experience implementing enterprise AI guardrails, real-time observability, latency/cost monitoring, automated evaluation pipelines, and fallback mechanisms",
+    "kind": "required",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Track record of driving technical direction and architecture decisions without formal authority",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Excellent cross-functional communication skills bridging Engineering, Product, Design, and Operations",
+    "kind": "required",
+    "category": "soft_skill"
+   },
+   {
+    "text": "Experience building autonomous, multi-step agentic systems with multi-tier memory networks and recursive reasoning",
+    "kind": "preferred",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Background in Healthcare IT, Revenue Cycle Management, billing, claims processing, fintech, or similarly regulated environments",
+    "kind": "preferred",
+    "category": "domain"
+   },
+   {
+    "text": "Hands-on experience with vector databases, semantic search, and enterprise knowledge graph construction",
+    "kind": "preferred",
+    "category": "technical_skill"
+   },
+   {
+    "text": "Exposure to PyTorch, Hugging Face Transformers, custom embedding models, fine-tuning, or model serving optimization",
+    "kind": "preferred",
+    "category": "tool"
+   },
+   {
+    "text": "Past experience as Founding Engineer, Principal Architect, or early-stage platform lead driving AI/ML adoption",
+    "kind": "preferred",
+    "category": "other"
+   }
+  ]
+ }
+}

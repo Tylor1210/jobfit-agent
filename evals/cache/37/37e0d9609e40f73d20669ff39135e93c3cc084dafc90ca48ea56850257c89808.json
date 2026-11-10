@@ -1,0 +1,15 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 3137,
+ "usage": {
+  "input_tokens": 1787,
+  "output_tokens": 513,
+  "cache_read_tokens": 714,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect who ships AI agent systems end to end. Built a LangGraph job-fit agent with RAG on pgvector, a human approval step, and Langfuse tr",
+ "output": {
+  "unsupported": []
+ }
+}

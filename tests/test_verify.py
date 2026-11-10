@@ -148,3 +148,18 @@ def test_employer_name_is_not_an_unsupported_tool() -> None:
     fit = _fit_with_gap("Kubernetes")
     assert "unsupported_tool" in rules(verify_cover_letter(edited, P, C, fit))
     assert verify_cover_letter(edited, P, C, fit, allow_terms=["Smartsheet"]) == []
+
+
+def test_restates_skips_near_verbatim_lines() -> None:
+    from jobfit.graphs.tailor import restates
+
+    ev = (
+        "Constructed database-layer automated data validation pipelines that eliminated 98% of "
+        "transactional and invoicing errors."
+    )
+    assert restates(
+        "Built database-layer data validation pipelines that eliminated 98% of "
+        "transactional and invoicing errors.",
+        ev,
+    )
+    assert not restates("Led a team of 12 engineers building data pipelines at scale.", ev)

@@ -46,6 +46,10 @@ _PER_KIND = {
 # WHY: the score is computed in code, not by the model, so a posting cannot talk its way to a
 # high number (injection defense) and scores are consistent across providers.
 _WEIGHT = {"required": 3.0, "preferred": 1.0}
+# WHY: a resume can't prove soft skills ("strong communication") or logistics (remote, travel,
+# relocation, work authorization), so models mark them partial or missing on every job.
+# Soft skills count half; logistics don't count at all (the prefilter already handles location).
+_CATEGORY_WEIGHT = {"soft_skill": 0.5, "location": 0.0}
 _CREDIT = {"met": 1.0, "partial": 0.5, "missing": 0.0}
 # A missing *required* item in these categories caps the score: no amount of tool overlap makes
 # up for 8+ years asked vs ~4 held, or a clearance Tylor does not have.
@@ -99,8 +103,14 @@ def verdict_for(score: int) -> Verdict:
 def compute_score(assessments: list[Assessment], years_have: int | None = None) -> int:
     if not assessments:
         return 0
-    total = sum(_WEIGHT[a.requirement.kind] for a in assessments)
-    got = sum(_WEIGHT[a.requirement.kind] * _CREDIT[a.status] for a in assessments)
+
+    def w(a: Assessment) -> float:
+        return _WEIGHT[a.requirement.kind] * _CATEGORY_WEIGHT.get(a.requirement.category, 1.0)
+
+    total = sum(w(a) for a in assessments)
+    if total == 0:
+        return 0
+    got = sum(w(a) * _CREDIT[a.status] for a in assessments)
     score = round(100 * got / total)
     knocked = any(
         a.requirement.kind == "required"
@@ -194,7 +204,7 @@ def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
         job: JobPosting = state["job"]
         reqs: list[Requirement] = state["requirements"]
         ev: dict[str, list[EvidenceRef]] = state["evidence"]
-        if len(reqs) < MIN_REQUIREMENTS:
+        if sum(r.category != "location" for r in reqs) < MIN_REQUIREMENTS:
             # WHY: no requirements means "can't tell", not "bad fit". Skip the paid call and
             # mark it unknown so the dashboard can say "open the posting" instead of scoring 0.
             return {
@@ -234,12 +244,15 @@ def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
                 if yrs and yrs != status:
                     note = f"{deps.profile.years_experience} years vs asked: {r.text}"
                     status = yrs
-                    if status != "missing" and not cited:
-                        summary = next((e for e in ev.get(r.id, []) if e.id == "sum.1"), None)
-                        cited = [
-                            summary
-                            or EvidenceRef(id="sum.1", text=deps.profile.summary[0].text, score=1.0)
-                        ]
+                # GOTCHA: the years verdict is the code's, so the code supplies the evidence too.
+                # Before this, a model that judged "met" but cited nothing got downgraded to
+                # missing below, which then tripped the knockout cap (CentralReach scored 43).
+                if yrs and yrs != "missing" and not cited:
+                    summary = next((e for e in ev.get(r.id, []) if e.id == "sum.1"), None)
+                    cited = [
+                        summary
+                        or EvidenceRef(id="sum.1", text=deps.profile.summary[0].text, score=1.0)
+                    ]
             if status != "missing" and not cited:
                 status, note = "missing", f"no valid evidence cited ({note})"
             assessments.append(Assessment(requirement=r, status=status, evidence=cited, note=note))
