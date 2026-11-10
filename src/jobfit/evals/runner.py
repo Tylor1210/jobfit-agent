@@ -22,7 +22,7 @@ from jobfit.graphs.common import Deps
 from jobfit.graphs.fit import run_fit
 from jobfit.graphs.tailor import start_tailor
 from jobfit.graphs.verify import hallucination_count
-from jobfit.llm.client import LLM, ModelsConfig, build_provider
+from jobfit.llm.client import LLM, ModelsConfig, build_provider, has_key
 from jobfit.llm.cost import InMemoryLedger
 from jobfit.profile.chunks import build_chunks
 from jobfit.profile.loader import load_constraints, load_profile
@@ -233,19 +233,6 @@ def summarize(results: list[CaseResult], provider: str, mode: str, page_check: b
     )
 
 
-def _has_key(provider: str) -> bool:
-    import os
-
-    from jobfit.config import get_settings
-
-    st = get_settings()
-    if provider == "groq":
-        return bool(st.groq_api_key)
-    if provider == "anthropic":
-        return bool(st.anthropic_api_key or os.getenv("ANTHROPIC_AUTH_TOKEN"))
-    return False
-
-
 def run_eval(
     cases: list[Case], embedder: Embedder, mode: Mode = "auto", tailor: bool = True
 ) -> tuple[list[CaseResult], Summary]:
@@ -254,9 +241,12 @@ def run_eval(
     # WHY: without a key the provider would fail at call time with a vague network error
     # (CI turned a missing secret into "Connection error"). No key = replay only, and a miss
     # says plainly that recordings need refreshing.
-    if mode != "replay" and _has_key(cfg.provider):
-        inner = build_provider(cfg.provider)
-    provider = CachingProvider(inner, cfg.provider, mode)
+    # WHY eval_provider: live traffic may fall back from Groq to Claude call by call, but evals
+    # must always hit the same model or every recording becomes a miss.
+    name = cfg.eval_provider
+    if mode != "replay" and has_key(name):
+        inner = build_provider(name)
+    provider = CachingProvider(inner, name, mode)
     cached_embedder = CachedEmbedder(embedder)
     profile = load_profile()
     store = InMemoryStore(cached_embedder)
@@ -284,7 +274,7 @@ def run_eval(
         results.append(run_case(c, base, provider))
     if mode != "replay":  # CI replays; only local runs write recordings
         cached_embedder.save()
-    return results, summarize(results, cfg.provider, mode, base.page_count is not None)
+    return results, summarize(results, name, mode, base.page_count is not None)
 
 
 def to_json(results: list[CaseResult], summary: Summary) -> dict[str, Any]:

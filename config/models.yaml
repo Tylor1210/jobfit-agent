@@ -3,10 +3,13 @@
 # Each graph node asks for a *tier* (fast or smart). The active provider maps tiers to models.
 # Prices are USD per million tokens. They drive the daily cost cap and the eval cost metric.
 
-# WHY anthropic + Haiku everywhere: Groq's free tier caps at 200k tokens/day, which a single
-# eval re-record can exhaust. Haiku 5.5 costs well under a cent per job scored. Groq stays configured
-# below as the zero-cost fallback (LLM_PROVIDER=groq).
-provider: anthropic       # anthropic | groq. Override with env LLM_PROVIDER.
+# WHY Groq first, then Claude: Groq's free tier costs nothing until its 200k tokens/day run out;
+# then calls fall back to Claude (Haiku 5.5, Sonnet 5.5 for the fact check) automatically.
+# Setting env LLM_PROVIDER pins a single provider and turns the fallback off.
+provider: groq
+fallbacks: [anthropic]
+# Evals always use one provider so recordings replay identically (CI only replays).
+eval_provider: anthropic
 daily_cost_cap_usd: 1.00  # Runs stop cleanly once today's spend reaches this.
 
 # Which tier each node uses. Cheap tier for extraction/checking, smart tier for judgment/writing.
