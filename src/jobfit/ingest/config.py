@@ -38,6 +38,7 @@ class IngestConfig(BaseModel):
     stale_days: int = 7
     prefilter: Prefilter
     score_top_n: int = 15
+    rescore_per_run: int = 10
 
     def enabled(self, name: str) -> bool:
         return bool(self.sources.get(name, {}).get("enabled", False))

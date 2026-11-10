@@ -107,6 +107,7 @@ class FitResult(BaseModel):
     top_gaps: list[str]
     injection_flags: list[str] = Field(default_factory=list)
     trace_url: str | None = None  # Langfuse trace of the run that produced this result
+    profile_version: str | None = None  # evidence base this was scored against (rescoring)
 
 
 # ---- LLM outputs: tailor graph ----------------------------------------------------------------

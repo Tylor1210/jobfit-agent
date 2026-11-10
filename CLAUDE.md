@@ -15,6 +15,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `uv run jobfit profile validate|index|search "query"`
 - `uv run jobfit ingest [--source greenhouse] [--no-score] [--top N]` daily pipeline
 - `uv run jobfit add URL` or `add --text FILE --company X --title Y` manual posting + score
+- `uv run jobfit rescore [--limit N]` rescore jobs scored against an older profile (fits carry a
+  `profile_version` hash of master_profile.yaml). The daily run also catches up `rescore_per_run`.
 - `make eval` (replay recorded LLM calls, call the API only on a miss) / `make eval-record` (re-record
   after prompt or model changes, needs a key) / `make eval-replay` (CI, no key). Gate: exit 1 on
   any hallucinated claim in final drafts, failed injection case, or errored case.

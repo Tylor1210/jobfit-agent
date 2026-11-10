@@ -54,6 +54,9 @@ class IngestStore(Protocol):
         self, job_id: str, verdict: str, similarity: float | None, rank: float | None
     ) -> None: ...
     def candidates(self, n: int) -> list[JobPosting]: ...
+    def stale_scored(
+        self, version: str, n: int, include_closed: bool = False
+    ) -> list[JobPosting]: ...
     def start_run(self) -> int: ...
     def finish_run(self, run_id: int, **fields: Any) -> None: ...
 
@@ -151,6 +154,17 @@ class InMemoryIngestStore:
             and self.meta.get(j.id, {}).get("prefilter") == "pass"
         ]
         pool.sort(key=lambda j: self.meta[j.id].get("rank") or 0.0, reverse=True)
+        return pool[:n]
+
+    def stale_scored(self, version: str, n: int, include_closed: bool = False) -> list[JobPosting]:
+        pool = [
+            j
+            for j in self.repo.jobs.values()
+            if j.id in self.repo.fits
+            and self.repo.fits[j.id].profile_version != version
+            and (include_closed or j.status == "open")
+        ]
+        pool.sort(key=lambda j: self.repo.fits[j.id].fit_score, reverse=True)
         return pool[:n]
 
     def start_run(self) -> int:
@@ -272,6 +286,18 @@ class PgIngestStore:
                 """select * from jobs where status = 'open' and prefilter = 'pass'
                    and fit is null order by rank desc nulls last limit %s""",
                 (n,),
+            ).fetchall()
+        return [JobPosting.model_validate(r) for r in rows]
+
+    def stale_scored(self, version: str, n: int, include_closed: bool = False) -> list[JobPosting]:
+        # Best-scoring first: if the quota runs out midway, the jobs that matter most are fresh.
+        with self._conn() as c:
+            rows = c.execute(
+                """select * from jobs where fit is not null
+                   and fit->>'profile_version' is distinct from %s
+                   and (%s or status = 'open')
+                   order by fit_score desc nulls last limit %s""",
+                (version, include_closed, n),
             ).fetchall()
         return [JobPosting.model_validate(r) for r in rows]
 

@@ -57,3 +57,8 @@ prefilter:
 
 # Only the best N new candidates per day go through the (paid) fit graph.
 score_top_n: 15
+
+# After scoring new jobs, rescore up to this many jobs whose score was made against an older
+# profile (e.g. after a resume update), best-scoring first. 0 turns the catch-up off.
+# Each rescore costs about the same as a new score (~5k tokens on Groq).
+rescore_per_run: 10

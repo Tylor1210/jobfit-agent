@@ -52,6 +52,9 @@ def main(argv: list[str] | None = None) -> None:
     ing.add_argument("--source", action="append", help="limit to these sources (repeatable)")
     ing.add_argument("--no-score", action="store_true", help="skip the LLM fit step")
     ing.add_argument("--top", type=int, help="override score_top_n")
+    rs = sub.add_parser("rescore")
+    rs.add_argument("--limit", type=int, default=100)
+    rs.add_argument("--include-closed", action="store_true")
     add = sub.add_parser("add")
     add.add_argument("url", nargs="?")
     add.add_argument("--text", help="file with pasted posting text")
@@ -86,6 +89,9 @@ def main(argv: list[str] | None = None) -> None:
         return
     if args.group == "add":
         _add(args)
+        return
+    if args.group == "rescore":
+        _rescore(args)
         return
     if args.group == "eval":
         _eval(args)
@@ -131,6 +137,25 @@ def _eval(args: argparse.Namespace) -> None:
     print((ROOT / "evals" / "report.md").read_text())
     if not summary.gate_passed:
         sys.exit(1)
+
+
+def _rescore(args: argparse.Namespace) -> None:
+    import logging
+
+    from jobfit.app import build_deps, build_ingest_store
+    from jobfit.ingest.pipeline import run_rescore
+
+    logging.basicConfig(level=logging.WARNING)
+    deps = build_deps(render=False)
+    rep = run_rescore(deps, build_ingest_store(deps), args.limit, args.include_closed)
+    for n in rep.notes:
+        print("note:", n)
+    for jid, sc, verdict in rep.rescored:
+        job = deps.repo.get_job(jid)
+        print(f"  {sc:>3} {verdict:<9} {job.company if job else ''} | {job.title if job else jid}")
+    print(f"rescored {len(rep.rescored)} · status {rep.status} · spend ${rep.spend_usd:.4f}")
+    if rep.status == "capped":
+        print("Run `jobfit rescore` again after the quota resets; it picks up where it stopped.")
 
 
 def _add(args: argparse.Namespace) -> None:

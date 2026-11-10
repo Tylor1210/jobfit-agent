@@ -16,6 +16,7 @@ from langgraph.graph.state import CompiledStateGraph
 from jobfit.graphs import prompts
 from jobfit.graphs.common import Deps, State, node, stop_on_error
 from jobfit.graphs.sanitize import sanitize, wrap
+from jobfit.profile.loader import profile_version
 from jobfit.profile.models import Profile
 from jobfit.rag.store import search_evidence
 from jobfit.schemas import (
@@ -272,6 +273,7 @@ def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
         url = deps.llm.tracer.url(state["trace_id"]) if state.get("trace_id") else None
         if url:
             fit = fit.model_copy(update={"trace_url": url})
+        fit = fit.model_copy(update={"profile_version": profile_version()})
         deps.repo.upsert_job(job)
         deps.repo.save_fit(job.id, fit)
         return {"fit": fit}

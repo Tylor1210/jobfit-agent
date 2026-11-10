@@ -175,6 +175,7 @@ uv run jobfit serve               # http://127.0.0.1:8000
 | `make eval-record` | re-record after changing a prompt or model |
 | `uv run jobfit ingest` | the daily pipeline, once |
 | `uv run jobfit add URL` | add and score one posting |
+| `uv run jobfit rescore` | rescore jobs scored against an older resume (the daily run also catches up 10 a day) |
 | `uv run jobfit fit posting.txt --company X --title Y --tailor` | full run in the terminal |
 
 ## Stack

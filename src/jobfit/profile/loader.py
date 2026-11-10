@@ -80,6 +80,16 @@ def validate_profile(profile: Profile, constraints: Constraints) -> list[str]:
 
 
 @lru_cache(maxsize=4)
+def profile_version(path: Path | None = None) -> str:
+    """Short hash of the evidence base. Stamped on every fit so scores made against an older
+    resume can be found and rescored (`jobfit rescore`, and the daily run's catch-up step)."""
+    import hashlib
+
+    path = path or get_settings().profile_dir / "master_profile.yaml"
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
+
+
+@lru_cache(maxsize=4)
 def load_profile(path: Path | None = None) -> Profile:
     path = path or get_settings().profile_dir / "master_profile.yaml"
     profile = Profile.model_validate(_read_yaml(path))

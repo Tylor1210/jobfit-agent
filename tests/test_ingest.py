@@ -428,3 +428,30 @@ def test_pipeline_stops_on_provider_daily_quota(deps: Deps, fake: FakeProvider) 
     assert rep2.status == "capped" and rep2.scored == []
     assert len(fake2.calls) == 1  # stopped after the first quota error, not once per job
     assert "provider daily quota" in rep2.notes[0]
+
+
+def test_rescore_picks_jobs_scored_against_an_older_profile(deps: Deps, fake: FakeProvider) -> None:
+    from jobfit.ingest.pipeline import run_rescore
+    from jobfit.profile.loader import profile_version
+
+    _, store = _pipeline(deps, fake, [_cand(1), _cand(2)])
+    assert all(f.profile_version == profile_version() for f in deps.repo.fits.values())  # type: ignore[attr-defined]
+    assert store.stale_scored(profile_version(), 10) == []
+
+    # Simulate a resume change: job 2's score now predates the current profile.
+    old = deps.repo.fits["greenhouse:2"].model_copy(update={"profile_version": "old"})  # type: ignore[attr-defined]
+    deps.repo.fits["greenhouse:2"] = old  # type: ignore[attr-defined]
+    assert [j.id for j in store.stale_scored(profile_version(), 10)] == ["greenhouse:2"]
+
+    rep = run_rescore(deps, store, limit=10)
+    assert [r[0] for r in rep.rescored] == ["greenhouse:2"]
+    assert store.stale_scored(profile_version(), 10) == []  # idempotent: nothing left to redo
+
+
+def test_daily_run_catches_up_stale_scores(deps: Deps, fake: FakeProvider) -> None:
+    _, store = _pipeline(deps, fake, [_cand(1)])
+    stale = deps.repo.fits["greenhouse:1"].model_copy(update={"profile_version": None})  # type: ignore[attr-defined]
+    deps.repo.fits["greenhouse:1"] = stale  # type: ignore[attr-defined]
+    rep, _ = _pipeline(deps, fake, [_cand(1), _cand(5)], store=store)
+    assert [r[0] for r in rep.scored] == ["greenhouse:5"]  # new job first
+    assert [r[0] for r in rep.rescored] == ["greenhouse:1"]  # then the stale one
