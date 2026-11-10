@@ -1,8 +1,8 @@
 # CI on every push and PR: lint, types, tests (with real Postgres + pgvector and Chromium),
 # the eval gate, the web build, and the Docker image build.
 #
-# Evals replay recorded LLM calls from evals/cache. A cache miss calls Groq when the
-# GROQ_API_KEY secret is set and fails otherwise. The gate fails the build on any hallucinated
+# Evals replay recorded LLM calls from evals/cache and never call a provider; a missing
+# recording fails the gate with "run make eval-record". The gate also fails on any hallucinated
 # claim in final drafts, a failed injection case, or an errored case.
 name: ci
 
@@ -67,10 +67,11 @@ jobs:
       - name: Tests
         run: uv run pytest -q
 
+      # WHY: replay only. CI never saves new recordings, so live calls would just burn the
+      # shared Groq daily quota (200k tokens) that daily ingest needs. Record locally with
+      # `make eval` / `make eval-record` and commit evals/cache/.
       - name: Evals (gate)
-        env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-        run: uv run jobfit eval --mode auto
+        run: uv run jobfit eval --mode replay
 
       - name: Upload eval report
         if: always()

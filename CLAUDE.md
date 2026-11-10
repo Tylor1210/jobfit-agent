@@ -39,7 +39,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `config/watchlist.yaml` company boards; `config/ingest.yaml` sources, prefilter, top N.
 - `src/jobfit/ingest/` source adapters, prefilter, pipeline, manual add. `store/ingest_store.py` closing rules.
 - `.github/workflows/daily-ingest.yml` 11:00 UTC cron; secrets listed in its header.
-- `.github/workflows/ci.yml` lint, mypy, pytest (pgvector service + Chromium), eval gate, web build,
+- `.github/workflows/ci.yml` lint, mypy, pytest (pgvector service + Chromium), eval gate (replay only,
+  no API calls), web build,
   Docker build. `Dockerfile` + `docker/entrypoint.sh` (serve | ingest | eval | any jobfit command).
 - `src/jobfit/api/` FastAPI (`app.py` routes, `queries.py` read SQL, `tasks.py` background
   scoring/tailoring, `gaps.py`). `web/` Vite + React + TS dashboard; FastAPI serves `web/dist`.
