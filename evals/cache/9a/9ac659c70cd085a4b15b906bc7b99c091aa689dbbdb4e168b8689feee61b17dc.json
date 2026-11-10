@@ -1,0 +1,26 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 2474,
+ "usage": {
+  "input_tokens": 2037,
+  "output_tokens": 1792,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect with 4+ years delivering full-stack platforms, SaaS integrations, and AI-driven workflows. Built and deployed cloud-native CRM modu",
+ "output": {
+  "unsupported": [
+   {
+    "item": 0,
+    "claim": "Built and deployed cloud-native CRM modules, data pipelines, and serverless backends that streamlined onboarding and reduced processing time.",
+    "reason": "Evidence does not mention data pipelines, serverless backends, onboarding, or processing time reduction beyond a general modernization."
+   },
+   {
+    "item": 0,
+    "claim": "Led cross-functional migrations and automation projects while maintaining rigorous documentation and audit standards.",
+    "reason": "Evidence mentions a migration but not cross‑functional scope, documentation, or audit standards."
+   }
+  ]
+ }
+}

@@ -1,0 +1,136 @@
+{
+ "schema": "ResumeOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 59333,
+ "usage": {
+  "input_tokens": 3647,
+  "output_tokens": 1324,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Configuration Specialist II at CentralReach\n<requirements>\n- (required) 1–3 years of experience in a technical configuration, implementation, or SaaS opera",
+ "output": {
+  "summary": "Systems architect with 4+ years delivering full-stack platforms, SaaS integrations, and AI-driven workflows. Architected and deployed a React and TypeScript CRM module on Cloudflare Workers for high-value subscription accounts. Led modernization from legacy desktop tools to cloud-native web infrastructure, cutting manual data‑processing overhead by 68%. Military logistics experience added disciplined inventory control and process improvement.",
+  "summary_evidence_ids": [
+   "sum.1",
+   "exp.linkme.1",
+   "exp.fairman.1",
+   "mil.flarng.1"
+  ],
+  "skill_rows": [
+   {
+    "label": "Cloud & Edge",
+    "skill_ids": [
+     "skill.cloudflare",
+     "skill.nodejs",
+     "skill.docker",
+     "skill.google_sheets_api"
+    ]
+   },
+   {
+    "label": "Frontend & Types",
+    "skill_ids": [
+     "skill.typescript",
+     "skill.react",
+     "skill.zod"
+    ]
+   },
+   {
+    "label": "Automation & Ops",
+    "skill_ids": [
+     "skill.git",
+     "skill.etl",
+     "skill.tool_calling"
+    ]
+   }
+  ],
+  "jobs": [
+   {
+    "job_id": "exp.linkme",
+    "bullets": [
+     {
+      "text": "Built linkme-intops, a React and TypeScript CRM module on Cloudflare Workers, delivering a dedicated interface for high-value subscription accounts.",
+      "source_ids": [
+       "exp.linkme.1"
+      ]
+     },
+     {
+      "text": "Designed integration blueprints and live demo environments that enabled reliable onboarding of enterprise clients to the core platform.",
+      "source_ids": [
+       "exp.linkme.3"
+      ]
+     },
+     {
+      "text": "Engineered custom data ingestion modules and analytics pipelines that cut service delivery times by over 30%.",
+      "source_ids": [
+       "exp.linkme.2"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.fairman",
+    "bullets": [
+     {
+      "text": "Constructed automated data-validation pipelines at the database layer, removing 98% of transactional and invoicing errors.",
+      "source_ids": [
+       "exp.fairman.2"
+      ]
+     },
+     {
+      "text": "Led migration from legacy desktop tools to cloud-native web infrastructure, lowering manual data-processing overhead by 68%.",
+      "source_ids": [
+       "exp.fairman.1"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "exp.tycodes",
+    "bullets": [
+     {
+      "text": "Designed a six-stage agent pipeline that enforced automated verification, preventing hallucinated pricing and claims.",
+      "source_ids": [
+       "exp.tycodes.2"
+      ]
+     },
+     {
+      "text": "Built tycodes.app, an AI demo generator that transforms business URLs into 3D scroll demos in about one minute using Cloudflare Workers, Workflows, R2, and D1.",
+      "source_ids": [
+       "exp.tycodes.1"
+      ]
+     },
+     {
+      "text": "Engineered tycodes.dev with edge-deployed Vite, React, TypeScript, and Tailwind on Cloudflare Workers, adding a Hono Worker that runs Firecrawl and OpenAI for automated audits and pricing models.",
+      "source_ids": [
+       "exp.tycodes.5"
+      ]
+     },
+     {
+      "text": "Designed zero-maintenance serverless backends that use Google Sheets via OAuth, removing the need for dedicated servers.",
+      "source_ids": [
+       "exp.tycodes.6"
+      ]
+     }
+    ]
+   },
+   {
+    "job_id": "mil.flarng",
+    "bullets": [
+     {
+      "text": "Managed over $100 M of federal inventory across 12 sites, achieving 100% audit accuracy and cutting processing times by 35%.",
+      "source_ids": [
+       "mil.flarng.1"
+      ]
+     },
+     {
+      "text": "Enforced strict accountability procedures that eliminated supply-chain bottlenecks during high-demand deployments; earned Army Achievement Medal.",
+      "source_ids": [
+       "mil.flarng.2"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

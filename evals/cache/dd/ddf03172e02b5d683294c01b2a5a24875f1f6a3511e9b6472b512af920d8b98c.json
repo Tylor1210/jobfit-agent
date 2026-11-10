@@ -1,0 +1,45 @@
+{
+ "schema": "EmphasisOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 2459,
+ "usage": {
+  "input_tokens": 2302,
+  "output_tokens": 944,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "angle": "Tylor is a full‑stack systems architect who delivers production‑grade AI‑agent platforms on serverless edge infrastructure, leveraging deep Python and TypeScript expertise, proven agent‑loop orchestration, and client‑focused delivery to meet TribalScale’s AI‑powered engineering needs.",
+  "skill_ids": [
+   "skill.python",
+   "skill.typescript",
+   "skill.claude_code",
+   "skill.tool_calling",
+   "skill.prompt_engineering",
+   "skill.anthropic_api",
+   "skill.cloudflare",
+   "skill.wrangler",
+   "skill.icm",
+   "skill.codex",
+   "skill.crm"
+  ],
+  "bullet_ids": [
+   "exp.linkme.1",
+   "exp.linkme.2",
+   "exp.linkme.3",
+   "exp.tycodes.2",
+   "exp.tycodes.1",
+   "exp.tycodes.5",
+   "exp.fairman.1",
+   "exp.fairman.2",
+   "mil.flarng.1",
+   "mil.flarng.2"
+  ],
+  "posting_hooks": [
+   "Built a 6‑stage agent pipeline that handles planning, tool selection, execution, observation, reflection, recovery, and termination, directly matching the required agent‑loop experience.",
+   "Delivered end‑to‑end production systems on Cloudflare Workers with robust API integrations, automated monitoring, and cost‑aware design, satisfying the need for production‑grade software and modern dev‑ops practices.",
+   "Created live demo environments and integration blueprints that streamline onboarding of enterprise clients, demonstrating the ability to move from ambiguous problems to validated prototypes and secure, maintainable production solutions."
+  ]
+ }
+}

@@ -53,8 +53,9 @@ skills:
       - {id: skill.nodejs, name: Node.js, aliases: [Node, NodeJS]}
       - {id: skill.express, name: Express, aliases: [Express.js]}
       - {id: skill.routing_middleware, name: custom routing middleware, aliases: [middleware]}
-      # CONSTRAINT: Docker is on the resume but stays out until this project ships a Dockerfile
-      # (profile/constraints.yaml -> pending_tools). Add `skill.docker` here at that point.
+      # Docker: on the master resume, and shipped in this project (Dockerfile + docker compose,
+      # verified 2026-11-10), so it moved out of constraints.yaml pending_tools.
+      - {id: skill.docker, name: Docker, aliases: [Docker Compose, containers, Dockerfile]}
       - {id: skill.wrangler, name: Wrangler}
   - category: Data & Backend
     items:

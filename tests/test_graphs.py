@@ -324,3 +324,20 @@ def test_model_cannot_call_a_big_years_gap_partial(
     fit = run_fit(job, deps)["fit"]
     years = next(x for x in fit.assessments if x.requirement.category == "years_experience")
     assert years.status == "missing" and fit.verdict == "not_a_fit"
+
+
+def test_exact_skill_match_finds_listed_languages() -> None:
+    from jobfit.graphs.fit import exact_skill_hits, exact_skill_index
+    from jobfit.profile.loader import load_profile
+
+    idx = exact_skill_index(load_profile())
+    ids = {
+        sid
+        for sid, _ in exact_skill_hits(
+            "Working experience with two or more of .Net, NodeJS, Python, Java, Ruby", idx
+        )
+    }
+    assert {"skill.nodejs", "skill.python"} <= ids
+    assert not exact_skill_hits("Strong written communication", idx)
+    # short aliases don't fire inside other words ("R2" alias must not match "R2D2-ish" text)
+    assert "skill.cloudflare" not in {s for s, _ in exact_skill_hits("teamwork", idx)}

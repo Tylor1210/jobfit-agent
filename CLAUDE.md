@@ -19,7 +19,9 @@ Vite + React + TS frontend. Everything must stay on free tiers.
   after prompt or model changes, needs a key) / `make eval-replay` (CI, no key). Gate: exit 1 on
   any hallucinated claim in final drafts, failed injection case, or errored case.
 - `uv run jobfit fit posting.txt --company X --title Y [--tailor]` live run (uses .env keys)
-- Dashboard: `cd web && npm install && npm run build`, then `uv run jobfit serve` (http://127.0.0.1:8000).
+- Docker: `make up` / `make down` (app + local pgvector, http://localhost:8000; .env keys, but the
+  app uses the compose db unless COMPOSE_DATABASE_URL is set). `docker compose run --rm app ingest`.
+- Dashboard: `make web`, then `uv run jobfit serve` (http://127.0.0.1:8000).
   UI dev with hot reload: `jobfit serve` + `cd web && npm run dev` (Vite on :5173 proxies /api).
 - `uv run playwright install chromium` once, for PDF rendering and `-m render` tests
 - On this Mac use `/opt/homebrew/bin/uv` (the one in ~/.local/bin is x86_64 and won't run).
@@ -37,6 +39,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - `config/watchlist.yaml` company boards; `config/ingest.yaml` sources, prefilter, top N.
 - `src/jobfit/ingest/` source adapters, prefilter, pipeline, manual add. `store/ingest_store.py` closing rules.
 - `.github/workflows/daily-ingest.yml` 11:00 UTC cron; secrets listed in its header.
+- `.github/workflows/ci.yml` lint, mypy, pytest (pgvector service + Chromium), eval gate, web build,
+  Docker build. `Dockerfile` + `docker/entrypoint.sh` (serve | ingest | eval | any jobfit command).
 - `src/jobfit/api/` FastAPI (`app.py` routes, `queries.py` read SQL, `tasks.py` background
   scoring/tailoring, `gaps.py`). `web/` Vite + React + TS dashboard; FastAPI serves `web/dist`.
 - `evals/cases/cases.yaml` + `<id>.txt` postings; `evals/cache/` recorded LLM calls (commit it);
@@ -44,8 +48,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 
 ## Hard rules
 - Never add a fact to the profile that isn't true. Generated text cites evidence IDs or it's rejected.
-- No Terraform/Ansible/Puppet/Kubernetes/Jenkins/Chef. Docker and GitHub Actions only after this
-  project ships them (see `pending_tools` in constraints.yaml).
+- No Terraform/Ansible/Puppet/Kubernetes/Jenkins/Chef. GitHub Actions only after ci.yml runs green
+  on GitHub (see `pending_tools` in constraints.yaml). Docker is in the profile (shipped here).
 - BAS in IT is "In progress". No bachelor's degree claims.
 - No em dashes in generated text. No banned phrases (constraints.yaml).
 - No LinkedIn/Indeed scraping. Only public job-board APIs. `ingest/manual.py` refuses those hosts.
@@ -57,7 +61,9 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - Fit score is computed in code (`graphs/fit.py:compute_score`), never taken from the model.
 - Titles, companies, dates, education, skill names on the PDF come from the profile, not the LLM.
 - Groq free tier is ~8k tokens/min per model: a tailor run takes 2 to 4 minutes. That's expected.
-- Any prompt change invalidates the eval cache: run `make eval-record` and commit `evals/cache/`.
+- Any prompt, profile or retrieval change invalidates the eval cache: run `make eval-record` and commit
+  `evals/cache/`. Groq free tier caps gpt-oss-120b at 200k tokens/day, shared with daily ingest;
+  a full re-record needs ~150k, so do it on a day without heavy tailoring.
 - UI: dark default + light toggle, teal is the only accent, no gradients/pills/emoji, lucide icons,
   fonts bundled via @fontsource (no CDN). Keep `web/src/types.ts` in sync with schemas.py by hand.
 - Playwright sync API is per-thread: use `render.pdf.default_renderer()` (thread-local), never share one.

@@ -1,0 +1,16 @@
+# Keep the build context small and secrets out of the image.
+.env
+.git
+.venv
+**/node_modules
+web/dist
+output
+reference
+profile/voice
+evals/cache
+evals/report.json
+.mypy_cache
+.ruff_cache
+.pytest_cache
+**/__pycache__
+.claude

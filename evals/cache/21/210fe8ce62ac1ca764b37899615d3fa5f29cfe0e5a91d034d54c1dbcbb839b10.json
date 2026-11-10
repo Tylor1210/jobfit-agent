@@ -1,0 +1,15 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 2728,
+ "usage": {
+  "input_tokens": 2251,
+  "output_tokens": 1529,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect with 4+ years building full-stack platforms, AI-agent workflows, and cloud-native integrations. Delivered production-grade CRM modu",
+ "output": {
+  "unsupported": []
+ }
+}

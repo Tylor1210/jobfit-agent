@@ -16,6 +16,7 @@ from langgraph.graph.state import CompiledStateGraph
 from jobfit.graphs import prompts
 from jobfit.graphs.common import Deps, State, node, stop_on_error
 from jobfit.graphs.sanitize import sanitize, wrap
+from jobfit.profile.models import Profile
 from jobfit.rag.store import search_evidence
 from jobfit.schemas import (
     Assessment,
@@ -119,6 +120,32 @@ def compute_score(assessments: list[Assessment], years_have: int | None = None) 
     return min(score, KNOCKOUT_CAP) if knocked else score
 
 
+def exact_skill_index(profile: Profile) -> list[tuple[str, str, re.Pattern[str]]]:
+    """(skill id, chunk-style text, matcher) for every skill name and alias, longest first."""
+    out: list[tuple[str, str, re.Pattern[str]]] = []
+    for cat in profile.skills:
+        for sk in cat.items:
+            for name in [sk.name.split(" (")[0], *sk.aliases]:
+                # Also match the run-together form ("NodeJS" for "Node.js").
+                variants = {name, name.replace(".", "").replace(" ", "")}
+                for v in variants:
+                    if len(v) < 2:
+                        continue
+                    rx = re.compile(rf"(?<![\w.]){re.escape(v)}(?![\w])", re.I)
+                    out.append((sk.id, f"Skill in {cat.category}: {sk.name}", rx))
+    return sorted(out, key=lambda t: -len(t[2].pattern))
+
+
+def exact_skill_hits(
+    text: str, index: list[tuple[str, str, re.Pattern[str]]]
+) -> list[tuple[str, str]]:
+    seen: dict[str, str] = {}
+    for sid, chunk_text, rx in index:
+        if sid not in seen and rx.search(text):
+            seen[sid] = chunk_text
+    return list(seen.items())
+
+
 def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
     @node("sanitize", deps)
     def sanitize_node(state: State) -> State:
@@ -142,12 +169,23 @@ def build_fit_graph(deps: Deps) -> CompiledStateGraph[Any, Any, Any, Any]:
                 reqs.append(Requirement(id=f"r{len(reqs) + 1}", **r.model_dump()))
         return {"requirements": reqs}
 
+    skill_names = exact_skill_index(deps.profile)
+
     @node("retrieve_evidence", deps)
     def retrieve(state: State) -> State:
         ev: dict[str, list[EvidenceRef]] = {}
         for r in state["requirements"]:
             hits = search_evidence(deps.store, r.text, _PER_KIND)[:EVIDENCE_PER_REQ]
-            ev[r.id] = [EvidenceRef(id=h.id, text=h.text, score=round(h.score, 3)) for h in hits]
+            refs = [EvidenceRef(id=h.id, text=h.text, score=round(h.score, 3)) for h in hits]
+            # Hybrid retrieval: a skill named verbatim in the requirement is always evidence.
+            # WHY: vector search alone missed Node.js for "two or more of .Net, NodeJS, Python,
+            # Java, Ruby" (one embedding per requirement blurs a list of five languages).
+            have = {e.id for e in refs}
+            for sid, text in exact_skill_hits(r.text, skill_names):
+                if sid not in have:
+                    refs.append(EvidenceRef(id=sid, text=text, score=1.0))
+                    have.add(sid)
+            ev[r.id] = refs
         return {"evidence": ev}
 
     @node("score_fit", deps)

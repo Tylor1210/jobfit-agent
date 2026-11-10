@@ -1,5 +1,12 @@
-# Local stack. Phase 1: just Postgres + pgvector (same extension Supabase uses), so the app can run
-# without a Supabase project. TODO (Phase 6): add the api/web service.
+# Local stack: the app (API + dashboard) and Postgres with pgvector (the same extension Supabase
+# uses), so everything runs without a Supabase project.
+#
+#   docker compose up --build        -> http://localhost:8000
+#   docker compose run --rm app ingest
+#
+# Keys (GROQ_API_KEY, LANGFUSE_*, ...) come from .env. DATABASE_URL in .env is IGNORED here on
+# purpose: the app talks to the local db service. Set COMPOSE_DATABASE_URL to point it at
+# Supabase instead.
 services:
   db:
     image: pgvector/pgvector:pg16
@@ -12,5 +19,20 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 2s
       retries: 20
+
+  app:
+    build: .
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: ${COMPOSE_DATABASE_URL:-postgresql://postgres:jobfit@db:5432/jobfit}
+    depends_on:
+      db: {condition: service_healthy}
+    ports: ["8000:8000"]
+    volumes:
+      - ./output:/app/output              # rendered PDFs land on the host
+      - ./profile/voice:/app/profile/voice:ro  # cover-letter voice samples (kept out of git)
+
 volumes:
   pgdata:

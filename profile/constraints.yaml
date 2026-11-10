@@ -9,9 +9,9 @@ require_evidence: true
 forbidden_tools: [Terraform, Ansible, Puppet, Kubernetes, K8s, Jenkins, Chef]
 
 # Tools that move into the profile only once this project uses them.
-# TODO: add skill.docker to master_profile.yaml after Phase 6 ships the Dockerfile + compose,
-# and skill.github_actions after ci.yml runs green, then delete them from this list.
-pending_tools: [Docker, GitHub Actions]
+# TODO: add skill.github_actions to master_profile.yaml once ci.yml has run green on GitHub,
+# then delete it from this list. (Docker moved to the profile on 2026-11-10.)
+pending_tools: [GitHub Actions]
 
 degrees:
   has_bachelors: false

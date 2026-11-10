@@ -1,0 +1,46 @@
+{
+ "schema": "ClaimCheckOut",
+ "model": "openai/gpt-oss-20b",
+ "latency_ms": 3282,
+ "usage": {
+  "input_tokens": 2039,
+  "output_tokens": 2799,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "[0] CLAIM: Systems architect with 4+ years delivering full-stack platforms, SaaS integrations, and AI-driven workflows. Architected and deployed a React and Typ",
+ "output": {
+  "unsupported": [
+   {
+    "item": 0,
+    "claim": "Military logistics experience added disciplined inventory control and process improvement.",
+    "reason": "Evidence does not state that the military logistics experience added disciplined inventory control and process improvement."
+   },
+   {
+    "item": 12,
+    "claim": "Configuration Specialist II at CentralReach caught my eye because the posting stresses managing several configuration tasks at once with high attention to detail.",
+    "reason": "Evidence does not mention the job posting or the role description."
+   },
+   {
+    "item": 13,
+    "claim": "directly provisioning and configuring customer accounts",
+    "reason": "Evidence does not mention provisioning or configuring customer accounts."
+   },
+   {
+    "item": 13,
+    "claim": "guaranteeing configuration accuracy and consistency",
+    "reason": "Evidence does not explicitly state that the pipelines guaranteed configuration accuracy and consistency."
+   },
+   {
+    "item": 13,
+    "claim": "establishing repeatable setup processes for different customer segments",
+    "reason": "Evidence does not mention repeatable setup processes."
+   },
+   {
+    "item": 14,
+    "claim": "I look forward to discussing how my background can meet CentralReach’s configuration needs.",
+    "reason": "Evidence does not contain this statement."
+   }
+  ]
+ }
+}

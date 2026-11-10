@@ -1,0 +1,52 @@
+{
+ "schema": "CoverLetterOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 24268,
+ "usage": {
+  "input_tokens": 2558,
+  "output_tokens": 4112,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Solutions Architect at Smartsheet\n<requirements>\n- (required) 3 years relevant work experience or equivalent combination of relevant work experience and ed",
+ "output": {
+  "greeting": "Dear Smartsheet Hiring Team,",
+  "paragraphs": [
+   {
+    "kind": "opening",
+    "text": "I’m applying for the Solutions Architect role at Smartsheet because the posting calls for an architect who can design, build, and ship production‑grade full‑stack applications. My four years as a systems architect include building edge‑hosted platforms that combine UI, data pipelines, and AI services. That matches the need to create end‑to‑end solutions without relying on pre‑packaged tools.",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.5"
+    ]
+   },
+   {
+    "kind": "evidence",
+    "text": "At linkme I architected and deployed linkme‑intops, a React and TypeScript interface on Cloudflare Workers that gives staff a dedicated view of high‑value subscription accounts. I also built tycodes.app, an AI demo generator that turns a business URL into a shoppable 3D scroll demo in about a minute using Cloudflare Workers, Workflows, R2, and D1. To keep the output reliable I designed a six‑stage agent pipeline with a verification stage that blocks hallucinated pricing and claims. The custom data ingestion modules I added to linkme cut service delivery time by more than 30 percent. In tycodes.dev I used a Hono worker to call OpenAI for automated audit and pricing models, showing how I embed AI APIs into production code.",
+    "evidence_ids": [
+     "exp.linkme.1",
+     "exp.tycodes.1",
+     "exp.tycodes.2",
+     "exp.linkme.2",
+     "exp.tycodes.5"
+    ]
+   },
+   {
+    "kind": "gap",
+    "text": "One gap is that my travel record shows limited trips, while the role may require up to 15 % travel. I will schedule quarterly site visits and use remote demos to prepare before each trip, ensuring I meet customer needs while keeping travel minimal.",
+    "evidence_ids": [
+     "exp.71lbs.2"
+    ]
+   },
+   {
+    "kind": "closing",
+    "text": "I would welcome a conversation to discuss how my full‑stack builds and AI‑agent pipelines can support Smartsheet customers. I can also share details on the data ingestion and verification workflows I have delivered.",
+    "evidence_ids": [
+     "sum.1",
+     "exp.linkme.2",
+     "exp.tycodes.2"
+    ]
+   }
+  ]
+ }
+}

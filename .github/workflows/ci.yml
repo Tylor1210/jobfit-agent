@@ -1,0 +1,115 @@
+# CI on every push and PR: lint, types, tests (with real Postgres + pgvector and Chromium),
+# the eval gate, the web build, and the Docker image build.
+#
+# Evals replay recorded LLM calls from evals/cache. A cache miss calls Groq when the
+# GROQ_API_KEY secret is set and fails otherwise. The gate fails the build on any hallucinated
+# claim in final drafts, a failed injection case, or an errored case.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_PASSWORD: jobfit
+          POSTGRES_DB: jobfit
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 2s --health-retries 20
+    env:
+      DATABASE_URL: postgresql://postgres:jobfit@localhost:5432/jobfit
+      FASTEMBED_CACHE_PATH: /home/runner/.cache/fastembed  # no ~ expansion in env
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Type check
+        run: uv run mypy src tests
+
+      - name: Cache embedding model
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/.cache/fastembed
+          key: fastembed-bge-small-en-v1.5
+
+      - name: Install Chromium (PDF render tests)
+        run: uv run playwright install --with-deps chromium
+
+      - name: Migrate
+        run: uv run jobfit db migrate
+
+      - name: Tests
+        run: uv run pytest -q
+
+      - name: Evals (gate)
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: uv run jobfit eval --mode auto
+
+      - name: Upload eval report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: |
+            evals/report.md
+            evals/report.json
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Type check and build
+        run: npm run build
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [python, web]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: jobfit:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

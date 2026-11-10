@@ -35,7 +35,15 @@ def test_bas_is_in_progress(profile: Profile) -> None:
 
 def test_no_unclaimable_tools_in_profile(profile: Profile) -> None:
     names = " ".join(n for sk in profile.all_skills() for n in [sk.name, *sk.aliases]).lower()
-    for tool in ["terraform", "ansible", "puppet", "kubernetes", "jenkins", "chef", "docker"]:
+    for tool in [
+        "terraform",
+        "ansible",
+        "puppet",
+        "kubernetes",
+        "jenkins",
+        "chef",
+        "github actions",
+    ]:
         assert tool not in names
 
 
