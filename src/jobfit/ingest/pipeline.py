@@ -91,9 +91,10 @@ def run_ingest(
             for job in store.candidates(top_n if top_n is not None else cfg.score_top_n):
                 out = run_fit(job, deps)
                 err = out.get("error")
-                if err and err.startswith("cost_cap"):
+                if err and err.startswith(("cost_cap", "quota")):
                     rep.status = "capped"
-                    rep.notes.append(f"stopped at daily cost cap: {err}")
+                    why = "daily cost cap" if err.startswith("cost_cap") else "provider daily quota"
+                    rep.notes.append(f"stopped at {why}; unscored jobs stay queued: {err[:200]}")
                     break
                 if err:
                     rep.notes.append(f"{job.id}: {err}")

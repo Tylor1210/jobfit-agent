@@ -1,0 +1,150 @@
+{
+ "schema": "FitOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 5255,
+ "usage": {
+  "input_tokens": 3839,
+  "output_tokens": 2187,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Role: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n[r1] (required, other) Professional experience building and deploying prod",
+ "output": {
+  "assessments": [
+   {
+    "req_id": "r1",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1",
+     "exp.tycodes.4"
+    ],
+    "note": "Proven production AI system delivery."
+   },
+   {
+    "req_id": "r2",
+    "status": "met",
+    "evidence_ids": [
+     "skill.python",
+     "skill.typescript"
+    ],
+    "note": "Demonstrated Python and TypeScript expertise."
+   },
+   {
+    "req_id": "r3",
+    "status": "met",
+    "evidence_ids": [
+     "exp.tycodes.2",
+     "skill.tool_calling"
+    ],
+    "note": "Built full agent pipeline with tool‑calling."
+   },
+   {
+    "req_id": "r4",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.claude_code",
+     "skill.icm"
+    ],
+    "note": "Orchestration skills present, no explicit graph/state‑machine details."
+   },
+   {
+    "req_id": "r5",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.tycodes.4",
+     "skill.prompt_engineering"
+    ],
+    "note": "Backtesting shows evaluation ability but lacks full AI benchmark suite."
+   },
+   {
+    "req_id": "r6",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.prompt_engineering",
+     "skill.tool_calling"
+    ],
+    "note": "Understands prompts and tool use; deeper trade‑off knowledge not shown."
+   },
+   {
+    "req_id": "r7",
+    "status": "partial",
+    "evidence_ids": [
+     "exp.fairman.2",
+     "skill.codex"
+    ],
+    "note": "Data‑validation pipelines indicate instrumentation, but AI‑specific tracing not explicit."
+   },
+   {
+    "req_id": "r8",
+    "status": "met",
+    "evidence_ids": [
+     "skill.wrangler",
+     "exp.linkme.1"
+    ],
+    "note": "Strong API, cloud, and modern dev practice experience."
+   },
+   {
+    "req_id": "r9",
+    "status": "met",
+    "evidence_ids": [
+     "sum.1"
+    ],
+    "note": "Broad experience shows quick learning capability."
+   },
+   {
+    "req_id": "r10",
+    "status": "met",
+    "evidence_ids": [
+     "exp.tycodes.2"
+    ],
+    "note": "Created prototype pipeline and validated it."
+   },
+   {
+    "req_id": "r11",
+    "status": "partial",
+    "evidence_ids": [
+     "skill.prompt_engineering"
+    ],
+    "note": "Prompt expertise hints at product judgment, but balance aspects not demonstrated."
+   },
+   {
+    "req_id": "r12",
+    "status": "partial",
+    "evidence_ids": [
+     "edu.bas_it"
+    ],
+    "note": "Education mentions communication focus, but concrete examples missing."
+   },
+   {
+    "req_id": "r13",
+    "status": "partial",
+    "evidence_ids": [
+     "cert.project_management"
+    ],
+    "note": "Project‑management cert suggests travel readiness, no explicit travel record."
+   },
+   {
+    "req_id": "r14",
+    "status": "met",
+    "evidence_ids": [
+     "contact.location"
+    ],
+    "note": "Based in South Florida, matches location."
+   },
+   {
+    "req_id": "r15",
+    "status": "met",
+    "evidence_ids": [
+     "exp.linkme.1"
+    ],
+    "note": "Experience delivering solutions with customers and teams."
+   }
+  ],
+  "verdict_line": "The candidate broadly meets the technical and soft‑skill requirements but lacks depth in evaluation and instrumentation of AI systems.",
+  "top_gaps": [
+   "Designing AI evaluation systems (r5)",
+   "Instrumenting AI decisions for tracing and diagnostics (r7)",
+   "Product judgment across model trade‑offs (r11)"
+  ]
+ }
+}

@@ -13,7 +13,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
-from jobfit.llm.base import LLMError
+from jobfit.llm.base import LLMError, QuotaExhausted
 from jobfit.llm.client import LLM
 from jobfit.llm.cost import CostCapExceeded
 from jobfit.profile.constraints import Constraints
@@ -58,6 +58,10 @@ def node(name: str, deps: Deps) -> Callable[[NodeFn], NodeFn]:
                     log.warning("%s stopped: %s", name, e)
                     span.update(level="WARNING", stopped="cost_cap")
                     return {"error": f"cost_cap: {e}", "error_node": name}
+                except QuotaExhausted as e:
+                    log.warning("%s stopped: %s", name, e)
+                    span.update(level="WARNING", stopped="quota")
+                    return {"error": f"quota: {e}", "error_node": name}
                 except LLMError as e:
                     log.error("%s failed: %s", name, e)
                     span.update(level="ERROR", error=str(e))

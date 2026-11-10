@@ -1,0 +1,45 @@
+{
+ "schema": "EmphasisOut",
+ "model": "openai/gpt-oss-120b",
+ "latency_ms": 3559,
+ "usage": {
+  "input_tokens": 2259,
+  "output_tokens": 1506,
+  "cache_read_tokens": 0,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Job: Forward Deployed Engineer (Fort Lauderdale/Miami) at TribalScale\n<requirements>\n- (required) Professional experience building and deploying production-grad",
+ "output": {
+  "angle": "Tylor is a seasoned systems architect who repeatedly builds and ships production‑grade, AI‑agent‑driven platforms, leveraging deep Python and TypeScript expertise together with proven tooling, evaluation, and instrumentation skills to deliver customer‑focused solutions.",
+  "skill_ids": [
+   "skill.python",
+   "skill.typescript",
+   "skill.tool_calling",
+   "skill.prompt_engineering",
+   "skill.wrangler",
+   "skill.cloudflare",
+   "skill.openai_api",
+   "skill.anthropic_api",
+   "skill.icm",
+   "skill.codex"
+  ],
+  "bullet_ids": [
+   "exp.tycodes.2",
+   "exp.tycodes.1",
+   "exp.tycodes.5",
+   "exp.tycodes.4",
+   "exp.tycodes.3",
+   "exp.linkme.1",
+   "exp.linkme.2",
+   "exp.linkme.3",
+   "exp.fairman.2",
+   "exp.fairman.1",
+   "exp.71lbs.1"
+  ],
+  "posting_hooks": [
+   "Built and shipped a 6‑stage AI agent pipeline that handles planning, tool selection, execution, observation, reflection, and recovery, directly matching the required experience with agent loops.",
+   "Designed automated evaluation and backtesting frameworks for AI outputs, enabling task‑based benchmarks, regression suites, and production monitoring as called for in the evaluation systems requirement.",
+   "Implemented end‑to‑end tracing, logging, and validation pipelines that capture intermediate states and diagnose failures in production AI services, fulfilling the instrumentation and diagnostics requirement."
+  ]
+ }
+}

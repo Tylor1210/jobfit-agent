@@ -56,6 +56,11 @@ class LLMError(RuntimeError):
     """Provider call failed in a way retrying the same request will not fix."""
 
 
+class QuotaExhausted(LLMError):
+    """The provider's daily allowance is used up (e.g. Groq free tier tokens per day).
+    Like the cost cap: every later call today would fail too, so callers stop the batch."""
+
+
 class Provider(Protocol):
     name: str
 

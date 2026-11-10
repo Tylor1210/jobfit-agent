@@ -17,7 +17,7 @@ from typing import Any
 import groq
 from pydantic import ValidationError
 
-from jobfit.llm.base import LLMError, T, TierConfig, Usage
+from jobfit.llm.base import LLMError, QuotaExhausted, T, TierConfig, Usage
 
 MAX_RETRIES = 6
 
@@ -63,6 +63,10 @@ class GroqProvider:
         except groq.AuthenticationError as e:
             raise LLMError("groq auth failed: set GROQ_API_KEY") from e
         except groq.RateLimitError as e:
+            # GOTCHA: per-minute limits clear in seconds (the SDK retries those); the per-day
+            # limit (TPD) does not, so retrying the next job is pointless.
+            if "per day" in str(e.message).lower():
+                raise QuotaExhausted(f"groq daily token limit reached: {e.message}") from e
             raise LLMError(f"groq rate limit after {MAX_RETRIES} retries: {e.message}") from e
         except (groq.APIStatusError, groq.APIConnectionError) as e:
             raise LLMError(f"groq request failed: {e}") from e

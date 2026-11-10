@@ -20,7 +20,7 @@ from jobfit.ingest.sources.feeds import Adzuna, RemoteOK, Remotive, USAJobs
 from jobfit.llm.cost import UsageRecord
 from jobfit.llm.fake import FakeProvider
 from jobfit.rag.embedder import HashEmbedder
-from jobfit.schemas import JobPosting
+from jobfit.schemas import JobPosting, RequirementsOut
 from jobfit.store.ingest_store import EMPTY_GUARD, InMemoryIngestStore
 from jobfit.store.repo import InMemoryRepo
 
@@ -413,3 +413,18 @@ def test_remote_restriction_in_description_and_mojibake() -> None:
     assert location_ok(us, PF) is True
     assert html_to_text("EUR 53,000 \u00e2\u0080\u0093 59,000") == "EUR 53,000 \u2013 59,000"
     assert html_to_text("caf\u00e9") == "caf\u00e9"  # already-correct text untouched
+
+
+def test_pipeline_stops_on_provider_daily_quota(deps: Deps, fake: FakeProvider) -> None:
+    from jobfit.llm.base import QuotaExhausted
+
+    def exhausted(system: str, user: str) -> Any:
+        raise QuotaExhausted("groq daily token limit reached")
+
+    _, store = _pipeline(deps, fake, [_cand(1), _cand(2)])  # scores both normally
+    fake2 = FakeProvider().script(RequirementsOut, exhausted)
+    deps.llm.provider = fake2
+    rep2, _ = _pipeline(deps, fake2, [_cand(3), _cand(4)], store=store)
+    assert rep2.status == "capped" and rep2.scored == []
+    assert len(fake2.calls) == 1  # stopped after the first quota error, not once per job
+    assert "provider daily quota" in rep2.notes[0]
