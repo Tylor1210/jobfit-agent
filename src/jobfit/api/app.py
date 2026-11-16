@@ -7,7 +7,7 @@ Depends on DATABASE_URL (Postgres/Supabase). LLM, tracing and renderer come from
 from __future__ import annotations
 
 import json
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from typing import Any, Literal
 from urllib.parse import quote
@@ -24,6 +24,7 @@ from jobfit.config import ROOT, get_settings
 from jobfit.schemas import CoverLetterOut, ResumeOut, Stage
 
 WEB_DIST = ROOT / "web" / "dist"
+INGEST_KEY = "__ingest__"  # TaskRunner key for the dashboard's "Check for jobs" run
 
 
 class StageIn(BaseModel):
@@ -68,6 +69,7 @@ def create_app(
     dashboard: Dashboard | None = None,
     checkpointer: Any = None,
     serve_web: bool = True,
+    ingest: Callable[[Any], dict[str, Any]] | None = None,
 ) -> FastAPI:
     """Factory. Tests pass their own deps/dashboard/checkpointer; production builds them lazily
     on startup so importing the module stays cheap."""
@@ -246,6 +248,43 @@ def create_app(
             headers={"Content-Disposition": f"attachment; filename*=UTF-8''{quoted}"},
         )
 
+    # ---- job check (same pipeline as the daily GitHub Actions run) --------------------------
+
+    def _run_ingest(deps: Any) -> dict[str, Any]:
+        from jobfit.app import build_ingest_store
+        from jobfit.ingest.config import SourceKeys, load_ingest_config, load_watchlist
+        from jobfit.ingest.pipeline import run_ingest, summary
+        from jobfit.rag.embedder import get_embedder
+
+        rep = run_ingest(
+            deps,
+            build_ingest_store(deps),
+            load_ingest_config(),
+            load_watchlist(),
+            SourceKeys(),
+            get_embedder(),
+        )
+        out = summary(rep)
+        out["new"] = sum(s["new"] for s in out["sources"].values())
+        if rep.status == "failed":
+            out["error"] = "; ".join(rep.notes) or "job check failed"
+        return out
+
+    run_check = ingest or _run_ingest
+
+    @app.post("/api/ingest", status_code=202)
+    def start_ingest() -> dict[str, str]:
+        # CONSTRAINT: one check at a time (it spends LLM budget on the top N). The daily cap in
+        # the cost ledger still applies, so a second click on the same day costs little.
+        if not runner.submit(INGEST_KEY, "ingest", lambda: run_check(state["deps"])):
+            raise HTTPException(409, "a job check is already running")
+        return {"status": "running"}
+
+    @app.get("/api/ingest")
+    def ingest_status() -> dict[str, Any] | None:
+        t = runner.get(INGEST_KEY)
+        return t.__dict__ if t else None
+
     # ---- insights ----------------------------------------------------------------------------
 
     @app.get("/api/gaps")
@@ -271,6 +310,8 @@ def create_app(
             f = WEB_DIST / path
             if path and f.is_file() and WEB_DIST in f.resolve().parents:
                 return FileResponse(f)
-            return FileResponse(WEB_DIST / "index.html")
+            # WHY no-cache: index.html names the hashed JS bundle; a cached copy keeps loading
+            # the old build after a deploy. The hashed /assets files can cache forever.
+            return FileResponse(WEB_DIST / "index.html", headers={"Cache-Control": "no-cache"})
 
     return app

@@ -13,6 +13,15 @@ export interface Task {
   error: string | null;
 }
 
+/** GET /api/ingest: the dashboard's "Check for jobs" run (null if none since the server started). */
+export interface IngestTask {
+  kind: "ingest";
+  started_at: string;
+  status: "running" | "done" | "failed";
+  error: string | null;
+  result: { status: string; new: number; scored: number; rescored: number; spend_usd: number } | null;
+}
+
 export interface Card {
   id: string;
   company: string;
@@ -29,6 +38,8 @@ export interface Card {
   top_gap: string | null;
   tailor_status: string | null;
   task: Task | null;
+  /** Scored or added since the latest finished job check. Older New cards go under History. */
+  fresh: boolean;
 }
 
 export interface Requirement {
