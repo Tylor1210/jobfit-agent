@@ -455,3 +455,16 @@ def test_daily_run_catches_up_stale_scores(deps: Deps, fake: FakeProvider) -> No
     rep, _ = _pipeline(deps, fake, [_cand(1), _cand(5)], store=store)
     assert [r[0] for r in rep.scored] == ["greenhouse:5"]  # new job first
     assert [r[0] for r in rep.rescored] == ["greenhouse:1"]  # then the stale one
+
+
+def test_low_matches_are_not_rescored_automatically(deps: Deps, fake: FakeProvider) -> None:
+    from jobfit.ingest.pipeline import run_rescore
+    from jobfit.profile.loader import profile_version
+
+    _, store = _pipeline(deps, fake, [_cand(1)])
+    fit = deps.repo.fits["greenhouse:1"]  # type: ignore[attr-defined]
+    low = fit.model_copy(update={"profile_version": "old", "fit_score": 40})
+    deps.repo.fits["greenhouse:1"] = low  # type: ignore[attr-defined]
+    assert store.stale_scored(profile_version(), 10, min_score=60) == []  # daily run skips it
+    rep = run_rescore(deps, store, limit=10)  # manual rescore still picks it up
+    assert [r[0] for r in rep.rescored] == ["greenhouse:1"]

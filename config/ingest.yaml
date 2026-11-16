@@ -62,3 +62,6 @@ score_top_n: 15
 # profile (e.g. after a resume update), best-scoring first. 0 turns the catch-up off.
 # Each rescore costs about the same as a new score (~5k tokens on Groq).
 rescore_per_run: 10
+# Jobs that scored below this are never rescored automatically (they show under "Low match" on
+# the board). The Rescore button on the job page, or `jobfit rescore`, still rescores them.
+rescore_min_score: 60

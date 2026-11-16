@@ -95,7 +95,9 @@ def run_ingest(
             new = store.candidates(top_n if top_n is not None else cfg.score_top_n)
             capped = score_batch(new, deps, rep, rep.scored)
             if not capped and cfg.rescore_per_run > 0:
-                stale = store.stale_scored(profile_version(), cfg.rescore_per_run)
+                stale = store.stale_scored(
+                    profile_version(), cfg.rescore_per_run, min_score=cfg.rescore_min_score
+                )
                 score_batch(stale, deps, rep, rep.rescored)
     except Exception as e:  # record the failure on the run row, then re-raise for CI to fail
         rep.status = "failed"

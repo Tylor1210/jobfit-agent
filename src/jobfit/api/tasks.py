@@ -26,6 +26,7 @@ class TaskInfo:
     started_at: str
     status: str = "running"  # running | done | failed
     error: str | None = None
+    result: dict[str, Any] | None = None  # kept only for kind "ingest" (a small summary)
 
 
 class TaskRunner:
@@ -56,6 +57,8 @@ class TaskRunner:
                 out = fn()
                 err = out.get("error") if isinstance(out, dict) else None
                 info.status, info.error = ("failed", str(err)) if err else ("done", None)
+                if kind == "ingest" and isinstance(out, dict):
+                    info.result = out
             except Exception as e:  # surfaced on the job page, full trace in the log
                 log.exception("%s task for %s failed", kind, job_id)
                 info.status, info.error = "failed", f"{type(e).__name__}: {e}"[:400]

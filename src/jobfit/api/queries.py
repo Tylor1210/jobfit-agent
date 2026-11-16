@@ -18,6 +18,12 @@ from jobfit.store.db import SharedConnection
 # sets stage 'closed' on never-scored jobs too; those are noise, so 'closed' alone doesn't count.
 _BOARD_WHERE = "(fit is not null or source = 'manual' or stage not in ('new', 'closed'))"
 
+# A card is "fresh" if it was scored (or added) since the latest finished job check started.
+# WHY scored_at, not first_seen: only the top N are scored per run, so a job seen days ago but
+# scored today is new to Tylor. Older New cards go in the board's History group.
+_FRESH = """coalesce(j.scored_at, j.first_seen) >= coalesce(
+    (select max(started_at) from ingest_runs where finished_at is not null), '-infinity')"""
+
 
 class Dashboard:
     def __init__(self, dsn: str) -> None:
@@ -32,7 +38,7 @@ class Dashboard:
             f"""select j.id, j.company, j.title, j.location, j.pay, j.remote, j.source, j.url,
                   j.stage, j.status, j.fit_score, j.fit->>'verdict' as verdict,
                   j.fit->'top_gaps'->>0 as top_gap, j.first_seen, j.scored_at,
-                  t.status as tailor_status
+                  t.status as tailor_status, {_FRESH} as fresh
                 from jobs j left join tailor_runs t on t.job_id = j.id
                 where {_BOARD_WHERE}
                 order by j.fit_score desc nulls last, j.first_seen desc"""

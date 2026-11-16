@@ -1,6 +1,6 @@
 // Thin fetch wrapper + a polling hook. Every call goes to the FastAPI app under /api.
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Card, CoverLetter, Gap, JobDetail, Ops, Resume, Stage } from "./types";
+import type { Card, CoverLetter, Gap, IngestTask, JobDetail, Ops, Resume, Stage } from "./types";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -42,6 +42,8 @@ export const api = {
   ) => call(`/jobs/${encodeURIComponent(id)}/review`, { method: "POST", body: JSON.stringify(body) }),
   gaps: (minFit: number, soft = false) => call<Gap[]>(`/gaps?min_fit=${minFit}&soft=${soft}`),
   ops: () => call<Ops>("/ops"),
+  startIngest: () => call("/ingest", { method: "POST" }),
+  ingestStatus: () => call<IngestTask | null>("/ingest"),
   pdfUrl: (id: string, kind: "resume" | "cover") => `/api/jobs/${encodeURIComponent(id)}/pdf/${kind}`,
 };
 
