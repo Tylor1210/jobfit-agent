@@ -44,7 +44,9 @@ class Deps:
     voice_samples: list[str] = field(default_factory=list)
 
 
-def node(name: str, deps: Deps) -> Callable[[NodeFn], NodeFn]:
+def node(name: str, deps: Deps, *, private: bool = False) -> Callable[[NodeFn], NodeFn]:
+    """`private=True` traces only the output keys, not their values (email text)."""
+
     def deco(fn: NodeFn) -> NodeFn:
         @functools.wraps(fn)
         def wrapped(state: State) -> State:
@@ -77,7 +79,10 @@ def node(name: str, deps: Deps) -> Callable[[NodeFn], NodeFn]:
                         "error": f"crash: {type(e).__name__}: {str(e)[:300]}",
                         "error_node": name,
                     }
-                span.update(output={k: _brief(v) for k, v in out.items()})
+                if private:
+                    span.update(output={"keys": sorted(out)})
+                else:
+                    span.update(output={k: _brief(v) for k, v in out.items()})
                 return out
 
         return wrapped
