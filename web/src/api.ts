@@ -1,6 +1,9 @@
 // Thin fetch wrapper + a polling hook. Every call goes to the FastAPI app under /api.
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { Card, CoverLetter, Gap, IngestTask, JobDetail, Ops, Resume, Stage } from "./types";
+import type {
+  Application, ApplicationDetail, AppEvent, AppSummary, Card, CoverLetter, Gap, IngestTask, JobDetail, MailStatus,
+  Ops, QuickAddDraft, Resume, Stage,
+} from "./types";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -44,6 +47,23 @@ export const api = {
   ops: () => call<Ops>("/ops"),
   startIngest: () => call("/ingest", { method: "POST" }),
   ingestStatus: () => call<IngestTask | null>("/ingest"),
+  applications: (q: Record<string, string>) => {
+    const qs = new URLSearchParams(Object.entries(q).filter(([, v]) => v)).toString();
+    return call<Application[]>(`/applications${qs ? `?${qs}` : ""}`);
+  },
+  application: (id: string) => call<ApplicationDetail>(`/applications/${encodeURIComponent(id)}`),
+  appSummary: () => call<AppSummary>("/applications/summary"),
+  reviewQueue: () => call<{ events: AppEvent[]; applications: Application[] }>("/applications/review"),
+  parseQuickAdd: (text: string, today: string) =>
+    call<QuickAddDraft>("/applications/parse", { method: "POST", body: JSON.stringify({ text, today }) }),
+  createApplication: (body: QuickAddDraft & { source: "manual" | "quick_add" }) =>
+    call<Application>("/applications", { method: "POST", body: JSON.stringify(body) }),
+  patchApplication: (id: string, body: Partial<Application>) =>
+    call<Application>(`/applications/${encodeURIComponent(id)}`, { method: "PATCH", body: JSON.stringify(body) }),
+  resolveReview: (eventId: string, body: { action: "assign" | "create" | "dismiss"; application_id?: string; role?: string }) =>
+    call(`/applications/review/${encodeURIComponent(eventId)}`, { method: "POST", body: JSON.stringify(body) }),
+  startMailSync: () => call("/mail/sync", { method: "POST" }),
+  mailStatus: () => call<MailStatus>("/mail/status"),
   pdfUrl: (id: string, kind: "resume" | "cover") => `/api/jobs/${encodeURIComponent(id)}/pdf/${kind}`,
 };
 

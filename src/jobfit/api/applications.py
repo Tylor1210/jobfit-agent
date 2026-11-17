@@ -33,6 +33,8 @@ MAIL_KEY = "__mail__"  # TaskRunner key for the dashboard's Sync mail run
 
 class ParseIn(BaseModel):
     text: str = Field(max_length=500)
+    # WHY: the server runs in UTC (Cloud Run); "yesterday" must mean the user's yesterday.
+    today: date | None = None
 
 
 class CreateIn(BaseModel):
@@ -130,7 +132,7 @@ def build_router(get: Callable[[], tuple[Deps, AppStore]], runner: TaskRunner) -
         """Preview only. Nothing is saved until the client posts the draft to /applications."""
         deps, _ = get()
         try:
-            return parse_quick_add(body.text, deps)
+            return parse_quick_add(body.text, deps, body.today)
         except ValueError as e:
             raise HTTPException(400, str(e)) from e
         except Exception as e:  # cost cap, quota, provider down
