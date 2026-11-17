@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1687,
+ "usage": {
+  "input_tokens": 175,
+  "output_tokens": 73,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: us.greenhouse-mail.io\nSubject: Thank you for applying to Brightwater Logistics\nReceived: 2026-10-15\n\n<email>\nHi there,\nThank you for your interest ",
+ "output": {
+  "kind": "application_received",
+  "company": "Brightwater Logistics",
+  "role": "Platform Engineer",
+  "next_step": "No action needed; team will review and reach out if matched.",
+  "deadline": null,
+  "confidence": 0.97
+ }
+}

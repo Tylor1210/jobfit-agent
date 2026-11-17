@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 622,
+ "usage": {
+  "input_tokens": 96,
+  "output_tokens": 61,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: hire.lever.co\nSubject: Application received\nReceived: 2026-10-15\n\n<email>\nThank you for your interest in Ostrava Cloud.\nThis email confirms we rece",
+ "output": {
+  "kind": "application_received",
+  "company": "Ostrava Cloud",
+  "role": "Site Reliability Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

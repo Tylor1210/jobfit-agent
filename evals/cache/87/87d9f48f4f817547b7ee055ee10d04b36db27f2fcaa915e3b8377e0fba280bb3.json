@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 706,
+ "usage": {
+  "input_tokens": 119,
+  "output_tokens": 62,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: us.greenhouse-mail.io\nSubject: Update on your Vantage Point Labs application\nReceived: 2026-10-15\n\n<email>\nThank you for applying for the Backend E",
+ "output": {
+  "kind": "rejection",
+  "company": "Vantage Point Labs",
+  "role": "Backend Engineer, Agents",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.97
+ }
+}

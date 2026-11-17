@@ -70,6 +70,9 @@ def main(argv: list[str] | None = None) -> None:
     ev.add_argument("--only", action="append", help="run only these case ids (repeatable)")
     ev.add_argument("--no-tailor", action="store_true", help="skip tailor/hallucination checks")
     ev.add_argument("--save", action="store_true", help="also store the run in eval_runs")
+    ev.add_argument(
+        "--suite", choices=["all", "fit", "mail"], default="all", help="default: both suites"
+    )
     mail = sub.add_parser("mail").add_subparsers(dest="cmd", required=True)
     mauth = mail.add_parser("auth")
     mauth.add_argument("label", help="account label from config/mail.yaml")
@@ -143,13 +146,30 @@ def _eval(args: argparse.Namespace) -> None:
     from jobfit.rag.embedder import get_embedder
 
     logging.basicConfig(level=logging.WARNING)
-    cases = load_cases(only=set(args.only) if args.only else None)
-    results, summary = run_eval(cases, get_embedder(), mode=args.mode, tailor=not args.no_tailor)
-    write_reports(results, summary)
-    if args.save and get_settings().database_url:
-        save_to_db(get_settings().database_url or "", results, summary)
-    print((ROOT / "evals" / "report.md").read_text())
-    if not summary.gate_passed:
+    passed = True
+    if args.suite in ("all", "fit"):
+        cases = load_cases(only=set(args.only) if args.only else None)
+        results, summary = run_eval(
+            cases, get_embedder(), mode=args.mode, tailor=not args.no_tailor
+        )
+        write_reports(results, summary)
+        if args.save and get_settings().database_url:
+            save_to_db(get_settings().database_url or "", results, summary)
+        print((ROOT / "evals" / "report.md").read_text())
+        passed = summary.gate_passed
+    if args.suite in ("all", "mail") and not args.only:
+        from jobfit.evals.mail import MAIL_EVALS, PRIVATE, run_mail_eval, write_report
+
+        emails, quick, ms = run_mail_eval(args.mode)
+        write_report(emails, quick, ms, MAIL_EVALS)
+        print((MAIL_EVALS / "report.md").read_text())
+        passed = passed and ms.gate_passed
+        # Real labeled emails, local only: gitignored folder with its own recording cache.
+        if (PRIVATE / "cases.yaml").exists():
+            pe, pq, ps = run_mail_eval(args.mode, PRIVATE / "cases.yaml", PRIVATE / "cache")
+            write_report(pe, pq, ps, PRIVATE)
+            print("private set:", "PASS" if ps.gate_passed else f"FAIL {ps.gate_failures}")
+    if not passed:
         sys.exit(1)
 
 

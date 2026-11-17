@@ -1,0 +1,20 @@
+{
+ "schema": "ApplicationDraftOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1228,
+ "usage": {
+  "input_tokens": 43,
+  "output_tokens": 61,
+  "cache_read_tokens": 983,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Today: 2026-10-15\nLine: Applied to Saffron Commerce backend developer on company site yesterday",
+ "output": {
+  "company": "Saffron Commerce",
+  "role": "Backend Developer",
+  "channel": "company_site",
+  "salary_entered": null,
+  "applied_on": "2026-10-14",
+  "notes": null
+ }
+}

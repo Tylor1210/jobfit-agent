@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1641,
+ "usage": {
+  "input_tokens": 95,
+  "output_tokens": 64,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: apex-tech-search.example\nSubject: Quick question\nReceived: 2026-10-15\n\n<email>\nHello, are you open to new roles?\nI'm working on several automation ",
+ "output": {
+  "kind": "recruiter_outreach",
+  "company": null,
+  "role": null,
+  "next_step": "Reply if interested in new automation engineering roles.",
+  "deadline": null,
+  "confidence": 0.7
+ }
+}

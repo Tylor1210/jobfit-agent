@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1527,
+ "usage": {
+  "input_tokens": 94,
+  "output_tokens": 60,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: myworkday.com\nSubject: Thank you for your application\nReceived: 2026-10-15\n\n<email>\nThank you for your interest in a career with Evergreen Civic.\nY",
+ "output": {
+  "kind": "application_received",
+  "company": "Evergreen Civic",
+  "role": "Data Platform Engineer II",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

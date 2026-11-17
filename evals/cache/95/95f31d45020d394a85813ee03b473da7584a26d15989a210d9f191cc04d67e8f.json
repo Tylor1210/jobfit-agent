@@ -1,0 +1,20 @@
+{
+ "schema": "ApplicationDraftOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1184,
+ "usage": {
+  "input_tokens": 51,
+  "output_tokens": 74,
+  "cache_read_tokens": 983,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Today: 2026-10-15\nLine: Larkspur Labs forward deployed engineer via linkedin easy apply, asked 110k",
+ "output": {
+  "company": "Larkspur Labs",
+  "role": "Forward Deployed Engineer",
+  "channel": "linkedin",
+  "salary_entered": "110k",
+  "applied_on": null,
+  "notes": "Easy Apply"
+ }
+}

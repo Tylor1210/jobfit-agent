@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1467,
+ "usage": {
+  "input_tokens": 101,
+  "output_tokens": 42,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: greenhouse.io\nSubject: The Hiring Report - October edition\nReceived: 2026-10-15\n\n<email>\nThis month: five interview techniques that reduce bias, ne",
+ "output": {
+  "kind": "other",
+  "company": null,
+  "role": null,
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

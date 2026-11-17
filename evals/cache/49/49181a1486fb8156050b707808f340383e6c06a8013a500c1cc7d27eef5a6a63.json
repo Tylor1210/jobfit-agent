@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 651,
+ "usage": {
+  "input_tokens": 85,
+  "output_tokens": 57,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: smartrecruiters.com\nSubject: Complete your candidate profile\nReceived: 2026-10-15\n\n<email>\nYour SmartRecruiters profile is 60% complete.\nAdd your s",
+ "output": {
+  "kind": "other",
+  "company": null,
+  "role": null,
+  "next_step": "Add skills to your SmartRecruiters profile",
+  "deadline": null,
+  "confidence": 0.9
+ }
+}

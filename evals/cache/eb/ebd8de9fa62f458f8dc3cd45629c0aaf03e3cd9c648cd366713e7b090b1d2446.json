@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 595,
+ "usage": {
+  "input_tokens": 102,
+  "output_tokens": 59,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: hire.lever.co\nSubject: Update on your application\nReceived: 2026-10-15\n\n<email>\nThank you for your interest in the QA Automation Engineer role at P",
+ "output": {
+  "kind": "rejection",
+  "company": "Pinecrest Data",
+  "role": "QA Automation Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 706,
+ "usage": {
+  "input_tokens": 134,
+  "output_tokens": 61,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: hire.lever.co\nSubject: Your application to Larkspur Labs\nReceived: 2026-10-15\n\n<email>\nThank you for your interest in the Forward Deployed Engineer",
+ "output": {
+  "kind": "rejection",
+  "company": "Larkspur Labs",
+  "role": "Forward Deployed Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.97
+ }
+}
