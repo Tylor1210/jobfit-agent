@@ -4,6 +4,10 @@ jobfit profile validate      integrity-check profile + constraints (no network)
 jobfit db migrate            apply db/migrations/*.sql to DATABASE_URL in order
 jobfit profile index         embed profile chunks into pgvector (skips unchanged chunks)
 jobfit profile search "q"    query the evidence store, for sanity checks
+jobfit mail auth LABEL       one-time Google OAuth for a Gmail account (writes the token to .env)
+jobfit mail sync             incremental mail sync + ghosting (daily workflow)
+jobfit mail backfill         re-scan the last 90 days (--days N) and print the summary
+jobfit mail summary          application counts
 """
 
 from __future__ import annotations
@@ -66,6 +70,13 @@ def main(argv: list[str] | None = None) -> None:
     ev.add_argument("--only", action="append", help="run only these case ids (repeatable)")
     ev.add_argument("--no-tailor", action="store_true", help="skip tailor/hallucination checks")
     ev.add_argument("--save", action="store_true", help="also store the run in eval_runs")
+    mail = sub.add_parser("mail").add_subparsers(dest="cmd", required=True)
+    mauth = mail.add_parser("auth")
+    mauth.add_argument("label", help="account label from config/mail.yaml")
+    mail.add_parser("sync")
+    mb = mail.add_parser("backfill")
+    mb.add_argument("--days", type=int, default=None, help="default: lookback_days (90)")
+    mail.add_parser("summary")
     srv = sub.add_parser("serve")
     srv.add_argument("--host", default="127.0.0.1")
     srv.add_argument("--port", type=int, default=8000)
@@ -95,6 +106,9 @@ def main(argv: list[str] | None = None) -> None:
         return
     if args.group == "eval":
         _eval(args)
+        return
+    if args.group == "mail":
+        _mail(args)
         return
     if args.group == "serve":
         import uvicorn
@@ -293,3 +307,49 @@ def _fit(args: argparse.Namespace) -> None:
 
 if __name__ == "__main__":
     main()
+
+
+def _mail(args: argparse.Namespace) -> None:
+    import json
+    import logging
+
+    if args.cmd == "auth":
+        from jobfit.mail.auth import authorize
+
+        name = authorize(args.label)
+        print(f"Saved the refresh token to .env as {name}. For the daily run, also run:")
+        print(f"  gh secret set {name} --body \"$(grep '^{name}=' .env | cut -d= -f2-)\"")
+        return
+
+    from jobfit.app import build_app_store, build_deps
+
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
+    # GOTCHA: the HTTP client logs every request URL at INFO; Gmail URLs carry message ids.
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    deps = build_deps(render=False)
+    store = build_app_store(deps)
+    if args.cmd == "summary":
+        print(json.dumps(store.summary(), indent=2))
+        return
+    from jobfit.mail.config import MailConfig
+    from jobfit.mail.sync import run_mail_sync, summary
+
+    cfg = MailConfig.load()
+    days = (args.days or cfg.lookback_days) if args.cmd == "backfill" else None
+    rep = run_mail_sync(deps, store, cfg, days=days)
+    print(json.dumps(summary(rep), indent=2))
+    for label, a in rep.accounts.items():
+        if a.error:
+            print(f"error [{label}] {a.error}")
+    if rep.stopped:
+        print(f"Stopped early ({rep.stopped}). Run it again later; it resumes where it stopped.")
+    if args.cmd == "backfill":
+        s = store.summary()
+        print("\nBackfill summary")
+        print(f"  applications found: {s['total']}")
+        print(f"  matched to postings: {s['matched_postings']}")
+        print(f"  new (no posting):    {s['new']}")
+        print(f"  flagged for review:  {s['needs_review']}")
+        print("  by status: " + ", ".join(f"{k} {v}" for k, v in sorted(s["by_status"].items())))
+    if rep.status == "failed":
+        sys.exit(1)

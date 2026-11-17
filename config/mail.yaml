@@ -1,0 +1,53 @@
+# Mail accounts for application tracking (read-only). Used by `jobfit mail sync|backfill|auth`.
+#
+# CONSTRAINT: this repo is public. This file holds account LABELS and env var NAMES only.
+# Addresses, refresh tokens and app passwords live in .env (gitignored) and GitHub secrets.
+# Setup steps per account: MAIL_SETUP.md.
+
+lookback_days: 90        # backfill window, and the first incremental run for a new account
+overlap_days: 2          # incremental runs re-scan this far back; Message-ID dedup drops repeats
+max_messages_per_account: 400
+
+# Server-side filter: mail FROM any of these domains, OR with any of these words in the subject.
+senders:
+  - greenhouse.io
+  - lever.co
+  - ashbyhq.com
+  - workable.com
+  - myworkdayjobs.com
+  - icims.com
+  - smartrecruiters.com
+  - breezy.hr
+  - dover.com
+  - linkedin.com
+subject_terms: [application, interview, assessment, offer]
+# WHY: linkedin.com also sends job alerts, digests and network updates daily. Each one would cost
+# a classify call and be labeled "other". Confirmations come from jobs-noreply@linkedin.com.
+exclude_senders:
+  - jobalerts-noreply@linkedin.com
+  - jobs-listings@linkedin.com
+  - notifications-noreply@linkedin.com
+  - messages-noreply@linkedin.com
+  - newsletters-noreply@linkedin.com
+  - invitations@linkedin.com
+
+google:
+  client_id_env: GOOGLE_OAUTH_CLIENT_ID
+  client_secret_env: GOOGLE_OAUTH_CLIENT_SECRET
+
+accounts:
+  gmail_main:
+    type: gmail
+    refresh_token_env: GMAIL_MAIN_REFRESH_TOKEN
+  gmail_alt:
+    type: gmail
+    refresh_token_env: GMAIL_ALT_REFRESH_TOKEN
+  workspace:              # Google Workspace (the custom domain's MX is Google)
+    type: gmail
+    refresh_token_env: WORKSPACE_REFRESH_TOKEN
+  yahoo:
+    type: imap
+    host: imap.mail.yahoo.com
+    user_env: YAHOO_IMAP_USER
+    password_env: YAHOO_APP_PASSWORD
+    folders: [INBOX]
