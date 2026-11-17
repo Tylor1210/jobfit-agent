@@ -70,10 +70,11 @@ def create_app(
     checkpointer: Any = None,
     serve_web: bool = True,
     ingest: Callable[[Any], dict[str, Any]] | None = None,
+    apps: Any = None,
 ) -> FastAPI:
     """Factory. Tests pass their own deps/dashboard/checkpointer; production builds them lazily
     on startup so importing the module stays cheap."""
-    state: dict[str, Any] = {"deps": deps, "dash": dashboard, "saver": checkpointer}
+    state: dict[str, Any] = {"deps": deps, "dash": dashboard, "saver": checkpointer, "apps": apps}
     runner = TaskRunner()
 
     @asynccontextmanager
@@ -92,6 +93,10 @@ def create_app(
             from jobfit.app import build_checkpointer
 
             state["saver"], closer = build_checkpointer()
+        if state["apps"] is None:
+            from jobfit.app import build_app_store
+
+            state["apps"] = build_app_store(state["deps"])
         yield
         runner.shutdown()
         if closer:
@@ -284,6 +289,12 @@ def create_app(
     def ingest_status() -> dict[str, Any] | None:
         t = runner.get(INGEST_KEY)
         return t.__dict__ if t else None
+
+    # ---- applications ---------------------------------------------------------------------
+
+    from jobfit.api.applications import build_router
+
+    app.include_router(build_router(lambda: (state["deps"], state["apps"]), runner))
 
     # ---- insights ----------------------------------------------------------------------------
 
