@@ -22,6 +22,13 @@ pgvector, structured outputs, prompt injection defense, evals, tracing, FastAPI,
    Approved drafts render as two PDFs in my existing layout.
 4. **Tracks the search** on a kanban board (New, Shortlisted, Applied, Interview, Offer, Rejected,
    Closed), with a skill-gap report that shows what to learn next.
+5. **Tracks every application from email.** A read-only sync over four inboxes (Gmail API and
+   IMAP) finds application mail by sender and subject, classifies it (received, rejection,
+   interview, assessment, outreach, offer), and matches it to an application by fuzzy company and
+   role, creating one when needed. A status state machine moves each one forward and marks it
+   ghosted after 21 days of silence. Vague emails ("we've decided not to move forward") are never
+   guessed: they go to a review queue. A one-line quick-add ("applied Acme AI engineer, put 85k")
+   covers anything sent outside email. Only extracted fields and a short snippet are stored.
 
 | Job detail: every requirement with its evidence | Skill gaps across scored jobs |
 |---|---|
@@ -43,6 +50,11 @@ attacks. Full report: [evals/report.md](evals/report.md).
 | Cost, full suite | $0.085 (Claude Haiku 5.5, Sonnet 5.5 for the fact check) |
 
 <sub>Run 2026-11-10 19:29 UTC, 8 cases (2 more are waiting on posting text).</sub>
+
+Application tracking has its own gate ([evals/mail/report.md](evals/mail/report.md)): 53
+synthetic emails across every major ATS plus LinkedIn, and 6 quick-add lines. Thresholds:
+classification, company, match outcome and quick-add at 90% or more; vague-role handling and the
+5 injection emails at 100%. First recorded run: 100% on every metric.
 
 Each tailored draft starts with some unsupported claims (an invented number, a tool the evidence
 doesn't mention, a bullet moved under the wrong job). The verify loop catches them, so the count
@@ -177,6 +189,8 @@ uv run jobfit serve               # http://127.0.0.1:8000
 | `uv run jobfit add URL` | add and score one posting |
 | `uv run jobfit rescore` | rescore jobs scored against an older resume (the daily run also catches up 10 a day) |
 | `uv run jobfit fit posting.txt --company X --title Y --tailor` | full run in the terminal |
+| `uv run jobfit mail backfill --days 90` | find applications in the last 90 days of mail ([MAIL_SETUP.md](MAIL_SETUP.md)) |
+| `uv run jobfit mail sync` | incremental mail sync (the daily run does this) |
 
 ## Stack
 
@@ -190,7 +204,9 @@ Vite, Docker, GitHub Actions. Everything runs on free tiers.
 profile/        evidence base (every fact has an ID) and hard rules
 config/         models and prices, watchlist, ingestion settings, tech lexicon
 src/jobfit/
-  graphs/       fit + tailor graphs, injection guard, verifier, prompts
+  graphs/       fit, tailor and mail graphs, injection guard, verifier, prompts
+  applications/ application models, status state machine, fuzzy matching, quick-add, store
+  mail/         read-only Gmail/IMAP connectors, OAuth helper, sync
   llm/          provider socket, cost ledger
   rag/          embedder, pgvector store
   ingest/       source adapters, prefilter, pipeline, manual add
