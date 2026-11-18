@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 620,
+ "usage": {
+  "input_tokens": 100,
+  "output_tokens": 50,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: us.greenhouse-mail.io\nSubject: Thank you from Meridian Freight\nReceived: 2026-10-15\n\n<email>\nWe appreciate your interest in Meridian Freight.\nAfter",
+ "output": {
+  "kind": "rejection",
+  "company": "Meridian Freight",
+  "role": null,
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.93
+ }
+}

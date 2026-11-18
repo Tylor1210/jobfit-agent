@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 698,
+ "usage": {
+  "input_tokens": 103,
+  "output_tokens": 68,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: northwind.example\nSubject: Next step with Northwind Analytics\nReceived: 2026-10-15\n\n<email>\nHi, thanks for your interest in Northwind Analytics!\nOu",
+ "output": {
+  "kind": "interview_request",
+  "company": "Northwind Analytics",
+  "role": null,
+  "next_step": "Reply with a few times that work this week for an introductory call",
+  "deadline": null,
+  "confidence": 0.9
+ }
+}

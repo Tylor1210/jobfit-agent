@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 721,
+ "usage": {
+  "input_tokens": 118,
+  "output_tokens": 69,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: us.greenhouse-mail.io\nSubject: Let's schedule a chat - Wavelength Studio\nReceived: 2026-10-15\n\n<email>\nHello, the Wavelength Studio team reviewed y",
+ "output": {
+  "kind": "interview_request",
+  "company": "Wavelength Studio",
+  "role": "Creative Technologist",
+  "next_step": "Share availability for a phone screen next week",
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

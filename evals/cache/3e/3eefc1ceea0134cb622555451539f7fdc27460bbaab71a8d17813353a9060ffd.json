@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 637,
+ "usage": {
+  "input_tokens": 116,
+  "output_tokens": 75,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: quillonhealth.example\nSubject: Offer letter - Solutions Engineer\nReceived: 2026-10-15\n\n<email>\nWe're thrilled to extend you an offer for the Soluti",
+ "output": {
+  "kind": "offer",
+  "company": "Quillon Health",
+  "role": "Solutions Engineer",
+  "next_step": "Review attached offer letter and reply with your decision.",
+  "deadline": "2026-10-30",
+  "confidence": 0.97
+ }
+}

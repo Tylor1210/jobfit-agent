@@ -1,0 +1,20 @@
+{
+ "schema": "ApplicationDraftOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1245,
+ "usage": {
+  "input_tokens": 45,
+  "output_tokens": 63,
+  "cache_read_tokens": 983,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Today: 2026-10-15\nLine: sent resume to Kestrel Bio for ML engineer through a recruiter",
+ "output": {
+  "company": "Kestrel Bio",
+  "role": "ML Engineer",
+  "channel": "recruiter",
+  "salary_entered": null,
+  "applied_on": null,
+  "notes": "Sent resume"
+ }
+}

@@ -11,6 +11,7 @@ from typing import Any
 from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.checkpoint.memory import InMemorySaver
 
+from jobfit.applications.store import AppStore, InMemoryAppStore, PgAppStore
 from jobfit.config import get_settings
 from jobfit.graphs.common import Deps
 from jobfit.graphs.tailor import load_voice_samples, make_file_renderer, make_page_counter
@@ -69,3 +70,11 @@ def build_checkpointer() -> tuple[BaseCheckpointSaver[Any], Any]:
     saver = cm.__enter__()
     saver.setup()  # idempotent: creates checkpoint tables on first use
     return saver, cm
+
+
+def build_app_store(deps: Deps) -> AppStore:
+    dsn = get_settings().database_url
+    if dsn:
+        return PgAppStore(dsn)
+    assert isinstance(deps.repo, InMemoryRepo)
+    return InMemoryAppStore(deps.repo)

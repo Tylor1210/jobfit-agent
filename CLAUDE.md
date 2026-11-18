@@ -27,6 +27,9 @@ Vite + React + TS frontend. Everything must stay on free tiers.
   (Cloudflare Worker). Runbook: DEPLOY.md.
 - Dashboard: `make web`, then `uv run jobfit serve` (http://127.0.0.1:8000).
   UI dev with hot reload: `jobfit serve` + `cd web && npm run dev` (Vite on :5173 proxies /api).
+- Mail: `uv run jobfit mail auth LABEL` (Gmail OAuth, writes token to .env), `mail backfill
+  [--days 90]`, `mail sync` (daily workflow step), `mail summary`. Setup: MAIL_SETUP.md.
+- `uv run jobfit eval --suite fit|mail|all` (default all). Mail cases: `evals/mail/cases.yaml`.
 - `uv run playwright install chromium` once, for PDF rendering and `-m render` tests
 - On this Mac use `/opt/homebrew/bin/uv` (the one in ~/.local/bin is x86_64 and won't run).
 
@@ -50,6 +53,10 @@ Vite + React + TS frontend. Everything must stay on free tiers.
   scoring/tailoring, `gaps.py`). `web/` Vite + React + TS dashboard; FastAPI serves `web/dist`.
 - `evals/cases/cases.yaml` + `<id>.txt` postings; `evals/cache/` recorded LLM calls (commit it);
   `evals/report.md` + `history.jsonl` committed, `report.json` gitignored. Code in `src/jobfit/evals/`.
+
+- `src/jobfit/applications/` application models, status machine, matching, quick-add, store;
+  `src/jobfit/mail/` connectors + sync; `graphs/mail.py` classify -> match -> apply.
+  `config/mail.yaml` account labels + env var names; `api/applications.py` routes.
 
 ## Hard rules
 - Never add a fact to the profile that isn't true. Generated text cites evidence IDs or it's rejected.
@@ -76,3 +83,8 @@ Vite + React + TS frontend. Everything must stay on free tiers.
 - Production auth = Cloudflare Access; the app verifies the Access JWT (`api/access.py`) because the
   raw *.run.app URL bypasses Cloudflare. REQUIRE_ACCESS=1 on Cloud Run fails closed. PDFs live in
   Postgres (`tailor_pdfs`), never only on disk (Cloud Run's disk is wiped on restart).
+- Mail is read-only (gmail.readonly; IMAP EXAMINE + BODY.PEEK). Never store email bodies: events
+  keep extracted fields + a <=200 char snippet; LLM/span inputs for mail use `private=True`.
+- Public repo: no addresses/tokens in config, no real emails in evals (`evals/mail/private/` is
+  gitignored with its own cache), mail sync logs counts per account label only.
+- Never guess a role: ambiguous company-only emails go to the review queue.

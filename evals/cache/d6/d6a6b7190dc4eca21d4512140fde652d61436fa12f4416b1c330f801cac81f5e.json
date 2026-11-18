@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1429,
+ "usage": {
+  "input_tokens": 95,
+  "output_tokens": 54,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: ashbyhq.com\nSubject: Application received - Lattice Point\nReceived: 2026-10-15\n\n<email>\nWe received your application for Data Engineer at Lattice P",
+ "output": {
+  "kind": "application_received",
+  "company": "Lattice Point",
+  "role": "Data Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.9
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 2051,
+ "usage": {
+  "input_tokens": 116,
+  "output_tokens": 42,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: linkedin.com\nSubject: 15 new jobs for AI Engineer in Miami\nReceived: 2026-10-15\n\n<email>\nJobs you might be interested in: AI Engineer at Northwind ",
+ "output": {
+  "kind": "other",
+  "company": null,
+  "role": null,
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

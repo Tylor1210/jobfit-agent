@@ -1,0 +1,20 @@
+{
+ "schema": "ApplicationDraftOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1430,
+ "usage": {
+  "input_tokens": 39,
+  "output_tokens": 59,
+  "cache_read_tokens": 983,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Today: 2026-10-15\nLine: Ember Grid Energy data analyst referral $95,000",
+ "output": {
+  "company": "Ember Grid Energy",
+  "role": "Data Analyst",
+  "channel": "referral",
+  "salary_entered": "$95,000",
+  "applied_on": null,
+  "notes": null
+ }
+}

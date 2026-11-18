@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 666,
+ "usage": {
+  "input_tokens": 103,
+  "output_tokens": 68,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: ashbyhq.com\nSubject: Fernhill Security | Application confirmation\nReceived: 2026-10-15\n\n<email>\nThanks for applying to Fernhill Security.\nWe've got",
+ "output": {
+  "kind": "application_received",
+  "company": "Fernhill Security",
+  "role": "Security Automation Engineer",
+  "next_step": "Wait for further contact about next steps",
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 658,
+ "usage": {
+  "input_tokens": 83,
+  "output_tokens": 54,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: myworkday.com\nSubject: Reset your candidate account password\nReceived: 2026-10-15\n\n<email>\nWe received a request to reset the password for your can",
+ "output": {
+  "kind": "other",
+  "company": null,
+  "role": null,
+  "next_step": "Ignore if you did not request the password reset",
+  "deadline": null,
+  "confidence": 0.9
+ }
+}

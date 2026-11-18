@@ -22,7 +22,8 @@ _BOARD_WHERE = "(fit is not null or source = 'manual' or stage not in ('new', 'c
 # WHY scored_at, not first_seen: only the top N are scored per run, so a job seen days ago but
 # scored today is new to Tylor. Older New cards go in the board's History group.
 _FRESH = """coalesce(j.scored_at, j.first_seen) >= coalesce(
-    (select max(started_at) from ingest_runs where finished_at is not null), '-infinity')"""
+    (select max(started_at) from ingest_runs
+     where finished_at is not null and kind = 'jobs'), '-infinity')"""
 
 
 class Dashboard:

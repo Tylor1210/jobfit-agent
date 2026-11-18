@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 603,
+ "usage": {
+  "input_tokens": 109,
+  "output_tokens": 60,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: corvidrobotics.example\nSubject: Following up on your application\nReceived: 2026-10-15\n\n<email>\nHi, thanks again for your interest in the Robotics S",
+ "output": {
+  "kind": "rejection",
+  "company": "Corvid Robotics",
+  "role": "Robotics Software Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

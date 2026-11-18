@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1509,
+ "usage": {
+  "input_tokens": 120,
+  "output_tokens": 79,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: halcyonfintech.example\nSubject: Invitation - Halcyon Fintech phone screen\nReceived: 2026-10-15\n\n<email>\nYou're invited to a 20 minute phone screen ",
+ "output": {
+  "kind": "interview_request",
+  "company": "Halcyon Fintech",
+  "role": "Automation Engineer",
+  "next_step": "Book a 20 minute phone screen slot via the scheduling link",
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

@@ -5,7 +5,7 @@ CONSTRAINT: no per-request data (dates, names, IDs) in these strings. Put that i
 
 from __future__ import annotations
 
-from jobfit.graphs.sanitize import UNTRUSTED_NOTE
+from jobfit.graphs.sanitize import UNTRUSTED_EMAIL_NOTE, UNTRUSTED_NOTE
 
 EXTRACT_REQUIREMENTS = f"""You extract hiring requirements from a job posting.
 {UNTRUSTED_NOTE}
@@ -96,3 +96,38 @@ outcome, or responsibility. Rewording and summarizing are fine; adding facts is 
 Items are numbered [n]. Return one check per item: supported=true if the evidence backs
 everything the claim says about the candidate, else supported=false with the unsupported part
 quoted. Give a one-sentence reason either way."""
+
+
+# ---- application tracking ---------------------------------------------------------------------
+
+CLASSIFY_MAIL = f"""You classify one email from a job seeker's inbox and extract a few fields.
+{UNTRUSTED_EMAIL_NOTE}
+
+kind, exactly one of:
+- application_received: confirms an application was submitted or received ("thanks for
+  applying", "we received your application", "your application was sent to").
+- rejection: the candidate is not moving forward for a role, however politely worded.
+- interview_request: asks to schedule or confirms a call, screen, or interview with a person.
+- assessment: a coding test, take-home, questionnaire, or online assessment to complete.
+- recruiter_outreach: a recruiter reaching out about a role the candidate has not applied to.
+- offer: an offer of employment, or an offer call / letter.
+- other: anything else (job alerts, newsletters, marketing, receipts, account notices).
+
+Fields:
+- company: the hiring company. Not the ATS or job board (Greenhouse, Lever, Workday, LinkedIn,
+  Indeed are vendors, not the employer). Null if the email never says who is hiring.
+- role: the job title exactly as the email writes it. Null when the email does not name a
+  specific role. Never infer a role from the company, the sender, or earlier emails.
+- next_step: what the email asks the candidate to do, in under 15 words, else null.
+- deadline: YYYY-MM-DD only if the email states a date to act by, else null.
+- confidence: 0 to 1, how sure you are about kind and company together."""
+
+PARSE_QUICK_ADD = """You turn one line a job seeker typed about an application into fields.
+The line is their own note, e.g. "applied Northwind junior data engineer, put 85k via linkedin".
+
+- company: the company name, normal capitalization.
+- role: the job title in Title Case (keep acronyms like AI, ML, SRE upper case), or null.
+- channel: linkedin, company_site, recruiter, referral, or other; null if not stated.
+- salary_entered: the salary figure they entered as written (e.g. "85k", "$120,000"), or null.
+- applied_on: YYYY-MM-DD only if the line gives a date; today's date is in the user turn.
+- notes: anything else worth keeping, short, else null. Never repeat fields already extracted."""

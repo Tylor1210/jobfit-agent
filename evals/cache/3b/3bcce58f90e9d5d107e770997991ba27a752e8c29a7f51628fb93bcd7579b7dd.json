@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 705,
+ "usage": {
+  "input_tokens": 95,
+  "output_tokens": 73,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: talent.icims.com\nSubject: Your application has been received\nReceived: 2026-10-15\n\n<email>\nSaffron Commerce has received your application for the B",
+ "output": {
+  "kind": "application_received",
+  "company": "Saffron Commerce",
+  "role": "Backend Developer",
+  "next_step": "Wait for a recruiter to contact you if qualified.",
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

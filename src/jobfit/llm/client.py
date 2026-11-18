@@ -91,14 +91,18 @@ class LLM:
         if spent >= self.config.daily_cost_cap_usd:
             raise CostCapExceeded(spent, self.config.daily_cost_cap_usd)
 
-    def structured(self, node: str, system: str, user: str, schema: type[T]) -> LLMResult[T]:
+    def structured(
+        self, node: str, system: str, user: str, schema: type[T], *, private: bool = False
+    ) -> LLMResult[T]:
+        """`private=True` keeps the user turn out of the trace (email bodies: only extracted
+        fields may be stored anywhere, Langfuse included)."""
         self.check_cap()
         chain = self.chain()
         last: LLMError | None = None
         for i, provider in enumerate(chain):
             tier = self.tier_for(node, provider)
             try:
-                return self._call(node, provider, tier, system, user, schema)
+                return self._call(node, provider, tier, system, user, schema, private)
             except QuotaExhausted as e:
                 # WHY bench for an hour: Groq's daily quota refills gradually (seen in practice),
                 # so retrying every call would just add a failed request in front of each one.
@@ -128,9 +132,11 @@ class LLM:
         system: str,
         user: str,
         schema: type[T],
+        private: bool = False,
     ) -> LLMResult[T]:
+        traced = f"[private input, {len(user)} chars]" if private else user[:4000]
         with self.tracer.observe(
-            f"{node}.llm", kind="generation", input=user[:4000], model=tier.model
+            f"{node}.llm", kind="generation", input=traced, model=tier.model
         ) as gen:
             t0 = time.perf_counter()
             out, usage, model = provider.structured(

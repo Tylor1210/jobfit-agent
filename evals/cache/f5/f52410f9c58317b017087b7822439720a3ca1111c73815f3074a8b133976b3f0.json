@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 711,
+ "usage": {
+  "input_tokens": 118,
+  "output_tokens": 73,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: linkedin.com\nSubject: Opportunity at Bluefin Media\nReceived: 2026-10-15\n\n<email>\nHi there, I'm a technical recruiter at Bluefin Media.\nWe're hiring",
+ "output": {
+  "kind": "recruiter_outreach",
+  "company": "Bluefin Media",
+  "role": "Solutions Architect",
+  "next_step": "Reply if interested in connecting about the role",
+  "deadline": null,
+  "confidence": 0.93
+ }
+}

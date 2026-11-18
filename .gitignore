@@ -16,3 +16,8 @@ reference/**/*.pdf
 
 # WHY: derived from reference/voice PDFs; same privacy call as the PDFs.
 profile/voice/
+
+# CONSTRAINT: real emails never enter this public repo. A real labeled mail eval set (and its
+# recordings, which store prompt text) stays local.
+evals/mail/private/
+evals/mail/report.json
