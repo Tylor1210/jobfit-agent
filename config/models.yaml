@@ -22,6 +22,8 @@ node_tiers:
   # WHY a separate tier: the fact checker gates what reaches Tylor, and Haiku contradicted its
   # own verdicts ("supported: false" with a reason saying it was supported) about 1 run in 3.
   verify_claims: check
+  classify_mail: fast
+  parse_quick_add: fast
 
 providers:
   anthropic:

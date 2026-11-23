@@ -237,3 +237,54 @@ tr:last-child td { border-bottom: 0; }
 .card .meta .loc {
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
+
+/* ---- applications ---- */
+.apps-page { display: flex; flex-direction: column; gap: 14px; max-width: 1200px; }
+.apps-page .page-head { margin-bottom: 0; }
+.qa-line { display: flex; gap: 8px; }
+.qa-line input { flex: 1; font-size: 15px; }
+.qa-preview { display: flex; flex-direction: column; gap: 12px; }
+.qa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.tabs { gap: 6px; }
+.filters { display: grid; grid-template-columns: 1fr 1.4fr 1fr 1fr 1fr; gap: 8px; }
+.apps-table-wrap { overflow-x: auto; }
+.apps-table tbody tr { cursor: pointer; }
+.apps-table tbody tr:hover td, .apps-table tbody tr:focus td { background: var(--surface-2); }
+.review-actions { display: grid; grid-template-columns: minmax(0, 2fr) auto minmax(0, 1.4fr) auto auto; gap: 8px; }
+.mail-accounts { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.drawer-back { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.35); z-index: 20; display: flex; justify-content: flex-end; }
+.drawer {
+  width: min(520px, 100%); height: 100%; overflow-y: auto; background: var(--surface);
+  border-left: 1px solid var(--border); padding: 18px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.facts { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; margin: 0; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 14px; border-left: 2px solid var(--border); display: flex; flex-direction: column; gap: 12px; }
+.timeline li { position: relative; }
+.timeline li::before {
+  content: ""; position: absolute; left: -20px; top: 5px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--surface); border: 2px solid var(--accent);
+}
+
+@media (max-width: 900px) {
+  .qa-line { flex-wrap: wrap; }
+  .qa-line input { flex-basis: 100%; }
+  /* WHY 16px: iOS Safari zooms the page when a focused input is smaller. */
+  .apps-page input, .apps-page select, .apps-page textarea { font-size: 16px; }
+  .apps-page button { min-height: 44px; }
+  .qa-grid, .filters { grid-template-columns: 1fr 1fr; }
+  .review-actions { grid-template-columns: 1fr auto; }
+  /* the table becomes one card per application */
+  .apps-table thead { display: none; }
+  .apps-table, .apps-table tbody, .apps-table tr, .apps-table td { display: block; width: 100%; }
+  .apps-table tr { border-bottom: 1px solid var(--border); padding: 8px 4px; }
+  .apps-table td { border: 0; padding: 2px 8px; }
+  .apps-table td[data-label="Applied"]::before { content: "Applied "; color: var(--faint); }
+}
+@media (max-width: 480px) {
+  .qa-grid { grid-template-columns: 1fr; }
+  .filters input[aria-label="Company"] { grid-column: 1 / -1; order: -1; }
+  .nav a { white-space: nowrap; }
+}

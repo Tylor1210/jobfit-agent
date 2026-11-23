@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
-import { Activity, BarChart3, KanbanSquare, Plus } from "lucide-react";
+import { Activity, BarChart3, KanbanSquare, Plus, Send } from "lucide-react";
 import "@fontsource/ibm-plex-sans/400.css";
 import "@fontsource/ibm-plex-sans/500.css";
 import "@fontsource/ibm-plex-sans/600.css";
@@ -14,6 +14,7 @@ import JobDetailPage from "./pages/JobDetail";
 import AddJob from "./pages/AddJob";
 import Gaps from "./pages/Gaps";
 import OpsPage from "./pages/Ops";
+import Applications from "./pages/Applications";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             Job Fit
           </div>
           <NavLink to="/" end><KanbanSquare size={16} />Pipeline</NavLink>
+          <NavLink to="/applications"><Send size={16} />Applications</NavLink>
           <NavLink to="/add"><Plus size={16} />Add job</NavLink>
           <NavLink to="/gaps"><BarChart3 size={16} />Skill gaps</NavLink>
           <NavLink to="/ops"><Activity size={16} />Ops</NavLink>
@@ -35,6 +37,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Pipeline />} />
             <Route path="/jobs/:id" element={<JobDetailPage />} />
+            <Route path="/applications" element={<Applications />} />
             <Route path="/add" element={<AddJob />} />
             <Route path="/gaps" element={<Gaps />} />
             <Route path="/ops" element={<OpsPage />} />

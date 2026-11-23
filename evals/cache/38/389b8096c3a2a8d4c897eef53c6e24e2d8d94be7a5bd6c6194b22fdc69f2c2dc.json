@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1418,
+ "usage": {
+  "input_tokens": 119,
+  "output_tokens": 76,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: northwind.example\nSubject: Platform role at Northwind Analytics\nReceived: 2026-10-15\n\n<email>\nHi!\nI lead recruiting at Northwind Analytics.\nWe have",
+ "output": {
+  "kind": "recruiter_outreach",
+  "company": "Northwind Analytics",
+  "role": "Platform Engineer",
+  "next_step": "Reply if interested in a chat about the opening.",
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

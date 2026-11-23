@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 693,
+ "usage": {
+  "input_tokens": 110,
+  "output_tokens": 58,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: halcyonfintech.example\nSubject: Regarding your application\nReceived: 2026-10-15\n\n<email>\nThank you for applying to Halcyon Fintech.\nWe have decided",
+ "output": {
+  "kind": "rejection",
+  "company": "Halcyon Fintech",
+  "role": "Automation Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.93
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 681,
+ "usage": {
+  "input_tokens": 97,
+  "output_tokens": 61,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: dover.com\nSubject: Application to Driftwood Games\nReceived: 2026-10-15\n\n<email>\nThanks for applying to Driftwood Games for the Gameplay Tools Engin",
+ "output": {
+  "kind": "application_received",
+  "company": "Driftwood Games",
+  "role": "Gameplay Tools Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1537,
+ "usage": {
+  "input_tokens": 127,
+  "output_tokens": 85,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: hackerrank.com\nSubject: Halcyon Fintech has invited you to a coding assessment\nReceived: 2026-10-15\n\n<email>\nHalcyon Fintech has invited you to com",
+ "output": {
+  "kind": "assessment",
+  "company": "Halcyon Fintech",
+  "role": "Automation Engineer",
+  "next_step": "Complete the HackerRank coding assessment, about 90 minutes.",
+  "deadline": "2026-10-22",
+  "confidence": 0.95
+ }
+}

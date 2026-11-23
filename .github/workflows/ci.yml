@@ -70,6 +70,8 @@ jobs:
       # WHY: replay only. CI never saves new recordings, so live calls would just burn the
       # shared Groq daily quota (200k tokens) that daily ingest needs. Record locally with
       # `make eval` / `make eval-record` and commit evals/cache/.
+      # Both suites: fit (verdicts, gaps, hallucinations) and mail (classification, matching,
+      # injection, quick-add thresholds in evals/mail/cases.yaml).
       - name: Evals (gate)
         run: uv run jobfit eval --mode replay
 
@@ -81,6 +83,8 @@ jobs:
           path: |
             evals/report.md
             evals/report.json
+            evals/mail/report.md
+            evals/mail/report.json
 
   web:
     runs-on: ubuntu-latest

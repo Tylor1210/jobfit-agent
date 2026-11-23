@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 670,
+ "usage": {
+  "input_tokens": 127,
+  "output_tokens": 69,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: talentbridge-staffing.example\nSubject: AI Engineer opportunity - remote contract\nReceived: 2026-10-15\n\n<email>\nHi, I'm a recruiter with TalentBridg",
+ "output": {
+  "kind": "recruiter_outreach",
+  "company": null,
+  "role": "AI Engineer",
+  "next_step": "Reply if open to a call about a remote contract role.",
+  "deadline": null,
+  "confidence": 0.8
+ }
+}

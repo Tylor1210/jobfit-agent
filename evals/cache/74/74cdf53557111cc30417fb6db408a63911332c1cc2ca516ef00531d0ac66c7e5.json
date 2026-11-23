@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 736,
+ "usage": {
+  "input_tokens": 118,
+  "output_tokens": 73,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: us.greenhouse-mail.io\nSubject: Your application to Pinecrest Data\nReceived: 2026-10-15\n\n<email>\nThanks for applying to the Applied ML Engineer posi",
+ "output": {
+  "kind": "application_received",
+  "company": "Pinecrest Data",
+  "role": "Applied ML Engineer",
+  "next_step": "Wait for talent team to reach out if a fit",
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

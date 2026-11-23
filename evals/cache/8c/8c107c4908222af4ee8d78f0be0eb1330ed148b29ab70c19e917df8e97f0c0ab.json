@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 583,
+ "usage": {
+  "input_tokens": 98,
+  "output_tokens": 42,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: courses.example\nSubject: Limited time offer - 50% off the AI Engineering bootcamp\nReceived: 2026-10-15\n\n<email>\nDon't miss our special offer!\nEnrol",
+ "output": {
+  "kind": "other",
+  "company": null,
+  "role": null,
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

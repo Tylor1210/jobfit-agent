@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 610,
+ "usage": {
+  "input_tokens": 107,
+  "output_tokens": 75,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: northwind.example\nSubject: Take-home project - AI Engineer\nReceived: 2026-10-15\n\n<email>\nThanks for your time last week.\nAs the next step for the A",
+ "output": {
+  "kind": "assessment",
+  "company": "Northwind Analytics",
+  "role": "AI Engineer",
+  "next_step": "Complete the attached take-home project and send it back.",
+  "deadline": "2026-10-20",
+  "confidence": 0.92
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 601,
+ "usage": {
+  "input_tokens": 126,
+  "output_tokens": 51,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: ashbyhq.com\nSubject: Update from Northwind Analytics\nReceived: 2026-10-15\n\n<email>\nThank you for your interest in Northwind Analytics.\nWe appreciat",
+ "output": {
+  "kind": "rejection",
+  "company": "Northwind Analytics",
+  "role": null,
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

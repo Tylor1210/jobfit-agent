@@ -174,3 +174,73 @@ export interface Ops {
   cap_usd: number;
   provider: string;
 }
+
+// ---- application tracking (src/jobfit/applications/models.py, api/applications.py) ----------
+
+export type AppStatus = "applied" | "screening" | "interview" | "offer" | "rejected" | "withdrawn" | "ghosted";
+export const APP_STATUSES: AppStatus[] = ["applied", "screening", "interview", "offer", "rejected", "withdrawn", "ghosted"];
+export type AppSource = "email" | "manual" | "quick_add" | "follow_up";
+export type Channel = "linkedin" | "company_site" | "recruiter" | "referral" | "other";
+
+export interface Application {
+  id: string;
+  company: string;
+  role: string | null;
+  status: AppStatus;
+  source: AppSource;
+  channel: Channel;
+  applied_at: string | null;
+  last_activity_at: string;
+  job_id: string | null;
+  resume_version: string | null;
+  salary_entered: string | null;
+  notes: string | null;
+  needs_review: boolean;
+  review_reason: string | null;
+  created_at: string;
+}
+
+export interface AppEvent {
+  id: string;
+  application_id: string | null;
+  company: string | null;
+  kind: string;
+  occurred_at: string;
+  account: string | null;
+  message_id: string | null;
+  snippet: string | null;
+  extracted: { role?: string | null; next_step?: string | null; deadline?: string | null; [k: string]: unknown };
+  confidence: number | null;
+  injection_flags: string[];
+  needs_review: boolean;
+  review_reason: string | null;
+}
+
+export interface ApplicationDetail extends Application {
+  events: AppEvent[];
+  job: { id: string; company: string; title: string } | null;
+}
+
+export interface QuickAddDraft {
+  company: string;
+  role: string | null;
+  channel: Channel;
+  salary_entered: string | null;
+  applied_on: string;
+  notes: string | null;
+  resume_version?: string | null;
+}
+
+export interface AppSummary {
+  total: number;
+  matched_postings: number;
+  new: number;
+  needs_review: number;
+  by_status: Partial<Record<AppStatus, number>>;
+  by_source: Partial<Record<AppSource, number>>;
+}
+
+export interface MailStatus {
+  accounts: { label: string; type: string; configured: boolean; last_synced_at: string | null; last_error: string | null }[];
+  task: { status: "running" | "done" | "failed"; error: string | null; started_at: string; result: Record<string, unknown> | null } | null;
+}

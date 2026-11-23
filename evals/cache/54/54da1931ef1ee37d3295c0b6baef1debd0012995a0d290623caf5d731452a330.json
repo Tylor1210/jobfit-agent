@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 755,
+ "usage": {
+  "input_tokens": 110,
+  "output_tokens": 60,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: candidates.workablemail.com\nSubject: Kestrel Bio received your application\nReceived: 2026-10-15\n\n<email>\nDear applicant, thank you for applying for",
+ "output": {
+  "kind": "application_received",
+  "company": "Kestrel Bio",
+  "role": "Machine Learning Engineer",
+  "next_step": null,
+  "deadline": null,
+  "confidence": 0.95
+ }
+}

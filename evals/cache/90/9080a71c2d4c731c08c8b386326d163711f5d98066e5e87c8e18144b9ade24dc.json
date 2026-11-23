@@ -1,0 +1,20 @@
+{
+ "schema": "MailClassOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 705,
+ "usage": {
+  "input_tokens": 114,
+  "output_tokens": 77,
+  "cache_read_tokens": 1268,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "From domain: codesignal.com\nSubject: Your CodeSignal assessment from Tidewater Labs\nReceived: 2026-10-15\n\n<email>\nTidewater Labs invited you to take a General C",
+ "output": {
+  "kind": "assessment",
+  "company": "Tidewater Labs",
+  "role": "Software Engineer, New Grad",
+  "next_step": "Complete the General Coding Assessment within 7 days",
+  "deadline": null,
+  "confidence": 0.93
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "schema": "ApplicationDraftOut",
+ "model": "claude-haiku-5-5",
+ "latency_ms": 1430,
+ "usage": {
+  "input_tokens": 35,
+  "output_tokens": 55,
+  "cache_read_tokens": 983,
+  "cache_write_tokens": 0
+ },
+ "prompt_head": "Today: 2026-10-15\nLine: applied bluefin media solutions architect 120k",
+ "output": {
+  "company": "Bluefin Media",
+  "role": "Solutions Architect",
+  "channel": null,
+  "salary_entered": "120k",
+  "applied_on": null,
+  "notes": null
+ }
+}
