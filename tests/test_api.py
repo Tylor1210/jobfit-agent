@@ -62,7 +62,11 @@ def client(tmp_path: Path) -> Any:
         verify_with_llm=False,
     )
     app = create_app(
-        deps=deps, dashboard=Dashboard(dsn), checkpointer=InMemorySaver(), serve_web=False
+        deps=deps,
+        dashboard=Dashboard(dsn),
+        checkpointer=InMemorySaver(),
+        serve_web=False,
+        ingest=lambda d: {"status": "ok", "new": 3, "scored": 2},
     )
     with TestClient(app) as c:
         yield c
@@ -143,3 +147,14 @@ def test_full_flow(client: Any) -> None:
 def test_add_job_rejects_linkedin(client: Any) -> None:
     r = client.post("/api/jobs", json={"url": "https://www.linkedin.com/jobs/view/1"})
     assert r.status_code == 400 and "Paste the posting text" in r.json()["detail"]
+
+
+def test_job_check_runs_in_background(client: Any) -> None:
+    assert client.post("/api/ingest").status_code == 202
+    deadline = time.time() + 10
+    while (t := client.get("/api/ingest").json())["status"] == "running":
+        assert time.time() < deadline
+        time.sleep(0.05)
+    assert t["status"] == "done" and t["result"]["new"] == 3
+    jobs = client.get("/api/jobs").json()
+    assert all("fresh" in j for j in jobs)

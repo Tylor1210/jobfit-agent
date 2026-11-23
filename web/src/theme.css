@@ -175,6 +175,14 @@ label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px
 .card .meta { font-size: 12px; color: var(--muted); margin-top: 6px; display: flex; flex-direction: column; gap: 2px; }
 .card .chips { margin-top: 8px; display: flex; gap: 4px; flex-wrap: wrap; }
 .card.closed { opacity: 0.6; }
+.history { border: 1px dashed var(--border-strong); border-radius: var(--radius); }
+.history-head {
+  width: 100%; display: flex; align-items: center; gap: 6px; background: transparent; border: 0;
+  padding: 10px; font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer;
+}
+.history-head:hover:not(:disabled) { color: var(--text); }
+.history-head .num { margin-left: auto; }
+.history-body { padding: 0 8px 8px; display: flex; flex-direction: column; gap: 8px; }
 .empty-col { color: var(--faint); font-size: 12px; text-align: center; padding: 20px 8px; }
 
 /* ---- requirements table ---- */
